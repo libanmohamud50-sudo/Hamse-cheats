@@ -3484,474 +3484,144 @@ function _G.InitModMenuTab()
     }
 
     local LocUtil = _G.LocUtil
-    if not LocUtil then
-        pcall(function() LocUtil = require("client.common.LocUtil") end)
+    if not LocUtil and package.loaded["client.common.LocUtil"] then
+        LocUtil = require("client.common.LocUtil")
     end
-    local HamseTextMap = {
-        [990001] = "♛ VIP MENU ♛ @HAMSECHEATS",
-        [990010] = "♛ ESP ♛",
-        [990011] = "ESP SKELETON BOX",
-        [990012] = "ESP REAL ENEMY/BOT",
-        [990013] = "ESP ENEMY DISTANCE",
-        [990014] = "ESP HIT MARK",
-        [990015] = "ESP BOX",
-        [990016] = "ESP GREEN ANTENNA",
-        [990017] = "ESP NAME (VISIBLE)",
-        [990018] = "ESP ENEMY (RED AURA)",
-        [990019] = "   COLOR SIZE (1-20)",
-        [990020] = "♛AIMBOT♛",
-        [990021] = "CUSTOM AIMBOT SETTING",
-        [990022] = "   AIMBOT ONLY [ALL WEAPON]",
-        [990023] = "      Ignore Knocked",
-        [990024] = "      Ignore Bots",
-        [990025] = "      Visibility Check",
-        [990026] = "      Bone Target (1-4)",
-        [990027] = "      Aim Speed [ 40-50 ]",
-        [990028] = "      FOV Range [20-30]",
-        [990029] = "      Distance [ 60-70 ]",
-        [990030] = "   SCOPE AIMBOT [ALL WEAPON]",
-        [990031] = "      Bone Target (1-4)",
-        [990032] = "      Speed (40-50)",
-        [990033] = "      FOV Range [20-30]",
-        [990034] = "      Distance [ 60-70]",
-        [990035] = "      Movement Prediction (0-100)",
-        [990036] = "      Recoil Kick Ads (5 to 10)",
-        [990037] = "   ALL SHOTGUN AIMBOT",
-        [990038] = "      Ignore Knocked",
-        [990039] = "      Visibility Check",
-        [990040] = "      Condition (1-2)",
-        [990041] = "      Speed Aim [100-Max]",
-        [990042] = "      FOV Range [ 50-60]",
-        [990043] = "      Distance [100-Max]",
-        [990044] = "   SCOPE AIMBOT (SNIPER ONLY)",
-        [990045] = "      Ignore Knocked",
-        [990046] = "      Condition (1-2)",
-        [990047] = "      Speed Scope [100-Max]",
-        [990048] = "      FOV Range [60-70]",
-        [990049] = "      Distance [100-Max]",
-        [990050] = "      Movement Prediction (0-100)",
-        [990060] = "♛EXTRA COMBO♛",
-        [990061] = "CUSTOM IPAD VIEW",
-        [990062] = "   IPAD FOV (1-100)",
-        [990063] = "165 REAL FPS",
-        [990064] = "WALLHACK + COLOR",
-        [990065] = "BLACK SKY",
-        [990066] = "REMOVE FOG",
-        [990070] = "♛ALL SKIN♛",
-        [990071] = "VIP MOD SKINS ACTIVATED",
-        [990072] = "   ALL X SUITS ",
-        [990073] = "   ALL BAG SKINS (1-16)",
-        [990074] = "   ALL HELMET SKINS (1-12)",
-        [990075] = "   M416 (1-9)",
-        [990076] = "   AKM (1-8)",
-        [990077] = "   SCAR-L (1-8)",
-        [990078] = "   M762 (1-8)",
-        [990079] = "   AUG (1-7)",
-        [990080] = "   UMP45 (1-6)",
-        [990081] = "   UZI (1-2)",
-        [990082] = "   GROZA (1-2)",
-        [990083] = "   Kar98K (1-3)",
-        [990084] = "   AWM (1-4)",
-        [990085] = "   AMR (1-3)",
-        [990086] = "   S12K (1-2)",
-        [990087] = "   DBS (1-3)",
-        [990088] = "   DACIA (1-90)",
-        [990089] = "   UAZ (1-90)",
-        [990090] = "   COUPE RB (1-70)",
-        [990091] = "   BUGGY (1-50)",
-        [990092] = "   MIRADO (1-27)",
-    }
+    
     if LocUtil and not LocUtil._IsModMenuHooked then
-        local hookFuncs = {"GetLocalizeResStr","GetText","GetTextByID","GetLocalText","GetLocalizeStr"}
-        for _, funcName in ipairs(hookFuncs) do
-            if LocUtil[funcName] then
-                local old_func = LocUtil[funcName]
-                LocUtil[funcName] = function(id)
-                    if HamseTextMap[id] then return HamseTextMap[id] end
-                    if type(id) == "string" and not tonumber(id) then return id end
-                    return old_func(id)
-                end
+        local old_get = LocUtil.GetLocalizeResStr
+        LocUtil.GetLocalizeResStr = function(id)
+            if type(id) == "string" and not tonumber(id) then
+                return id
             end
+            return old_get(id)
         end
         LocUtil._IsModMenuHooked = true
     end
 
     local SettingPageDefine = require("client.logic.NewSetting.SettingPageDefine")
     local SettingCatalog = require("client.logic.NewSetting.SettingCatalog")
-
+    
     if not SettingPageDefine.ModMenu then
         local AliasMap = require("client.slua.umg.NewSetting.Item.AliasMap")
         
-        -- ==================== ESP VISUAL (SECTION 1) ====================
+        -- ==================== ESP VISUAL (SECTION 1 - FIRST) ====================
         local StackESPVisual = {
-            {
-                Key = "ModMenu_ESP1",
-                UI = AliasMap.Switcher,
-                Text = 990011,
-                GetFunc = function() return _G.GTLMODConfig.EspVip end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.EspVip = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESP7",
-                UI = AliasMap.Switcher,
-                Text = 990012,
-                GetFunc = function() return _G.GTLMODConfig.Esp7 end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.Esp7 = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESP2",
-                UI = AliasMap.Switcher,
-                Text = 990013,
-                GetFunc = function() return _G.GTLMODConfig.EspDistance end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.EspDistance = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESP4",
-                UI = AliasMap.Switcher,
-                Text = 990014,
-                GetFunc = function() return _G.GTLMODConfig.EspRadar end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.EspRadar = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESP5",
-                UI = AliasMap.Switcher,
-                Text = 990015,
-                GetFunc = function() return _G.GTLMODConfig.Esp5 end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.Esp5 = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESPAntenna",
-                UI = AliasMap.Switcher,
-                Text = 990016,
-                GetFunc = function() return _G.GTLMODConfig.EspAntenna end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.EspAntenna = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESPName",
-                UI = AliasMap.Switcher,
-                Text = 990017,
-                GetFunc = function() return _G.GTLMODConfig.EspName end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.EspName = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_ESPOutline_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990018,
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.EspOutline end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.EspOutline = v
-                    return true
-                end
-            },
-            { Key = "ModMenu_ESPOutline_Thickness", UI = AliasMap.Slider, Text = 990019, ExpandHandle = "ModMenu_ESPOutline_Ex", MinValue = 1, MaxValue = 20, min = 1, max = 20, GetFunc = function() return _G.GTLMODConfig.OutlineThickness end, SetFunc = function(c,v) _G.GTLMODConfig.OutlineThickness = v return true end }
+            { Key = "ModMenu_ESP1", UI = AliasMap.Switcher, Text = "ESP SKELETON BOX", GetFunc = function() return _G.GTLMODConfig.EspVip end, SetFunc = function(c,v) _G.GTLMODConfig.EspVip = v return true end },
+            { Key = "ModMenu_ESP7", UI = AliasMap.Switcher, Text = "ESP REAL ENEMY/BOT", GetFunc = function() return _G.GTLMODConfig.Esp7 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp7 = v return true end },
+            { Key = "ModMenu_ESP2", UI = AliasMap.Switcher, Text = "ESP ENEMY DISTANCE", GetFunc = function() return _G.GTLMODConfig.EspDistance end, SetFunc = function(c,v) _G.GTLMODConfig.EspDistance = v return true end },
+            { Key = "ModMenu_ESP4", UI = AliasMap.Switcher, Text = "ESP HIT MARK", GetFunc = function() return _G.GTLMODConfig.EspRadar end, SetFunc = function(c,v) _G.GTLMODConfig.EspRadar = v return true end },
+            { Key = "ModMenu_ESP5", UI = AliasMap.Switcher, Text = "ESP BOX", GetFunc = function() return _G.GTLMODConfig.Esp5 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp5 = v return true end },
+            { Key = "ModMenu_ESPAntenna", UI = AliasMap.Switcher, Text = "ESP GREEN ANTENNA", GetFunc = function() return _G.GTLMODConfig.EspAntenna end, SetFunc = function(c,v) _G.GTLMODConfig.EspAntenna = v return true end },
+            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME (VISIBLE)", GetFunc = function() return _G.GTLMODConfig.EspName end, SetFunc = function(c,v) _G.GTLMODConfig.EspName = v return true end },
+            { Key = "ModMenu_ESPOutline_Ex", UI = AliasMap.TitleSwitcher, Text = "ESP ENEMY (RED AURA)", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.EspOutline end, SetFunc = function(c,v) _G.GTLMODConfig.EspOutline = v return true end },
+            { Key = "ModMenu_ESPOutline_Thickness", UI = AliasMap.Slider, Text = "   COLOR SIZE (1-20)", ExpandHandle = "ModMenu_ESPOutline_Ex", MinValue = 1, MaxValue = 20, min = 1, max = 20, GetFunc = function() return _G.GTLMODConfig.OutlineThickness end, SetFunc = function(c,v) _G.GTLMODConfig.OutlineThickness = v return true end }
         }
 
         -- ==================== AIMBOT FORCE (SECTION 2) ====================
         local StackAimbotForce = {
-            {
-                Key = "ModMenu_AT_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990021,
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.AimTouchEnable end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchEnable = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_Ex", UI = AliasMap.TitleSwitcher, Text = "CUSTOM AIMBOT SETTING", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.AimTouchEnable end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchEnable = v return true end },
             
             -- HIPFIRE
-            {
-                Key = "ModMenu_AT_Hip_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990022,
-                ExpandHandle = "ModMenu_AT_Ex",
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.AimTouchHipfire end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchHipfire = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_AT_Hip_IgKnock",
-                UI = AliasMap.Switcher,
-                Text = 990023,
-                ExpandHandle = "ModMenu_AT_Hip_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchHipIgKnock end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchHipIgKnock = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_AT_Hip_IgBot",
-                UI = AliasMap.Switcher,
-                Text = 990024,
-                ExpandHandle = "ModMenu_AT_Hip_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchHipIgBot end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchHipIgBot = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_AT_Hip_Vis",
-                UI = AliasMap.Switcher,
-                Text = 990025,
-                ExpandHandle = "ModMenu_AT_Hip_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchHipVisCheck end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchHipVisCheck = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_Hip_Ex", UI = AliasMap.TitleSwitcher, Text = "   AIMBOT ONLY [ALL WEAPON]", ExpandHandle = "ModMenu_AT_Ex", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.AimTouchHipfire end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchHipfire = v return true end },
+            { Key = "ModMenu_AT_Hip_IgKnock", UI = AliasMap.Switcher, Text = "      Ignore Knocked", ExpandHandle = "ModMenu_AT_Hip_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchHipIgKnock end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchHipIgKnock = v return true end },
+            { Key = "ModMenu_AT_Hip_IgBot", UI = AliasMap.Switcher, Text = "      Ignore Bots", ExpandHandle = "ModMenu_AT_Hip_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchHipIgBot end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchHipIgBot = v return true end },
+            { Key = "ModMenu_AT_Hip_Vis", UI = AliasMap.Switcher, Text = "      Visibility Check", ExpandHandle = "ModMenu_AT_Hip_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchHipVisCheck end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchHipVisCheck = v return true end },
          --   { Key = "ModMenu_AT_Hip_Prio", UI = AliasMap.Slider, Text = "      Priority (1-4)", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipPrio or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchHipPrio = val return true end },
-           { Key = "ModMenu_AT_Hip_Bone", UI = AliasMap.Slider, Text = 990026", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipBone or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchHipBone = val return true end },
+           { Key = "ModMenu_AT_Hip_Bone", UI = AliasMap.Slider, Text = "      Bone Target (1-4)", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipBone or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchHipBone = val return true end },
           --  { Key = "ModMenu_AT_Hip_Cond", UI = AliasMap.Slider, Text = "      Condition (1-2)", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 2, min = 1, max = 2, Min = 1, Max = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipCond or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 2 then val = 2 end; _G.GTLMODState.CustomTextData.AimTouchHipCond = val return true end },
-            { Key = "ModMenu_AT_Hip_Spd", UI = AliasMap.Slider, Text = 990027, ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipSpeed or 50 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchHipSpeed = v return true end },
-            { Key = "ModMenu_AT_Hip_FOV", UI = AliasMap.Slider, Text = 990028", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipFOV or 30 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchHipFOV = v return true end },
-            { Key = "ModMenu_AT_Hip_Dist", UI = AliasMap.Slider, Text = 990029, ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return math.floor((_G.GTLMODState.CustomTextData.AimTouchHipDist or 250) / 5) end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchHipDist = v * 5 return true end },
+            { Key = "ModMenu_AT_Hip_Spd", UI = AliasMap.Slider, Text = "      Aim Speed [ 40-50 ]", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipSpeed or 50 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchHipSpeed = v return true end },
+            { Key = "ModMenu_AT_Hip_FOV", UI = AliasMap.Slider, Text = "      FOV Range [20-30]", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchHipFOV or 30 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchHipFOV = v return true end },
+            { Key = "ModMenu_AT_Hip_Dist", UI = AliasMap.Slider, Text = "      Distance [ 60-70 ]", ExpandHandle = "ModMenu_AT_Hip_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return math.floor((_G.GTLMODState.CustomTextData.AimTouchHipDist or 250) / 5) end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchHipDist = v * 5 return true end },
             
             -- SCOPE ALL
-            {
-                Key = "ModMenu_AT_ScopeAll_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990030,
-                ExpandHandle = "ModMenu_AT_Ex",
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.AimTouchScopeAll end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchScopeAll = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_AT_ScopeAll_IgKnock",
-                UI = AliasMap.Switcher,
-                Text = 990023,
-                ExpandHandle = "ModMenu_AT_ScopeAll_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchScopeIgKnock end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchScopeIgKnock = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_ScopeAll_Ex", UI = AliasMap.TitleSwitcher, Text = "   SCOPE AIMBOT [ALL WEAPON]", ExpandHandle = "ModMenu_AT_Ex", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.AimTouchScopeAll end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchScopeAll = v return true end },
+            { Key = "ModMenu_AT_ScopeAll_IgKnock", UI = AliasMap.Switcher, Text = "      Ignore Knocked", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchScopeIgKnock end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchScopeIgKnock = v return true end },
            -- { Key = "ModMenu_AT_ScopeAll_IgBot", UI = AliasMap.Switcher, Text = "      Ignore Bots", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchScopeIgBot end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchScopeIgBot = v return true end },
            -- { Key = "ModMenu_AT_ScopeAll_Vis", UI = AliasMap.Switcher, Text = "      Visibility Check", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchScopeVisCheck end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchScopeVisCheck = v return true end },
          --   { Key = "ModMenu_AT_ScopeAll_Prio", UI = AliasMap.Slider, Text = "      Priority (1-4)", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopePrio or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchScopePrio = val return true end },
-            { Key = "ModMenu_AT_ScopeAll_Bone", UI = AliasMap.Slider, Text = 990031", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeBone or 2 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchScopeBone = val return true end },
+            { Key = "ModMenu_AT_ScopeAll_Bone", UI = AliasMap.Slider, Text = "      Bone Target (1-4)", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeBone or 2 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchScopeBone = val return true end },
           --  { Key = "ModMenu_AT_ScopeAll_Cond", UI = AliasMap.Slider, Text = "      Condition (1-2)", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 2, min = 1, max = 2, Min = 1, Max = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeCond or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 2 then val = 2 end; _G.GTLMODState.CustomTextData.AimTouchScopeCond = val return true end },
-            { Key = "ModMenu_AT_ScopeAll_Spd", UI = AliasMap.Slider, Text = 990032, ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeSpeed or 40 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeSpeed = v return true end },
-            { Key = "ModMenu_AT_ScopeAll_FOV", UI = AliasMap.Slider, Text = 990033", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeFOV or 20 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeFOV = v return true end },
-            { Key = "ModMenu_AT_ScopeAll_Dist", UI = AliasMap.Slider, Text = 990034, ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return math.floor((_G.GTLMODState.CustomTextData.AimTouchScopeDist or 300) / 5) end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeDist = v * 5 return true end },
-           { Key = "ModMenu_AT_ScopeAll_Pred", UI = AliasMap.Slider, Text = 990035", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 0, MaxValue = 100, min = 0, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopePred or 0 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopePred = v return true end },
-            { Key = "ModMenu_AT_ScopeAll_Recoil", UI = AliasMap.Slider, Text = 990036, ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 0, MaxValue = 50, min = 0, max = 50, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeRecoil or 0 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeRecoil = v return true end },
+            { Key = "ModMenu_AT_ScopeAll_Spd", UI = AliasMap.Slider, Text = "      Speed (40-50)", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeSpeed or 40 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeSpeed = v return true end },
+            { Key = "ModMenu_AT_ScopeAll_FOV", UI = AliasMap.Slider, Text = "      FOV Range [20-30]", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeFOV or 20 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeFOV = v return true end },
+            { Key = "ModMenu_AT_ScopeAll_Dist", UI = AliasMap.Slider, Text = "      Distance [ 60-70", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return math.floor((_G.GTLMODState.CustomTextData.AimTouchScopeDist or 300) / 5) end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeDist = v * 5 return true end },
+           { Key = "ModMenu_AT_ScopeAll_Pred", UI = AliasMap.Slider, Text = "      Movement Prediction (0-100)", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 0, MaxValue = 100, min = 0, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopePred or 0 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopePred = v return true end },
+            { Key = "ModMenu_AT_ScopeAll_Recoil", UI = AliasMap.Slider, Text = "      Recoil Kick Ads (5 to 10)", ExpandHandle = "ModMenu_AT_ScopeAll_Ex", MinValue = 0, MaxValue = 50, min = 0, max = 50, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchScopeRecoil or 0 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchScopeRecoil = v return true end },
 
             -- AIMBOT SHOTGUN
-            {
-                Key = "ModMenu_AT_SG_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990037,
-                ExpandHandle = "ModMenu_AT_Ex",
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.AimTouchSG end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchSG = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_SG_Ex", UI = AliasMap.TitleSwitcher, Text = "   ALL SHOTGUN AIMBOT", ExpandHandle = "ModMenu_AT_Ex", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.AimTouchSG end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSG = v return true end },
            -- { Key = "ModMenu_AT_SG_AutoFire", UI = AliasMap.Switcher, Text = "      Auto Fire", ExpandHandle = "ModMenu_AT_SG_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSGAutoFire end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSGAutoFire = v return true end },
-            {
-                Key = "ModMenu_AT_SG_IgKnock",
-                UI = AliasMap.Switcher,
-                Text = 990038,
-                ExpandHandle = "ModMenu_AT_SG_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchSGIgKnock end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchSGIgKnock = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_SG_IgKnock", UI = AliasMap.Switcher, Text = "      Ignore Knocked", ExpandHandle = "ModMenu_AT_SG_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSGIgKnock end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSGIgKnock = v return true end },
           --  { Key = "ModMenu_AT_SG_IgBot", UI = AliasMap.Switcher, Text = "      Ignore Bots", ExpandHandle = "ModMenu_AT_SG_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSGIgBot end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSGIgBot = v return true end },
-            {
-                Key = "ModMenu_AT_SG_Vis",
-                UI = AliasMap.Switcher,
-                Text = 990039,
-                ExpandHandle = "ModMenu_AT_SG_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchSGVisCheck end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchSGVisCheck = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_SG_Vis", UI = AliasMap.Switcher, Text = "      Visibility Check", ExpandHandle = "ModMenu_AT_SG_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSGVisCheck end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSGVisCheck = v return true end },
           --  { Key = "ModMenu_AT_SG_Prio", UI = AliasMap.Slider, Text = "      Priority (1-4)", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGPrio or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchSGPrio = val return true end },
            -- { Key = "ModMenu_AT_SG_Bone", UI = AliasMap.Slider, Text = "      Bone Target (1-4)", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGBone or 2 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchSGBone = val return true end },
-            { Key = "ModMenu_AT_SG_Cond", UI = AliasMap.Slider, Text = 990040", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 2, min = 1, max = 2, Min = 1, Max = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGCond or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 2 then val = 2 end; _G.GTLMODState.CustomTextData.AimTouchSGCond = val return true end },
-            { Key = "ModMenu_AT_SG_Spd", UI = AliasMap.Slider, Text = 990041", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGSpeed or 80 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSGSpeed = v return true end },
-            { Key = "ModMenu_AT_SG_FOV", UI = AliasMap.Slider, Text = 990042", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGFOV or 40 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSGFOV = v return true end },
-            { Key = "ModMenu_AT_SG_Dist", UI = AliasMap.Slider, Text = 990043", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGDist or 30 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSGDist = v return true end },
+            { Key = "ModMenu_AT_SG_Cond", UI = AliasMap.Slider, Text = "      Condition (1-2)", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 2, min = 1, max = 2, Min = 1, Max = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGCond or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 2 then val = 2 end; _G.GTLMODState.CustomTextData.AimTouchSGCond = val return true end },
+            { Key = "ModMenu_AT_SG_Spd", UI = AliasMap.Slider, Text = "      Speed Aim [100-Max]", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGSpeed or 80 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSGSpeed = v return true end },
+            { Key = "ModMenu_AT_SG_FOV", UI = AliasMap.Slider, Text = "      FOV Range [ 50-60]", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGFOV or 40 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSGFOV = v return true end },
+            { Key = "ModMenu_AT_SG_Dist", UI = AliasMap.Slider, Text = "      Distance [100-Max]", ExpandHandle = "ModMenu_AT_SG_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSGDist or 30 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSGDist = v return true end },
             
             -- SCOPE SNIPER
-            {
-                Key = "ModMenu_AT_Sniper_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990044,
-                ExpandHandle = "ModMenu_AT_Ex",
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.AimTouchScopeSniper end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchScopeSniper = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_AT_Sniper_IgKnock",
-                UI = AliasMap.Switcher,
-                Text = 990045,
-                ExpandHandle = "ModMenu_AT_Sniper_Ex",
-                GetFunc = function() return _G.GTLMODConfig.AimTouchSniperIgKnock end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.AimTouchSniperIgKnock = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_AT_Sniper_Ex", UI = AliasMap.TitleSwitcher, Text = "   SCOPE AIMBOT (SNIPER ONLY)", ExpandHandle = "ModMenu_AT_Ex", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.AimTouchScopeSniper end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchScopeSniper = v return true end },
+            { Key = "ModMenu_AT_Sniper_IgKnock", UI = AliasMap.Switcher, Text = "      Ignore Knocked", ExpandHandle = "ModMenu_AT_Sniper_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSniperIgKnock end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSniperIgKnock = v return true end },
          --   { Key = "ModMenu_AT_Sniper_IgBot", UI = AliasMap.Switcher, Text = "      Ignore Bots", ExpandHandle = "ModMenu_AT_Sniper_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSniperIgBot end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSniperIgBot = v return true end },
          --   { Key = "ModMenu_AT_Sniper_Vis", UI = AliasMap.Switcher, Text = "      Visibility Check", ExpandHandle = "ModMenu_AT_Sniper_Ex", GetFunc = function() return _G.GTLMODConfig.AimTouchSniperVisCheck end, SetFunc = function(c,v) _G.GTLMODConfig.AimTouchSniperVisCheck = v return true end },
          --   { Key = "ModMenu_AT_Sniper_Prio", UI = AliasMap.Slider, Text = "      Priority (1-4)", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperPrio or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchSniperPrio = val return true end },
         --    { Key = "ModMenu_AT_Sniper_Bone", UI = AliasMap.Slider, Text = "      Bone Target (1-4)", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 4, min = 1, max = 4, Min = 1, Max = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperBone or 1 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 4 then val = 4 end; _G.GTLMODState.CustomTextData.AimTouchSniperBone = val return true end },
-            { Key = "ModMenu_AT_Sniper_Cond", UI = AliasMap.Slider, Text = 990046", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 2, min = 1, max = 2, Min = 1, Max = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperCond or 2 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 2 then val = 2 end; _G.GTLMODState.CustomTextData.AimTouchSniperCond = val return true end },
-            { Key = "ModMenu_AT_Sniper_Spd", UI = AliasMap.Slider, Text = 990047, ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperSpeed or 30 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperSpeed = v return true end },
-            { Key = "ModMenu_AT_Sniper_FOV", UI = AliasMap.Slider, Text = 990048, ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperFOV or 20 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperFOV = v return true end },
-            { Key = "ModMenu_AT_Sniper_Dist", UI = AliasMap.Slider, Text = 990049", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return math.floor((_G.GTLMODState.CustomTextData.AimTouchSniperDist or 400) / 5) end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperDist = v * 5 return true end },
-            { Key = "ModMenu_AT_Sniper_Pred", UI = AliasMap.Slider, Text = 990050", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 0, MaxValue = 100, min = 0, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperPred or 0 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperPred = v return true end }
+            { Key = "ModMenu_AT_Sniper_Cond", UI = AliasMap.Slider, Text = "      Condition (1-2)", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 2, min = 1, max = 2, Min = 1, Max = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperCond or 2 end, SetFunc = function(c,v) local val = math.floor(v+0.5); if val < 1 then val = 1 end; if val > 2 then val = 2 end; _G.GTLMODState.CustomTextData.AimTouchSniperCond = val return true end },
+            { Key = "ModMenu_AT_Sniper_Spd", UI = AliasMap.Slider, Text = "      Speed Scope [100-Max]", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperSpeed or 30 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperSpeed = v return true end },
+            { Key = "ModMenu_AT_Sniper_FOV", UI = AliasMap.Slider, Text = "      FOV Range [60-70]", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperFOV or 20 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperFOV = v return true end },
+            { Key = "ModMenu_AT_Sniper_Dist", UI = AliasMap.Slider, Text = "      Distance [100-Max]", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return math.floor((_G.GTLMODState.CustomTextData.AimTouchSniperDist or 400) / 5) end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperDist = v * 5 return true end },
+            { Key = "ModMenu_AT_Sniper_Pred", UI = AliasMap.Slider, Text = "      Movement Prediction (0-100)", ExpandHandle = "ModMenu_AT_Sniper_Ex", MinValue = 0, MaxValue = 100, min = 0, max = 100, GetFunc = function() return _G.GTLMODState.CustomTextData.AimTouchSniperPred or 0 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.AimTouchSniperPred = v return true end }
         }
 
         -- ==================== COMBAT GRAPHIC (SECTION 3) ====================
         local StackCombatGraphic = {
-            {
-                Key = "ModMenu_Ipad_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990061,
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.IpadView end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.IpadView = v
-                    return true
-                end
-            },
-            { Key = "ModMenu_Ipad_FOV", UI = AliasMap.Slider, Text = 990062, ExpandHandle = "ModMenu_Ipad_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return (_G.GTLMODState.CustomTextData.IpadViewFOV or 120) - 80 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.IpadViewFOV = 80 + v return true end },
-            {
-                Key = "ModMenu_165FPS",
-                UI = AliasMap.Switcher,
-                Text = 990063,
-                GetFunc = function() return _G.GTLMODConfig.UnlockFPS end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.UnlockFPS = v; if v then _G.GTLMODState.GraphicsUnlocked = false end
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_WallColor",
-                UI = AliasMap.Switcher,
-                Text = 990064,
-                GetFunc = function() return _G.GTLMODConfig.wallhackng end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.wallhackng = v; _G.GTLMODConfig.ColorBodyV2 = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_BlackSky",
-                UI = AliasMap.Switcher,
-                Text = 990065,
-                GetFunc = function() return _G.GTLMODConfig.BlackSky end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.BlackSky = v
-                    return true
-                end
-            },
-            {
-                Key = "ModMenu_RemoveFog",
-                UI = AliasMap.Switcher,
-                Text = 990066,
-                GetFunc = function() return _G.GTLMODConfig.RemoveFog end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.RemoveFog = v
-                    return true
-                end
-            },
+            { Key = "ModMenu_Ipad_Ex", UI = AliasMap.TitleSwitcher, Text = "CUSTOM IPAD VIEW", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.IpadView end, SetFunc = function(c,v) _G.GTLMODConfig.IpadView = v return true end },
+            { Key = "ModMenu_Ipad_FOV", UI = AliasMap.Slider, Text = "   IPAD FOV (1-100)", ExpandHandle = "ModMenu_Ipad_Ex", MinValue = 1, MaxValue = 100, min = 1, max = 100, GetFunc = function() return (_G.GTLMODState.CustomTextData.IpadViewFOV or 120) - 80 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.IpadViewFOV = 80 + v return true end },
+            { Key = "ModMenu_165FPS", UI = AliasMap.Switcher, Text = "165 REAL FPS", GetFunc = function() return _G.GTLMODConfig.UnlockFPS end, SetFunc = function(c,v) _G.GTLMODConfig.UnlockFPS = v; if v then _G.GTLMODState.GraphicsUnlocked = false end return true end },
+            { Key = "ModMenu_WallColor", UI = AliasMap.Switcher, Text = "WALLHACK + COLOR", GetFunc = function() return _G.GTLMODConfig.wallhackng end, SetFunc = function(c,v) _G.GTLMODConfig.wallhackng = v; _G.GTLMODConfig.ColorBodyV2 = v return true end },
+            { Key = "ModMenu_BlackSky", UI = AliasMap.Switcher, Text = "BLACK SKY", GetFunc = function() return _G.GTLMODConfig.BlackSky end, SetFunc = function(c,v) _G.GTLMODConfig.BlackSky = v return true end },
+            { Key = "ModMenu_RemoveFog", UI = AliasMap.Switcher, Text = "REMOVE FOG", GetFunc = function() return _G.GTLMODConfig.RemoveFog end, SetFunc = function(c,v) _G.GTLMODConfig.RemoveFog = v return true end },
             
         }
 
         -- ==================== SKIN MOD (SECTION 4) ====================
         local StackSkinMod = {
-            {
-                Key = "ModMenu_Skin_Ex",
-                UI = AliasMap.TitleSwitcher,
-                Text = 990071,
-                ExpandIndex = 0,
-                GetFunc = function() return _G.GTLMODConfig.ModSkin end,
-                SetFunc = function(c, v)
-                    _G.GTLMODConfig.ModSkin = v
-                    return true
-                end
-            },
-            { Key = "ModMenu_Skin_Suit", UI = AliasMap.Slider, Text = 990072, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 80, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinSuit or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinSuit = v; if _G.OutfitSkins and _G.OutfitSkins.Suit[v] then _G.OutfitMap.Suit = _G.OutfitSkins.Suit[v] end return true end },
-            { Key = "ModMenu_Skin_Bag", UI = AliasMap.Slider, Text = 990073, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 16, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinBag or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinBag = v; if _G.OutfitSkins and _G.OutfitSkins.Bag[v] then _G.OutfitMap.Bag = _G.OutfitSkins.Bag[v] end return true end },
-            { Key = "ModMenu_Skin_Helmet", UI = AliasMap.Slider, Text = 990074, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 12, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinHelmet or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinHelmet = v; if _G.OutfitSkins and _G.OutfitSkins.Helmet[v] then _G.OutfitMap.Helmet = _G.OutfitSkins.Helmet[v] end return true end },
-            { Key = "ModMenu_Skin_M416", UI = AliasMap.Slider, Text = 990075, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 9, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinM416 or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinM416 = v; if _G.skinIdMappings[101004] and _G.skinIdMappings[101004][v] then _G.WeaponSkinMap[101004] = _G.skinIdMappings[101004][v] end return true end },
-            { Key = "ModMenu_Skin_AKM", UI = AliasMap.Slider, Text = 990076, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 8, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAKM or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAKM = v; if _G.skinIdMappings[101001] and _G.skinIdMappings[101001][v] then _G.WeaponSkinMap[101001] = _G.skinIdMappings[101001][v] end return true end },
-            { Key = "ModMenu_Skin_SCAR", UI = AliasMap.Slider, Text = 990077, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 8, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinSCAR or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinSCAR = v; if _G.skinIdMappings[101003] and _G.skinIdMappings[101003][v] then _G.WeaponSkinMap[101003] = _G.skinIdMappings[101003][v] end return true end },
-            { Key = "ModMenu_Skin_M762", UI = AliasMap.Slider, Text = 990078, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 8, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinM762 or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinM762 = v; if _G.skinIdMappings[101008] and _G.skinIdMappings[101008][v] then _G.WeaponSkinMap[101008] = _G.skinIdMappings[101008][v] end return true end },
-            { Key = "ModMenu_Skin_AUG", UI = AliasMap.Slider, Text = 990079, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 7, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAUG or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAUG = v; if _G.skinIdMappings[101006] and _G.skinIdMappings[101006][v] then _G.WeaponSkinMap[101006] = _G.skinIdMappings[101006][v] end return true end },
-            { Key = "ModMenu_Skin_UMP", UI = AliasMap.Slider, Text = 990080, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 6, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinUMP or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinUMP = v; if _G.skinIdMappings[102002] and _G.skinIdMappings[102002][v] then _G.WeaponSkinMap[102002] = _G.skinIdMappings[102002][v] end return true end },
-            { Key = "ModMenu_Skin_UZI", UI = AliasMap.Slider, Text = 990081, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinUZI or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinUZI = v; if _G.skinIdMappings[102001] and _G.skinIdMappings[102001][v] then _G.WeaponSkinMap[102001] = _G.skinIdMappings[102001][v] end return true end },
-            { Key = "ModMenu_Skin_Groza", UI = AliasMap.Slider, Text = 990082, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinGroza or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinGroza = v; if _G.skinIdMappings[101005] and _G.skinIdMappings[101005][v] then _G.WeaponSkinMap[101005] = _G.skinIdMappings[101005][v] end return true end },
-            { Key = "ModMenu_Skin_Kar98K", UI = AliasMap.Slider, Text = 990083, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 3, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinKar98K or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinKar98K = v; if _G.skinIdMappings[103001] and _G.skinIdMappings[103001][v] then _G.WeaponSkinMap[103001] = _G.skinIdMappings[103001][v] end return true end },
-            { Key = "ModMenu_Skin_AWM", UI = AliasMap.Slider, Text = 990084, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAWM or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAWM = v; if _G.skinIdMappings[103003] and _G.skinIdMappings[103003][v] then _G.WeaponSkinMap[103003] = _G.skinIdMappings[103003][v] end return true end },
-            { Key = "ModMenu_Skin_AMR", UI = AliasMap.Slider, Text = 990085, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 3, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAMR or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAMR = v; if _G.skinIdMappings[103012] and _G.skinIdMappings[103012][v] then _G.WeaponSkinMap[103012] = _G.skinIdMappings[103012][v] end return true end },
-            { Key = "ModMenu_Skin_S12K", UI = AliasMap.Slider, Text = 990086, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinS12K or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinS12K = v; if _G.skinIdMappings[104003] and _G.skinIdMappings[104003][v] then _G.WeaponSkinMap[104003] = _G.skinIdMappings[104003][v] end return true end },
-            { Key = "ModMenu_Skin_DBS", UI = AliasMap.Slider, Text = 990087, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 3, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinDBS or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinDBS = v; if _G.skinIdMappings[104004] and _G.skinIdMappings[104004][v] then _G.WeaponSkinMap[104004] = _G.skinIdMappings[104004][v] end return true end },
-            { Key = "ModMenu_Skin_Dacia", UI = AliasMap.Slider, Text = 990088, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 90, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinDacia or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinDacia = v; if _G.VehicleSkins[1903001] and _G.VehicleSkins[1903001][v] then _G.VehicleSkinMap[1903001] = _G.VehicleSkins[1903001][v] end return true end },
-            { Key = "ModMenu_Skin_UAZ", UI = AliasMap.Slider, Text = 990089, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 90, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinUAZ or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinUAZ = v; if _G.VehicleSkins[1908001] and _G.VehicleSkins[1908001][v] then _G.VehicleSkinMap[1908001] = _G.VehicleSkins[1908001][v] end return true end },
-            { Key = "ModMenu_Skin_Coupe", UI = AliasMap.Slider, Text = 990090, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 70, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinCoupe or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinCoupe = v; if _G.VehicleSkins[1961001] and _G.VehicleSkins[1961001][v] then _G.VehicleSkinMap[1961001] = _G.VehicleSkins[1961001][v] end return true end },
-            { Key = "ModMenu_Skin_Buggy", UI = AliasMap.Slider, Text = 990091, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 50, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinBuggy or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinBuggy = v; if _G.VehicleSkins[1907001] and _G.VehicleSkins[1907001][v] then _G.VehicleSkinMap[1907001] = _G.VehicleSkins[1907001][v] end return true end },
-            { Key = "ModMenu_Skin_Mirado", UI = AliasMap.Slider, Text = 990092, ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 27, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinMirado or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinMirado = v; if _G.VehicleSkins[1915001] and _G.VehicleSkins[1915001][v] then _G.VehicleSkinMap[1915001] = _G.VehicleSkins[1915001][v] end return true end }
+            { Key = "ModMenu_Skin_Ex", UI = AliasMap.TitleSwitcher, Text = "VIP MOD SKINS ACTIVATED", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.ModSkin end, SetFunc = function(c,v) _G.GTLMODConfig.ModSkin = v return true end },
+            { Key = "ModMenu_Skin_Suit", UI = AliasMap.Slider, Text = "   ALL X SUITS ", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 80, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinSuit or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinSuit = v; if _G.OutfitSkins and _G.OutfitSkins.Suit[v] then _G.OutfitMap.Suit = _G.OutfitSkins.Suit[v] end return true end },
+            { Key = "ModMenu_Skin_Bag", UI = AliasMap.Slider, Text = "   ALL BAG SKINS (1-16)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 16, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinBag or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinBag = v; if _G.OutfitSkins and _G.OutfitSkins.Bag[v] then _G.OutfitMap.Bag = _G.OutfitSkins.Bag[v] end return true end },
+            { Key = "ModMenu_Skin_Helmet", UI = AliasMap.Slider, Text = "   ALL HELMET SKINS (1-12)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 12, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinHelmet or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinHelmet = v; if _G.OutfitSkins and _G.OutfitSkins.Helmet[v] then _G.OutfitMap.Helmet = _G.OutfitSkins.Helmet[v] end return true end },
+            { Key = "ModMenu_Skin_M416", UI = AliasMap.Slider, Text = "   M416 (1-9)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 9, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinM416 or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinM416 = v; if _G.skinIdMappings[101004] and _G.skinIdMappings[101004][v] then _G.WeaponSkinMap[101004] = _G.skinIdMappings[101004][v] end return true end },
+            { Key = "ModMenu_Skin_AKM", UI = AliasMap.Slider, Text = "   AKM (1-8)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 8, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAKM or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAKM = v; if _G.skinIdMappings[101001] and _G.skinIdMappings[101001][v] then _G.WeaponSkinMap[101001] = _G.skinIdMappings[101001][v] end return true end },
+            { Key = "ModMenu_Skin_SCAR", UI = AliasMap.Slider, Text = "   SCAR-L (1-8)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 8, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinSCAR or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinSCAR = v; if _G.skinIdMappings[101003] and _G.skinIdMappings[101003][v] then _G.WeaponSkinMap[101003] = _G.skinIdMappings[101003][v] end return true end },
+            { Key = "ModMenu_Skin_M762", UI = AliasMap.Slider, Text = "   M762 (1-8)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 8, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinM762 or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinM762 = v; if _G.skinIdMappings[101008] and _G.skinIdMappings[101008][v] then _G.WeaponSkinMap[101008] = _G.skinIdMappings[101008][v] end return true end },
+            { Key = "ModMenu_Skin_AUG", UI = AliasMap.Slider, Text = "   AUG (1-7)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 7, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAUG or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAUG = v; if _G.skinIdMappings[101006] and _G.skinIdMappings[101006][v] then _G.WeaponSkinMap[101006] = _G.skinIdMappings[101006][v] end return true end },
+            { Key = "ModMenu_Skin_UMP", UI = AliasMap.Slider, Text = "   UMP45 (1-6)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 6, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinUMP or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinUMP = v; if _G.skinIdMappings[102002] and _G.skinIdMappings[102002][v] then _G.WeaponSkinMap[102002] = _G.skinIdMappings[102002][v] end return true end },
+            { Key = "ModMenu_Skin_UZI", UI = AliasMap.Slider, Text = "   UZI (1-2)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinUZI or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinUZI = v; if _G.skinIdMappings[102001] and _G.skinIdMappings[102001][v] then _G.WeaponSkinMap[102001] = _G.skinIdMappings[102001][v] end return true end },
+            { Key = "ModMenu_Skin_Groza", UI = AliasMap.Slider, Text = "   GROZA (1-2)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinGroza or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinGroza = v; if _G.skinIdMappings[101005] and _G.skinIdMappings[101005][v] then _G.WeaponSkinMap[101005] = _G.skinIdMappings[101005][v] end return true end },
+            { Key = "ModMenu_Skin_Kar98K", UI = AliasMap.Slider, Text = "   Kar98K (1-3)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 3, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinKar98K or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinKar98K = v; if _G.skinIdMappings[103001] and _G.skinIdMappings[103001][v] then _G.WeaponSkinMap[103001] = _G.skinIdMappings[103001][v] end return true end },
+            { Key = "ModMenu_Skin_AWM", UI = AliasMap.Slider, Text = "   AWM (1-4)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 4, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAWM or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAWM = v; if _G.skinIdMappings[103003] and _G.skinIdMappings[103003][v] then _G.WeaponSkinMap[103003] = _G.skinIdMappings[103003][v] end return true end },
+            { Key = "ModMenu_Skin_AMR", UI = AliasMap.Slider, Text = "   AMR (1-3)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 3, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinAMR or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinAMR = v; if _G.skinIdMappings[103012] and _G.skinIdMappings[103012][v] then _G.WeaponSkinMap[103012] = _G.skinIdMappings[103012][v] end return true end },
+            { Key = "ModMenu_Skin_S12K", UI = AliasMap.Slider, Text = "   S12K (1-2)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 2, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinS12K or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinS12K = v; if _G.skinIdMappings[104003] and _G.skinIdMappings[104003][v] then _G.WeaponSkinMap[104003] = _G.skinIdMappings[104003][v] end return true end },
+            { Key = "ModMenu_Skin_DBS", UI = AliasMap.Slider, Text = "   DBS (1-3)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 3, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinDBS or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinDBS = v; if _G.skinIdMappings[104004] and _G.skinIdMappings[104004][v] then _G.WeaponSkinMap[104004] = _G.skinIdMappings[104004][v] end return true end },
+            { Key = "ModMenu_Skin_Dacia", UI = AliasMap.Slider, Text = "   DACIA (1-90)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 90, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinDacia or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinDacia = v; if _G.VehicleSkins[1903001] and _G.VehicleSkins[1903001][v] then _G.VehicleSkinMap[1903001] = _G.VehicleSkins[1903001][v] end return true end },
+            { Key = "ModMenu_Skin_UAZ", UI = AliasMap.Slider, Text = "   UAZ (1-90)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 90, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinUAZ or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinUAZ = v; if _G.VehicleSkins[1908001] and _G.VehicleSkins[1908001][v] then _G.VehicleSkinMap[1908001] = _G.VehicleSkins[1908001][v] end return true end },
+            { Key = "ModMenu_Skin_Coupe", UI = AliasMap.Slider, Text = "   COUPE RB (1-70)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 70, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinCoupe or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinCoupe = v; if _G.VehicleSkins[1961001] and _G.VehicleSkins[1961001][v] then _G.VehicleSkinMap[1961001] = _G.VehicleSkins[1961001][v] end return true end },
+            { Key = "ModMenu_Skin_Buggy", UI = AliasMap.Slider, Text = "   BUGGY (1-50)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 50, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinBuggy or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinBuggy = v; if _G.VehicleSkins[1907001] and _G.VehicleSkins[1907001][v] then _G.VehicleSkinMap[1907001] = _G.VehicleSkins[1907001][v] end return true end },
+            { Key = "ModMenu_Skin_Mirado", UI = AliasMap.Slider, Text = "   MIRADO (1-27)", ExpandHandle = "ModMenu_Skin_Ex", MinValue = 1, MaxValue = 27, GetFunc = function() return _G.GTLMODState.CustomTextData.SkinMirado or 1 end, SetFunc = function(c,v) _G.GTLMODState.CustomTextData.SkinMirado = v; if _G.VehicleSkins[1915001] and _G.VehicleSkins[1915001][v] then _G.VehicleSkinMap[1915001] = _G.VehicleSkins[1915001][v] end return true end }
         }
 
         -- ==================== DEFINE MENU PAGE (ORDER: ESP → AIMBOT → COMBAT → SKIN) ====================
         SettingPageDefine.ModMenu = {
             Key = "ModMenu",
-            Text = 990001,
+            Text= "♛ VIP MENU ♛ @HAMSECHEATS",
             UIKey = "Setting_Page_Privacy", 
             Category = {
-                { Key = "Cat_ESP_Visual", Text = 990010, Stack = StackESPVisual },
-                { Key = "Cat_Aimbot_Force", Text = 990020, Stack = StackAimbotForce },
-                { Key = "Cat_Combat_Graphic", Text = 990060, Stack = StackCombatGraphic },
-                { Key = "Cat_SkinMod", Text = 990070, Stack = StackSkinMod }
+                { Key = "Cat_ESP_Visual", Text= "♛ ESP ♛", Stack = StackESPVisual },
+                { Key = "Cat_Aimbot_Force", Text= "♛AIMBOT♛", Stack = StackAimbotForce },
+                { Key = "Cat_Combat_Graphic", Text= "♛EXTRA COMBO♛", Stack = StackCombatGraphic },
+                { Key = "Cat_SkinMod", Text= "♛ALL SKIN♛", Stack = StackSkinMod }
             }
         }
         
