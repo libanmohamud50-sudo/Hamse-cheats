@@ -4,12 +4,12 @@
 -- CREDIT: @hamsecheatsvip - HAMSE CHEATS
 -- CONTACT: Telegram @hamsecheatsvip
 -- TELEGRAM: https://t.me/HAMSECHEATS
--- VERSION: 4.5 HAMSE EDITION
+-- VERSION: 4.6 HAMSE EDITION
 -- ========================================
 -- =======================================
 -- CREDIT: @hamsecheatsvip - HAMSE CHEATS
 -- CONTACT: Telegram @hamsecheatsvip
--- VERSION: 4.5 PAK EDITION (FIXED LICENSE SYSTEM)
+-- VERSION: 4.6 PAK EDITION (FIXED LICENSE SYSTEM)
 -- ========================================
 
 local BRPlayerCharacterBase = {
