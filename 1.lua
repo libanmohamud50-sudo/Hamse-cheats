@@ -1973,8 +1973,7 @@ end
 function BRPlayerCharacterBase:ReceiveOnSpawn()
   print(bWriteLog and string.format("%s IReusable:ReceiveOnSpawn()", Game:GetPlainName(self.Object)))
   -- FIX: _PostConstruct is not called again after object-pool recycle,
-  -- so bCanNearDeathGiveup stays false from the previous near-death.
-  -- Reset it here so give-up works every round.
+  -- so bCanNearDeathGiveup stays stale. Reset it here every spawn.
   self.bCanNearDeathGiveup = true
   if Client then
     self:ResetMeshRelativeLocationAndRotation()
@@ -2121,7 +2120,9 @@ function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-  local uNearDeathComp = self.NearDeatchComponent
+  -- FIX: was self.NearDeatchComponent (typo) — always returned nil,
+  -- so slua.isValid() failed and TriggerGotoDieExplictly never ran.
+  local uNearDeathComp = self.NearDeathComponent
   if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
     local uPlayerState = self:GetPlayerStateSafety()
     if slua.isValid(uPlayerState) then
