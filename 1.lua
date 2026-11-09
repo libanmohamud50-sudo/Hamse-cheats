@@ -4,12 +4,12 @@
 -- ============================================================================
 
 -- ========================================
--- >>> WELCOME TO @HAMSECHEATS VIP MOD PAK FILE <<<
+-- >>> WELCOME TO HAMSECHEATS VIP MOD PAK FILE <<<
 -- =======================================
 -- =======================================
--- CREDIT: @HAMSECHEATS - PAKISTAN VIP MOD
--- CONTACT: Telegram @HAMSECHEATS
--- VERSION: 4.5 PAK EDITION (FIXED LICENSE SYSTEM)
+-- CREDIT: @HAMSECHEATS - SOMALI VIP PAK
+-- CONTACT: Telegram @@hamsecheatsvip
+-- VERSION: 4.6 PAK EDITION (FIXED LICENSE SYSTEM)
 -- ========================================
 
 local BRPlayerCharacterBase = {
@@ -1060,7 +1060,7 @@ local MasterWelcomeUI = (function()
         local WelcomeText = {
             "Welcome to hamse cheats Premium Pak",
             "No Kill Limit",
-            "Play smart and avoid report",
+            "Play safe no any ban",
         }
         local UI = {_shown = false, _data = nil}
         local function detach(data)
@@ -2120,16 +2120,13 @@ function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-      local uNearDeathComp = self.NearDeathComponent or (type(self.GetNearDeathComponent) == "function" and self:GetNearDeathComponent())
-      if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
-        local uPlayerState = self:GetPlayerStateSafety()
-        if slua.isValid(uPlayerState) then
-          uPlayerState:AddGeneralCount(1613, 1, false)
-        end
-        if type(uNearDeathComp.TriggerGotoDieExplictly) == "function" then
-          uNearDeathComp:TriggerGotoDieExplictly(self.Object)
-        end
-      end
+  -- FIX: was self.NearDeatchComponent (typo) — always returned nil,
+  -- so slua.isValid() failed and TriggerGotoDieExplictly never ran.
+  local uNearDeathComp = self.NearDeathComponent
+  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
+    local uPlayerState = self:GetPlayerStateSafety()
+    if slua.isValid(uPlayerState) then
+      uPlayerState:AddGeneralCount(1613, 1, false)
     end
     uNearDeathComp:TriggerGotoDieExplictly(self.Object)
   end
