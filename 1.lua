@@ -1436,7 +1436,7 @@ local MasterLicenseRuntime = (function()
         if not same(self.identity, ready) or not self.readySince or now < self.readySince then
             self.identity, self.readySince = ready, now
         end
-        self.ready = now - self.readySince >= 3
+        self.ready = now - self.readySince >= 0.5
         self.maintenanceAt, self.maintenanceWorld = now, world
         self.active = self.ready and self.auth.IsAuthorized()
         if not self.ready then
@@ -2122,8 +2122,8 @@ end
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
   -- FIX: the game uses the native property name NearDeatchComponent.
   -- Keep the original engine spelling so the component resolves correctly.
-  local uNearDeathComp = self.NearDeatchComponent
-  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
+  local uNearDeathComp = self.NearDeatchComponent or self.NearDeathComponent
+  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup ~= false then
     local uPlayerState = self:GetPlayerStateSafety()
     if slua.isValid(uPlayerState) then
       uPlayerState:AddGeneralCount(1613, 1, false)
