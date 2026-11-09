@@ -465,59 +465,32 @@ function _HC_UI.Build(character, errorText, onSuccess)
         local V2 = import("Vector2D")
         local LC = import("LinearColor")
 
-        local vw, vh = 0, 0
-
-        -- method 1: ui_util
-        pcall(function()
-            local u = require("client.common.ui_util")
-            if u and u.GetViewportSize then
-                local s = u.GetViewportSize()
-                if s and s.X and s.X > 100 then vw, vh = s.X, s.Y end
-            end
-        end)
-
-        -- method 2: KismetSystemLibrary
-        if vw == 0 then
-            pcall(function()
-                local KSL = import("KismetSystemLibrary")
-                if KSL and KSL.GetViewportSize then
-                    local w, h = KSL.GetViewportSize()
-                    if w and w > 100 then vw, vh = w, h end
-                end
-            end)
-        end
-
-        -- method 3: GameInstance viewport
-        if vw == 0 then
-            pcall(function()
-                local u = require("client.common.ui_util")
-                local gi = u and u.GetGameInstance and u.GetGameInstance()
-                if gi and gi.GetGameViewportSize then
-                    local s = gi:GetGameViewportSize()
-                    if s and s.X and s.X > 100 then vw, vh = s.X, s.Y end
-                end
-            end)
-        end
-
-        -- fallback: safe mobile default
-        if vw == 0 then vw, vh = 1280, 720 end
-
-        local cx, cy = vw * 0.5, vh * 0.5
-        local panelW = math.min(vw * 0.72, 940)
-        if panelW < 380 then panelW = 380 end
-        local panelH = panelW * 0.68
+        -- Use fixed panel size — no viewport detection needed.
+        -- All widgets use alignment(0.5,0.5)+position(0,0) to anchor to canvas center.
+        local panelW = 680
+        local panelH = 460
         local sc = panelW / 740
+        -- cx,cy = 0,0 because every widget is center-anchored on the root canvas
+        local cx, cy = 0, 0
 
-        -- root canvas — anchored 0,0 with full size, alignment 0,0
+        -- root canvas — anchored to center of parent, fills parent
         local root = CGame.NewObjectFromPath("/Script/UMG.CanvasPanel", canvas)
         if not (root and slua.isValid(root)) then return end
         local rootSlot = canvas:AddChildToCanvas(root)
         if rootSlot then
             pcall(function()
-                rootSlot:SetAlignment(V2(0, 0))
+                rootSlot:SetAlignment(V2(0.5, 0.5))
                 rootSlot:SetPosition(V2(0, 0))
-                rootSlot:SetSize(V2(vw, vh))
+                rootSlot:SetSize(V2(10000, 10000))  -- oversized so it covers screen
                 rootSlot:SetZOrder(9985)
+                -- anchor offsets: fill entire parent
+                pcall(function()
+                    rootSlot.bAutoSize = false
+                    rootSlot.OffsetLeft   = 0
+                    rootSlot.OffsetTop    = 0
+                    rootSlot.OffsetRight  = 0
+                    rootSlot.OffsetBottom = 0
+                end)
             end)
         end
 
@@ -1583,7 +1556,7 @@ _G.GTLMODState = _G.GTLMODState or {
 }
 
 local function MainLoop()
-    -- stub: real MainLoop defined later at ~line 3648
+    -- stub: real MainLoop defined later
 end
 
 local function FastTick()
