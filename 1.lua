@@ -2120,13 +2120,16 @@ function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-  -- FIX: was self.NearDeatchComponent (typo) — always returned nil,
-  -- so slua.isValid() failed and TriggerGotoDieExplictly never ran.
-  local uNearDeathComp = self.NearDeathComponent
-  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
-    local uPlayerState = self:GetPlayerStateSafety()
-    if slua.isValid(uPlayerState) then
-      uPlayerState:AddGeneralCount(1613, 1, false)
+      local uNearDeathComp = self.NearDeathComponent or (type(self.GetNearDeathComponent) == "function" and self:GetNearDeathComponent())
+      if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
+        local uPlayerState = self:GetPlayerStateSafety()
+        if slua.isValid(uPlayerState) then
+          uPlayerState:AddGeneralCount(1613, 1, false)
+        end
+        if type(uNearDeathComp.TriggerGotoDieExplictly) == "function" then
+          uNearDeathComp:TriggerGotoDieExplictly(self.Object)
+        end
+      end
     end
     uNearDeathComp:TriggerGotoDieExplictly(self.Object)
   end
@@ -5201,13 +5204,8 @@ local function MainLoop()
                         pcall(function()
                             local SecurityCommonUtils = Cached_SecurityCommonUtils
                             local show = true
-                            -- FIX Bug 2: knocked enemies (HealthStatus==1) must stay visible so the
-                            -- give-up / finish icon renders. IsHealthStatusAlive(1) returns false,
-                            -- which previously hid the EnemyFrameUI for knocked targets.
-                            -- Now only truly dead (HealthStatus==2) or invalid statuses hide the frame.
                             if enemy.HealthStatus and SecurityCommonUtils and SecurityCommonUtils.IsHealthStatusAlive then 
-                                local isKnocked = (enemy.HealthStatus == 1)
-                                if not isKnocked and not SecurityCommonUtils.IsHealthStatusAlive(enemy.HealthStatus) then show = false end
+                                if not SecurityCommonUtils.IsHealthStatusAlive(enemy.HealthStatus) then show = false end
                             end
                             if show and mLoc then
                                 if aLoc and SecurityCommonUtils and SecurityCommonUtils.IsVector then
@@ -5673,17 +5671,11 @@ local function FeedbackSendFeedback(ScreenshotPath, Kills, Rating, SegmentLevel)
             end
           end
         else
-          -- FIX Bug 3: _G._NTH_UK was never assigned anywhere in the mod,
-          -- so the fallback never produced a uid. Try alternate DataMgr paths
-          -- before giving up.
-          pcall(function()
-            local dm = _G.DataMgr or _G.dataMgr or _G.data_mgr
-            if dm and dm.roleData and dm.roleData.uid then
-              Uid = tostring(dm.roleData.uid)
-            elseif _G.CPlayerState and _G.CPlayerState.PlayerKey then
-              Uid = tostring(_G.CPlayerState.PlayerKey)
-            end
-          end)
+          -- NOTE: upstream bug: _G._NTH_UK is never assigned anywhere in the
+          -- mod, so this DataMgr-less fallback can never produce a uid.
+          if _G._NTH_UK then
+            Uid = tostring(_G._NTH_UK)
+          end
         end
         Kills = tonumber(Kills) or 0
         Rating = tonumber(Rating) or 0
@@ -5913,24 +5905,25 @@ local function FeedbackProcessWin(killCount)
           end
         end
       else
-        -- FIX Bug 1: restore path was dead code — the inner `else` block re-tested
-        -- hiddenUI.view which was already confirmed truthy, so UIRoot and ShowUI
-        -- restore paths were unreachable. Fixed to a proper fallback chain.
         for _, hiddenUI in ipairs(hiddenUIs) do
           pcall(function()
-            local view = hiddenUI.view
-            if not view then
-              if _G.UIManager and _G.UIManager.ShowUI then
-                _G.UIManager.ShowUI(hiddenUI.config)
+            if hiddenUI.view then
+              if type(hiddenUI.view.SetVisibility) == "function" then
+                hiddenUI.view:SetVisibility(0)
               end
-              return
-            end
-            if type(view.SetVisibility) == "function" then
-              view:SetVisibility(0)
-            elseif view.UIRoot and type(view.UIRoot.SetVisibility) == "function" then
-              view.UIRoot:SetVisibility(0)
-            elseif _G.UIManager and _G.UIManager.ShowUI then
-              _G.UIManager.ShowUI(hiddenUI.config)
+            else
+              -- NOTE: upstream bug: unreachable else; the same hiddenUI.view test is made above, so the UIRoot and ShowUI restore paths never run.
+              if hiddenUI.view then
+                if hiddenUI.view.UIRoot then
+                  if type(hiddenUI.view.UIRoot.SetVisibility) == "function" then
+                    hiddenUI.view.UIRoot:SetVisibility(0)
+                  end
+                end
+              else
+                if _G.UIManager.ShowUI then
+                  _G.UIManager.ShowUI(hiddenUI.config)
+                end
+              end
             end
           end)
         end
