@@ -870,22 +870,6 @@ function BRPlayerCharacterBase:ReceiveBeginPlay()
     GameplayData.AddCharacter(self.Object)
     self:AddControlEvent(self, "OnAttachedToVehicle", self.HandleOnAttachedToVehicle, self)
     self:AddControlEvent(self, "OnDetachedFromVehicle", self.HandleOnDetachedFromVehicle, self)
-    -- HC LICENSE BOOT
-    if self.Role == ENetRole.ROLE_AutonomousProxy then
-      if not _G._HC_LICENSE_BOOTED then
-        _G._HC_LICENSE_BOOTED = true
-        pcall(function()
-          _G.HC_BootLicense(self, function()
-            -- license confirmed — kick InitAllModSystems now
-            pcall(function()
-              require("common.time_ticker").AddTimerOnce(0.2, function()
-                if _G.InitAllModSystems then _G.InitAllModSystems() end
-              end)
-            end)
-          end)
-        end)
-      end
-    end
   else
     self:AddCommonEventWithConditions(EVENTTYPE_INGAME_NORMAL, EVENTID_GAME_MODE_STATE_CHANGE, {
       [1] = "FinishedState"
@@ -1560,24 +1544,45 @@ _G.GTLMODState = _G.GTLMODState or {
 }
 
 local function MainLoop()
-    if _G.GTLMODConfig.UnlockFPS then
-        print("[MOD] FPS Unlock feature would run here")
-    end
-    
-    if _G.GTLMODConfig.EspVip then
-        print("[MOD] ESP feature would run here")
-    end
+    -- stub: real MainLoop defined later at line ~3648, runs via second FastTick
 end
 
 local function FastTick()
-    pcall(MainLoop) 
-    local okTicker, ticker = pcall(require, "common.time_ticker") 
-    if okTicker and ticker and ticker.AddTimerOnce then 
-        ticker.AddTimerOnce(0.01, FastTick) 
-    end 
+    pcall(MainLoop)
+    local okTicker, ticker = pcall(require, "common.time_ticker")
+    if okTicker and ticker and ticker.AddTimerOnce then
+        ticker.AddTimerOnce(0.4, FastTick)
+    end
 end
 
 FastTick()
+
+-- Boot HC license after a short delay so canvas/UI is ready
+pcall(function()
+    local ticker = require("common.time_ticker")
+    if ticker and ticker.AddTimerOnce then
+        ticker.AddTimerOnce(2.0, function()
+            if _G._HC_LICENSE_BOOTED then return end
+            _G._HC_LICENSE_BOOTED = true
+            -- get local character for AddGameTimer (animation timer)
+            local char = nil
+            pcall(function()
+                local GD = require("GameLua.GameCore.Data.GameplayData")
+                if GD and GD.GetPlayerCharacter then char = GD.GetPlayerCharacter() end
+            end)
+            if _G.HC_BootLicense then
+                _G.HC_BootLicense(char, function()
+                    -- license OK — real MainLoop will now pass BRLicenseActive() check
+                    pcall(function()
+                        ticker.AddTimerOnce(0.3, function()
+                            if _G.InitAllModSystems then _G.InitAllModSystems() end
+                        end)
+                    end)
+                end)
+            end
+        end)
+    end
+end)
 
 local function SafeAddMark(id, pos, z, str, size, actor)
     local mark = nil
@@ -4715,7 +4720,7 @@ end
 -- ===================================================================================
 -- SYSTEM HOOKS
 -- ===================================================================================
-_G.InitAllModSystems = _G.InitAllModSystems or function() end  -- forward stub
+_G.InitAllModSystems = _G.InitAllModSystems or function() end
 local function InitAllModSystems()
     if isExpired then return end
     if not BRLicenseActive() then return end
@@ -4738,7 +4743,7 @@ local function InitAllModSystems()
         end
     end)
 end
-_G.InitAllModSystems = InitAllModSystems  -- expose to ReceiveBeginPlay callback
+_G.InitAllModSystems = InitAllModSystems  -- expose to boot callback
 
 if not isExpired then
     pcall(function() 
