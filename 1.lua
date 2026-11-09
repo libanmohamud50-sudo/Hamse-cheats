@@ -1870,19 +1870,17 @@ function BRPlayerCharacterBase:CheckForbidFlaregun()
 end
 
 function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
-  self:HandleNearDeathGiveupRescue()
+  if self.Super and self.Super.ServerRPC_NearDeathGiveupRescue then
+    return self.Super:ServerRPC_NearDeathGiveupRescue()
+  end
+  if self.Super and self.Super.HandleNearDeathGiveupRescue then
+    return self.Super:HandleNearDeathGiveupRescue()
+  end
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-  -- FIX: was self.NearDeatchComponent (typo) — always returned nil,
-  -- so slua.isValid() failed and TriggerGotoDieExplictly never ran.
-  local uNearDeathComp = self.NearDeathComponent
-  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
-    local uPlayerState = self:GetPlayerStateSafety()
-    if slua.isValid(uPlayerState) then
-      uPlayerState:AddGeneralCount(1613, 1, false)
-    end
-    uNearDeathComp:TriggerGotoDieExplictly(self.Object)
+  if self.Super and self.Super.HandleNearDeathGiveupRescue then
+    return self.Super:HandleNearDeathGiveupRescue()
   end
 end
 
