@@ -1972,6 +1972,10 @@ end
 
 function BRPlayerCharacterBase:ReceiveOnSpawn()
   print(bWriteLog and string.format("%s IReusable:ReceiveOnSpawn()", Game:GetPlainName(self.Object)))
+  -- FIX: _PostConstruct is not called again after object-pool recycle,
+  -- so bCanNearDeathGiveup stays false from the previous near-death.
+  -- Reset it here so give-up works every round.
+  self.bCanNearDeathGiveup = true
   if Client then
     self:ResetMeshRelativeLocationAndRotation()
     GameplayData.AddCharacter(self.Object)
