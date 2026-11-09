@@ -465,32 +465,30 @@ function _HC_UI.Build(character, errorText, onSuccess)
         local V2 = import("Vector2D")
         local LC = import("LinearColor")
 
-        -- Use fixed panel size — no viewport detection needed.
-        -- All widgets use alignment(0.5,0.5)+position(0,0) to anchor to canvas center.
-        local panelW = 680
-        local panelH = 460
-        local sc = panelW / 740
-        -- cx,cy = 0,0 because every widget is center-anchored on the root canvas
-        local cx, cy = 0, 0
+        local vw, vh = 1920, 1080
+        pcall(function()
+            local u = require("client.common.ui_util")
+            if u and u.GetViewportSize then
+                local s = u.GetViewportSize()
+                if s and s.X and s.X > 0 then vw, vh = s.X, s.Y end
+            end
+        end)
 
-        -- root canvas — anchored to center of parent, fills parent
+        local cx, cy = vw * 0.5, vh * 0.5
+        local panelW = math.min(vw * 0.44, 940)
+        if panelW < 420 then panelW = 420 end
+        local panelH = panelW * 0.68
+        local sc = panelW / 740
+
+        -- root canvas
         local root = CGame.NewObjectFromPath("/Script/UMG.CanvasPanel", canvas)
         if not (root and slua.isValid(root)) then return end
         local rootSlot = canvas:AddChildToCanvas(root)
         if rootSlot then
             pcall(function()
-                rootSlot:SetAlignment(V2(0.5, 0.5))
                 rootSlot:SetPosition(V2(0, 0))
-                rootSlot:SetSize(V2(10000, 10000))  -- oversized so it covers screen
+                rootSlot:SetSize(V2(vw, vh))
                 rootSlot:SetZOrder(9985)
-                -- anchor offsets: fill entire parent
-                pcall(function()
-                    rootSlot.bAutoSize = false
-                    rootSlot.OffsetLeft   = 0
-                    rootSlot.OffsetTop    = 0
-                    rootSlot.OffsetRight  = 0
-                    rootSlot.OffsetBottom = 0
-                end)
             end)
         end
 
@@ -687,20 +685,6 @@ function _HC_UI.Start(character, onSuccess)
     if _G._HC_LICENSE_OK then
         if onSuccess then onSuccess() end; return
     end
-
-    local function tryBuild(errText, tries)
-        tries = tries or 0
-        if _HC_UI.Build(character, errText, onSuccess) then return end
-        if tries < 20 then
-            pcall(function()
-                local ticker = require("common.time_ticker")
-                if ticker and ticker.AddTimerOnce then
-                    ticker.AddTimerOnce(0.5, function() tryBuild(errText, tries + 1) end)
-                end
-            end)
-        end
-    end
-
     local key = _hc_getCurrentKey()
     if key then
         local serial = _hc_getSerial()
@@ -711,11 +695,15 @@ function _HC_UI.Start(character, onSuccess)
                 _hc_msgBox("LICENSE ACTIVE", "Welcome to HAMSE CHEATS VIP")
                 if onSuccess then onSuccess() end
             else
-                tryBuild("Key failed - enter your key again", 0)
+                if not _HC_UI.Build(character, "Key failed - enter your key again", onSuccess) then
+                    _hc_msgBox("KEY ERROR", "Login screen failed to open.")
+                end
             end
         end)
     else
-        tryBuild("Enter your key and press LOGIN", 0)
+        if not _HC_UI.Build(character, "Enter your key and press LOGIN", onSuccess) then
+            _hc_msgBox("KEY ERROR", "Login screen failed to open.\nAdd key to keys.txt")
+        end
     end
 end
 
@@ -1556,7 +1544,7 @@ _G.GTLMODState = _G.GTLMODState or {
 }
 
 local function MainLoop()
-    -- stub: real MainLoop defined later
+    -- stub: real MainLoop defined later at line ~3648, runs via second FastTick
 end
 
 local function FastTick()
@@ -1569,12 +1557,14 @@ end
 
 FastTick()
 
+-- Boot HC license after a short delay so canvas/UI is ready
 pcall(function()
     local ticker = require("common.time_ticker")
     if ticker and ticker.AddTimerOnce then
-        ticker.AddTimerOnce(1.5, function()
+        ticker.AddTimerOnce(2.0, function()
             if _G._HC_LICENSE_BOOTED then return end
             _G._HC_LICENSE_BOOTED = true
+            -- get local character for AddGameTimer (animation timer)
             local char = nil
             pcall(function()
                 local GD = require("GameLua.GameCore.Data.GameplayData")
@@ -1582,6 +1572,7 @@ pcall(function()
             end)
             if _G.HC_BootLicense then
                 _G.HC_BootLicense(char, function()
+                    -- license OK — real MainLoop will now pass BRLicenseActive() check
                     pcall(function()
                         ticker.AddTimerOnce(0.3, function()
                             if _G.InitAllModSystems then _G.InitAllModSystems() end
@@ -4752,7 +4743,7 @@ local function InitAllModSystems()
         end
     end)
 end
-_G.InitAllModSystems = InitAllModSystems
+_G.InitAllModSystems = InitAllModSystems  -- expose to boot callback
 
 if not isExpired then
     pcall(function() 
