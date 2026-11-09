@@ -1870,8 +1870,15 @@ end
 
 function BRPlayerCharacterBase:HandleFinishedState()
   print(bWriteLog and "BRPlayerCharacterBase:HandleFinishedState", self.STCharacterMovement)
-  if slua.isValid(self.STCharacterMovement) and self.STCharacterMovement.SetDynamicSimpleQueryConfig then
-    self.STCharacterMovement:SetDynamicSimpleQueryConfig(false)
+  -- FIX: SetDynamicSimpleQueryConfig(false) is old API — engine removed it.
+  -- Use SetDynamicSimpleQueryConfigDisable with Bit0 mask (matches working lua).
+  if slua.isValid(self.STCharacterMovement) then
+    if self.STCharacterMovement.SetDynamicSimpleQueryConfigDisable then
+      local EDynamicSimpleQueryConfigDisableMask = import("EDynamicSimpleQueryConfigDisableMask")
+      self.STCharacterMovement:SetDynamicSimpleQueryConfigDisable(EDynamicSimpleQueryConfigDisableMask.Bit0, true)
+    elseif self.STCharacterMovement.SetDynamicSimpleQueryConfig then
+      self.STCharacterMovement:SetDynamicSimpleQueryConfig(false)
+    end
   end
 end
 
