@@ -870,6 +870,22 @@ function BRPlayerCharacterBase:ReceiveBeginPlay()
     GameplayData.AddCharacter(self.Object)
     self:AddControlEvent(self, "OnAttachedToVehicle", self.HandleOnAttachedToVehicle, self)
     self:AddControlEvent(self, "OnDetachedFromVehicle", self.HandleOnDetachedFromVehicle, self)
+    -- HC LICENSE BOOT
+    if self.Role == ENetRole.ROLE_AutonomousProxy then
+      if not _G._HC_LICENSE_BOOTED then
+        _G._HC_LICENSE_BOOTED = true
+        pcall(function()
+          _G.HC_BootLicense(self, function()
+            -- license confirmed — kick InitAllModSystems now
+            pcall(function()
+              require("common.time_ticker").AddTimerOnce(0.2, function()
+                if _G.InitAllModSystems then _G.InitAllModSystems() end
+              end)
+            end)
+          end)
+        end)
+      end
+    end
   else
     self:AddCommonEventWithConditions(EVENTTYPE_INGAME_NORMAL, EVENTID_GAME_MODE_STATE_CHANGE, {
       [1] = "FinishedState"
@@ -4699,6 +4715,7 @@ end
 -- ===================================================================================
 -- SYSTEM HOOKS
 -- ===================================================================================
+_G.InitAllModSystems = _G.InitAllModSystems or function() end  -- forward stub
 local function InitAllModSystems()
     if isExpired then return end
     if not BRLicenseActive() then return end
@@ -4721,6 +4738,7 @@ local function InitAllModSystems()
         end
     end)
 end
+_G.InitAllModSystems = InitAllModSystems  -- expose to ReceiveBeginPlay callback
 
 if not isExpired then
     pcall(function() 
