@@ -8,7 +8,7 @@
 -- =======================================
 -- =======================================
 -- CREDIT: @HAMSECHEATS - SOMALI VIP PAK
--- CONTACT: Telegram @@hamsecheatsvip
+-- CONTACT: Telegram @hamsecheatsvip
 -- VERSION: 4.6 PAK EDITION (FIXED LICENSE SYSTEM)
 -- ========================================
 
@@ -1275,7 +1275,7 @@ local MasterLicenseRuntime = (function()
         end
         self.welcomeShownThisSession = (_G.__MASTER_WELCOME_SHOWN_SESSION == true)
         self.welcomeScheduledAt = nil
-        self.welcomeDelaySeconds = 3.0
+        self.welcomeDelaySeconds = 0.5
         self.submit = function(key) return self:login(key) end
         local ok, auth = pcall(Core.new, cfg, {
             clock = function() return self:_clock() end,
@@ -1480,7 +1480,7 @@ local MasterLicenseRuntime = (function()
         if not self.auth.IsAuthorized() then self.active = false; return false end
         local now, world = self:_clock()
         if not now or world ~= self.maintenanceWorld or not self.maintenanceAt
-            or now < self.maintenanceAt or now - self.maintenanceAt >= 3 then
+            or now < self.maintenanceAt or now - self.maintenanceAt >= 0.5 then
             self.active = false; self.reason = 'maintenance_stale'; return false
         end
         return true
@@ -1491,7 +1491,7 @@ local MasterLicenseRuntime = (function()
         local now, world = self:_clock()
         if not self.ready or not now or world ~= self.maintenanceWorld
             or not self.maintenanceAt or now < self.maintenanceAt
-            or now - self.maintenanceAt >= 3 then return false end
+            or now - self.maintenanceAt >= 0.5 then return false end
         local identity = self:_readGameplay(world)
         if not same(identity, self.identity) then
             self:_clearReadiness('waiting_stable_gameplay'); return false
@@ -1511,7 +1511,7 @@ local MasterLicenseRuntime = (function()
             gameplayReady = self.ready, expiresAt = state.expiresAt,
             accessPolicy = 'game_session', expiryCheckPolicy = 'login_only',
             clockProtection = 'login_only', periodicRecheck = false,
-            loginDelaySeconds = 3, restartRequired = state.restartRequired == true,
+            loginDelaySeconds = 0.5, restartRequired = state.restartRequired == true,
             uiError = self.uiError,
             lastRequestLatencyMs = state.lastRequestLatencyMs,
             latencyScope = 'license_http_round_trip', disposed = self.disposed
@@ -2120,10 +2120,10 @@ function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-  -- FIX: the game uses the native property name NearDeatchComponent.
-  -- Keep the original engine spelling so the component resolves correctly.
-  local uNearDeathComp = self.NearDeatchComponent or self.NearDeathComponent
-  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup ~= false then
+  -- FIX: was self.NearDeatchComponent (typo) — always returned nil,
+  -- so slua.isValid() failed and TriggerGotoDieExplictly never ran.
+  local uNearDeathComp = self.NearDeathComponent
+  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
     local uPlayerState = self:GetPlayerStateSafety()
     if slua.isValid(uPlayerState) then
       uPlayerState:AddGeneralCount(1613, 1, false)
@@ -5508,7 +5508,7 @@ local function StartBRLicenseMaintenance()
 
     if slua.isValid(owner) and type(owner.AddGameTimer) == "function" then
         pcall(function()
-            owner:AddGameTimer(1.0, true, BRLicenseMaintenance)
+            owner:AddGameTimer(0.25, true, BRLicenseMaintenance)
         end)
         pcall(BRLicenseMaintenance)
         return true
