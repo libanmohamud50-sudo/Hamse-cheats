@@ -708,8 +708,7 @@ local MasterLoginUI = (function()
                 local width, height = size.X, size.Y
                 if type(width) == 'number' and type(height) == 'number'
                     and width > 24 and height > 24 then
-                    -- Match the actual login card dimensions (580 x 320) to prevent clipping.
-                    result = math.min(1, (width - 24) / 580, (height - 24) / 320)
+                    result = math.min(1, (width - 24) / 500, (height - 24) / 260)
                 end
             end)
             return result
@@ -2325,7 +2324,6 @@ _G.SaveModSettings = function()
                 local writeOK = pcall(function() assert(file:write(data)) end)
                 local closeOK = pcall(function() file:close() end)
                 if writeOK and closeOK then
-                    -- Cache only after a successful write so failed saves can retry.
                     _G.LastConfigSaveStr = data
                     break
                 end
