@@ -465,27 +465,56 @@ function _HC_UI.Build(character, errorText, onSuccess)
         local V2 = import("Vector2D")
         local LC = import("LinearColor")
 
-        local vw, vh = 1920, 1080
+        local vw, vh = 0, 0
+
+        -- method 1: ui_util
         pcall(function()
             local u = require("client.common.ui_util")
             if u and u.GetViewportSize then
                 local s = u.GetViewportSize()
-                if s and s.X and s.X > 0 then vw, vh = s.X, s.Y end
+                if s and s.X and s.X > 100 then vw, vh = s.X, s.Y end
             end
         end)
 
+        -- method 2: KismetSystemLibrary
+        if vw == 0 then
+            pcall(function()
+                local KSL = import("KismetSystemLibrary")
+                if KSL and KSL.GetViewportSize then
+                    local w, h = KSL.GetViewportSize()
+                    if w and w > 100 then vw, vh = w, h end
+                end
+            end)
+        end
+
+        -- method 3: GameInstance viewport
+        if vw == 0 then
+            pcall(function()
+                local u = require("client.common.ui_util")
+                local gi = u and u.GetGameInstance and u.GetGameInstance()
+                if gi and gi.GetGameViewportSize then
+                    local s = gi:GetGameViewportSize()
+                    if s and s.X and s.X > 100 then vw, vh = s.X, s.Y end
+                end
+            end)
+        end
+
+        -- fallback: safe mobile default
+        if vw == 0 then vw, vh = 1280, 720 end
+
         local cx, cy = vw * 0.5, vh * 0.5
-        local panelW = math.min(vw * 0.44, 940)
-        if panelW < 420 then panelW = 420 end
+        local panelW = math.min(vw * 0.72, 940)
+        if panelW < 380 then panelW = 380 end
         local panelH = panelW * 0.68
         local sc = panelW / 740
 
-        -- root canvas
+        -- root canvas — anchored 0,0 with full size, alignment 0,0
         local root = CGame.NewObjectFromPath("/Script/UMG.CanvasPanel", canvas)
         if not (root and slua.isValid(root)) then return end
         local rootSlot = canvas:AddChildToCanvas(root)
         if rootSlot then
             pcall(function()
+                rootSlot:SetAlignment(V2(0, 0))
                 rootSlot:SetPosition(V2(0, 0))
                 rootSlot:SetSize(V2(vw, vh))
                 rootSlot:SetZOrder(9985)
@@ -689,7 +718,6 @@ function _HC_UI.Start(character, onSuccess)
     local function tryBuild(errText, tries)
         tries = tries or 0
         if _HC_UI.Build(character, errText, onSuccess) then return end
-        -- canvas not ready yet — retry up to 20 times (10s total)
         if tries < 20 then
             pcall(function()
                 local ticker = require("common.time_ticker")
@@ -698,7 +726,6 @@ function _HC_UI.Start(character, onSuccess)
                 end
             end)
         end
-        -- silent fail after retries — no msgBox spam
     end
 
     local key = _hc_getCurrentKey()
@@ -1569,7 +1596,6 @@ end
 
 FastTick()
 
--- Boot HC license system — canvas retry is inside _HC_UI.Start now
 pcall(function()
     local ticker = require("common.time_ticker")
     if ticker and ticker.AddTimerOnce then
