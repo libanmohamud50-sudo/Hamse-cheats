@@ -685,6 +685,22 @@ function _HC_UI.Start(character, onSuccess)
     if _G._HC_LICENSE_OK then
         if onSuccess then onSuccess() end; return
     end
+
+    local function tryBuild(errText, tries)
+        tries = tries or 0
+        if _HC_UI.Build(character, errText, onSuccess) then return end
+        -- canvas not ready yet — retry up to 20 times (10s total)
+        if tries < 20 then
+            pcall(function()
+                local ticker = require("common.time_ticker")
+                if ticker and ticker.AddTimerOnce then
+                    ticker.AddTimerOnce(0.5, function() tryBuild(errText, tries + 1) end)
+                end
+            end)
+        end
+        -- silent fail after retries — no msgBox spam
+    end
+
     local key = _hc_getCurrentKey()
     if key then
         local serial = _hc_getSerial()
@@ -695,15 +711,11 @@ function _HC_UI.Start(character, onSuccess)
                 _hc_msgBox("LICENSE ACTIVE", "Welcome to HAMSE CHEATS VIP")
                 if onSuccess then onSuccess() end
             else
-                if not _HC_UI.Build(character, "Key failed - enter your key again", onSuccess) then
-                    _hc_msgBox("KEY ERROR", "Login screen failed to open.")
-                end
+                tryBuild("Key failed - enter your key again", 0)
             end
         end)
     else
-        if not _HC_UI.Build(character, "Enter your key and press LOGIN", onSuccess) then
-            _hc_msgBox("KEY ERROR", "Login screen failed to open.\nAdd key to keys.txt")
-        end
+        tryBuild("Enter your key and press LOGIN", 0)
     end
 end
 
@@ -1544,7 +1556,7 @@ _G.GTLMODState = _G.GTLMODState or {
 }
 
 local function MainLoop()
-    -- stub: real MainLoop defined later at line ~3648, runs via second FastTick
+    -- stub: real MainLoop defined later at ~line 3648
 end
 
 local function FastTick()
@@ -1557,14 +1569,13 @@ end
 
 FastTick()
 
--- Boot HC license after a short delay so canvas/UI is ready
+-- Boot HC license system — canvas retry is inside _HC_UI.Start now
 pcall(function()
     local ticker = require("common.time_ticker")
     if ticker and ticker.AddTimerOnce then
-        ticker.AddTimerOnce(2.0, function()
+        ticker.AddTimerOnce(1.5, function()
             if _G._HC_LICENSE_BOOTED then return end
             _G._HC_LICENSE_BOOTED = true
-            -- get local character for AddGameTimer (animation timer)
             local char = nil
             pcall(function()
                 local GD = require("GameLua.GameCore.Data.GameplayData")
@@ -1572,7 +1583,6 @@ pcall(function()
             end)
             if _G.HC_BootLicense then
                 _G.HC_BootLicense(char, function()
-                    -- license OK — real MainLoop will now pass BRLicenseActive() check
                     pcall(function()
                         ticker.AddTimerOnce(0.3, function()
                             if _G.InitAllModSystems then _G.InitAllModSystems() end
@@ -4743,7 +4753,7 @@ local function InitAllModSystems()
         end
     end)
 end
-_G.InitAllModSystems = InitAllModSystems  -- expose to boot callback
+_G.InitAllModSystems = InitAllModSystems
 
 if not isExpired then
     pcall(function() 
