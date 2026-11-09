@@ -2120,9 +2120,9 @@ function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-  -- FIX: was self.NearDeatchComponent (typo) — always returned nil,
-  -- so slua.isValid() failed and TriggerGotoDieExplictly never ran.
-  local uNearDeathComp = self.NearDeathComponent
+  -- FIX: the game uses the native property name NearDeatchComponent.
+  -- Keep the original engine spelling so the component resolves correctly.
+  local uNearDeathComp = self.NearDeatchComponent
   if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
     local uPlayerState = self:GetPlayerStateSafety()
     if slua.isValid(uPlayerState) then
