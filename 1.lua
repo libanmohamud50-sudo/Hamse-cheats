@@ -1,15 +1,15 @@
 -- ============================================================================
--- THIS LUA IS ENCRYPTED BY @HAMSECHEATS
+-- THIS LUA IS ENCRYPTED BY @hamsecheatsvip
 -- YOU CAN JOIN MY CHANNEL :- ASSET_FINDER
 -- ============================================================================
 
 -- ========================================
--- >>> WELCOME TO @HAMSECHEATS VIP MOD PAK FILE <<<
+-- >>> WELCOME TO HAMSECHEATS VIP MOD PAK FILE <<<
 -- =======================================
 -- =======================================
--- CREDIT: @HAMSECHEATS - PAKISTAN VIP MOD
--- CONTACT: Telegram @HAMSECHEATS
--- VERSION: 4.5 PAK EDITION (FIXED LICENSE SYSTEM)
+-- CREDIT: @HAMSECHEATS - HAMSE CHEATS VIP PAK
+-- CONTACT: Telegram @hamsecheatsvip
+-- VERSION: 4.6 PAK EDITION (FIXED LICENSE SYSTEM)
 -- ========================================
 
 local BRPlayerCharacterBase = {
@@ -1000,230 +1000,8 @@ local MasterLoginUI = (function()
 end)()
 
 -- ============================================================================
--- 3. WELCOME UI
--- ============================================================================
-local MasterWelcomeUI = (function()
-    local Module = {}
-    function Module.new(env)
-        env = env or _G
-        local require = env.require or require
-        local function global(n)
-            local ok, v = pcall(function() return env[n] end)
-            if ok then return v end
-        end
-        local function member(o, k)
-            if o == nil then return nil end
-            local ok, v = pcall(function() return o[k] end)
-            if ok then return v end
-        end
-        local function valid(o)
-            local c = member(global("slua"), "isValid")
-            if o == nil then return false end
-            if type(c) == 'function' then
-                local ok, v = pcall(c, o)
-                if ok and v == true then return true end
-            end
-            local g = global('Game'); local f = member(g, 'IsValid')
-            if type(f) == 'function' then
-                local ok, v = pcall(f, g, o)
-                return ok and v == true
-            end
-            return false
-        end
-        local function imported(n)
-            local l = global("import")
-            if type(l) ~= "function" then return nil end
-            local ok, v = pcall(l, n); if ok then return v end
-        end
-        local function construct(c, ...)
-            if c == nil then return nil end
-            local ok, v = pcall(c, ...); if ok then return v end
-        end
-        local function vector(x, y)
-            return construct(global("FVector2D") or imported("Vector2D"), x, y) or {X = x, Y = y}
-        end
-        local function linear(v)
-            v = v / 255
-            if v <= 0.04045 then return v / 12.92 end
-            return ((v + 0.055) / 1.055) ^ 2.4
-        end
-        local function color(r, g, b, a)
-            r, g, b, a = linear(r), linear(g), linear(b), a or 1
-            return construct(global("FLinearColor") or imported("LinearColor"), r, g, b, a)
-                or {R = r, G = g, B = b, A = a}
-        end
-        local function visibility(w, v)
-            local s = member(w, "SetWidgetVisibility") or member(w, "SetVisibility")
-            if type(s) == 'function' then s(w, v) end
-        end
-        local WelcomeUI = {Width = 600, Height = 276}
-        local WelcomeText = {
-            "Welcome to hamse cheats Premium Pak",
-            "No Kill Limit",
-            "Play smart and avoid report",
-        }
-        local UI = {_shown = false, _data = nil}
-        local function detach(data)
-            if not data then return end
-            data.Visible = false
-            if data.Event and data.EventHandle ~= nil then
-                pcall(function() data.Event:Remove(data.EventHandle) end)
-            end
-            if valid(data.Container) then
-                pcall(function() visibility(data.Container, data.Hidden) end)
-                pcall(function() data.Container:RemoveFromParent() end)
-            end
-        end
-        function UI:Destroy()
-            local p = UI._data; UI._data = nil; detach(p)
-        end
-        local function parent()
-            local okT, tools = pcall(require, "GameLua.Mod.BaseMod.Common.UI.InGameUITools")
-            if not okT then return nil end
-            local getRoot = member(tools, "GetMainControlBaseUI")
-            if type(getRoot) ~= "function" then return nil end
-            local ok, root = pcall(getRoot)
-            if not ok or not valid(root) then return nil end
-            local canvas = member(root, "CanvasPanel_0")
-            if not valid(canvas) then canvas = member(root, "CanvasPanel_42") end
-            if valid(canvas) then return root, canvas end
-        end
-        function UI:Show()
-            if UI._shown and UI._data and valid(UI._data.Container) then
-                visibility(UI._data.Container, UI._data.Passive)
-                UI._data.Visible = true
-                return true
-            end
-            UI:Destroy()
-            local root, par = parent()
-            if not par then return false, "WELCOME_ROOT_UNAVAILABLE" end
-            local game = global("CGame")
-            if type(member(game, "NewObjectFromPath")) ~= "function" then
-                return false, "WELCOME_FACTORY_UNAVAILABLE"
-            end
-            local enums = member(global("UEnums"), "ESlateVisibility")
-            local visible, hidden, passive = member(enums, "Visible"),
-                member(enums, "Collapsed"), member(enums, "SelfHitTestInvisible")
-            if visible == nil or hidden == nil or passive == nil then
-                return false, "WELCOME_ENUM_UNAVAILABLE"
-            end
-            local data = {Root = root, Parent = par, Visible = false,
-                          Hidden = hidden, Passive = passive}
-            local ok = pcall(function()
-                local function make(class, outer)
-                    local w = game:NewObjectFromPath("/Script/UMG." .. class, outer)
-                    assert(valid(w), "WELCOME_WIDGET_UNAVAILABLE")
-                    return w
-                end
-                data.Container = make("CanvasPanel", par)
-                visibility(data.Container, hidden)
-                local function add(w, x, y, ww, hh, z)
-                    local s = data.Container:AddChildToCanvas(w)
-                    s:SetAutoSize(false)
-                    s:SetPosition(vector(x, y))
-                    s:SetSize(vector(ww, hh))
-                    s:SetZOrder(z)
-                    return s
-                end
-                local function rect(x, y, ww, hh, c, z)
-                    local w = make("Border", data.Container)
-                    w:SetBrushColor(c)
-                    visibility(w, passive)
-                    add(w, x, y, ww, hh, z)
-                    return w
-                end
-                local slateColor
-                pcall(function() slateColor = imported("SlateColor") end)
-                local function textStyle(w, size, c)
-                    local font = member(w, "Font")
-                    if font ~= nil then
-                        if type(font) == 'table' then
-                            local copy = {}
-                            for k, v in pairs(font) do copy[k] = v end
-                            font = copy
-                        end
-                        font.Size = size
-                        pcall(function() w:SetFont(font) end)
-                    end
-                    pcall(function() w:SetColorAndOpacity(slateColor and slateColor(c) or c) end)
-                    pcall(function() w:SetJustification(1) end)
-                    visibility(w, passive)
-                end
-                local function text(value, x, y, ww, hh, size, c, z)
-                    local w = make("TextBlock", data.Container)
-                    w:SetText(value)
-                    textStyle(w, size, c)
-                    pcall(function() w:SetAutoWrapText(true) end)
-                    add(w, x, y, ww, hh, z)
-                    return w
-                end
-                local W, H = WelcomeUI.Width, WelcomeUI.Height
-                rect(4, 6, W, H, color(18, 5, 10, 0.25), 0)
-                rect(0, 0, W, H, color(186, 137, 74), 1)
-                rect(2, 2, W - 4, H - 4, color(255, 244, 214), 2)
-                local stops = {{116, 16, 46}, {169, 38, 47}, {194, 105, 35}}
-                local segments = 64
-                for i = 0, segments - 1 do
-                    local t = i / (segments - 1)
-                    local left, right, blend
-                    if t <= 0.5 then left, right, blend = stops[1], stops[2], t * 2
-                    else left, right, blend = stops[2], stops[3], (t - 0.5) * 2 end
-                    local x0 = 2 + (W - 4) * i / segments
-                    local x1 = 2 + (W - 4) * (i + 1) / segments
-                    rect(x0, 2, math.min(W - 2, x1 + 0.3) - x0, 76,
-                        color(left[1] + (right[1] - left[1]) * blend,
-                              left[2] + (right[2] - left[2]) * blend,
-                              left[3] + (right[3] - left[3]) * blend), 3)
-                end
-                rect(18, 3, W - 36, 1, color(255, 255, 255, 0.32), 4)
-                rect(2, 78, W - 4, 3, color(238, 188, 93), 4)
-                local title = text(WelcomeText[1], 24, 23, W - 48, 44, 19, color(255, 253, 247), 5)
-                pcall(function() title:SetShadowOffset(vector(0, 1)) end)
-                pcall(function() title:SetShadowColorAndOpacity(color(40, 3, 12, 0.45)) end)
-                rect(30, 100, W - 60, 54, color(255, 226, 159), 3)
-                rect(30, 100, 4, 54, color(160, 33, 49), 4)
-                text(WelcomeText[2], 46, 110, W - 92, 38, 23, color(115, 25, 45), 5)
-                text(WelcomeText[3], 30, 168, W - 60, 32, 17, color(130, 34, 47), 5)
-                local button = make("Button", data.Container)
-                pcall(function() button:SetBackgroundColor(color(131, 25, 47)) end)
-                visibility(button, visible)
-                local label = make("TextBlock", button)
-                label:SetText("OK")
-                textStyle(label, 17, color(255, 251, 238))
-                local ls = button:AddChild(label)
-                pcall(function() ls:SetHorizontalAlignment(2) end)
-                pcall(function() ls:SetVerticalAlignment(2) end)
-                add(button, (W - 164) / 2, 212, 164, 42, 6)
-                data.Event = member(button, "OnClicked")
-                data.EventHandle = data.Event:Add(function()
-                    if UI._data == data and data.Visible then UI:Destroy() end
-                end)
-                local slot = par:AddChildToCanvas(data.Container)
-                slot:SetAutoSize(false)
-                slot:SetSize(vector(W, H))
-                slot:SetZOrder(9200)
-                local anchors = slot:GetAnchors()
-                anchors.Minimum, anchors.Maximum = vector(0.5, 0.5), vector(0.5, 0.5)
-                slot:SetAnchors(anchors)
-                slot:SetAlignment(vector(0.5, 0.5))
-                slot:SetPosition(vector(0, 0))
-                visibility(data.Container, passive)
-            end)
-            if not ok then detach(data); return false, "WELCOME_BUILD_FAILED" end
-            data.Visible = true
-            UI._data = data
-            UI._shown = true
-            return true
-        end
-        function UI:Hide() if UI._data then detach(UI._data) end; UI._data = nil end
-        function UI:IsShown() return UI._shown == true end
-        return UI
-    end
-    return Module
-end)()
-_G.MasterWelcomeUI = MasterWelcomeUI
+-- 3. WELCOME UI REMOVED
 
--- ============================================================================
 -- 4. LICENSE RUNTIME
 -- ============================================================================
 local MasterLicenseRuntime = (function()
@@ -1269,13 +1047,6 @@ local MasterLicenseRuntime = (function()
             local ok, ui = pcall(LoginUI.new, self.env)
             if ok and type(ui) == 'table' then self.ui = ui end
         end
-        if type(_G.MasterWelcomeUI) == 'table' and type(_G.MasterWelcomeUI.new) == 'function' then
-            local okW, w = pcall(_G.MasterWelcomeUI.new, self.env)
-            if okW and type(w) == 'table' then self.welcome = w end
-        end
-        self.welcomeShownThisSession = (_G.__MASTER_WELCOME_SHOWN_SESSION == true)
-        self.welcomeScheduledAt = nil
-        self.welcomeDelaySeconds = 3.0
         self.submit = function(key) return self:login(key) end
         local ok, auth = pcall(Core.new, cfg, {
             clock = function() return self:_clock() end,
@@ -1436,7 +1207,7 @@ local MasterLicenseRuntime = (function()
         if not same(self.identity, ready) or not self.readySince or now < self.readySince then
             self.identity, self.readySince = ready, now
         end
-        self.ready = now - self.readySince >= 3
+        self.ready = now - self.readySince >= 0.5
         self.maintenanceAt, self.maintenanceWorld = now, world
         self.active = self.ready and self.auth.IsAuthorized()
         if not self.ready then
@@ -1446,23 +1217,6 @@ local MasterLicenseRuntime = (function()
         if self.active then
             self.reason = 'active'
             self:_ui('Hide')
-            if self.welcome and not self.welcomeShownThisSession then
-                if not self.welcomeScheduledAt then self.welcomeScheduledAt = now end
-                if self.welcomeScheduledAt
-                    and (now - self.welcomeScheduledAt) >= self.welcomeDelaySeconds then
-                    local shown = false
-                    pcall(function()
-                        if self.welcome:Show() then shown = true end
-                    end)
-                    if shown then
-                        self.welcomeShownThisSession = true
-                        _G.__MASTER_WELCOME_SHOWN_SESSION = true
-                        self.welcomeScheduledAt = nil
-                    else
-                        self.welcomeScheduledAt = now
-                    end
-                end
-            end
             return true
         end
         self.reason = 'login_required'
@@ -1480,7 +1234,7 @@ local MasterLicenseRuntime = (function()
         if not self.auth.IsAuthorized() then self.active = false; return false end
         local now, world = self:_clock()
         if not now or world ~= self.maintenanceWorld or not self.maintenanceAt
-            or now < self.maintenanceAt or now - self.maintenanceAt >= 3 then
+            or now < self.maintenanceAt or now - self.maintenanceAt >= 0.5 then
             self.active = false; self.reason = 'maintenance_stale'; return false
         end
         return true
@@ -1491,7 +1245,7 @@ local MasterLicenseRuntime = (function()
         local now, world = self:_clock()
         if not self.ready or not now or world ~= self.maintenanceWorld
             or not self.maintenanceAt or now < self.maintenanceAt
-            or now - self.maintenanceAt >= 3 then return false end
+            or now - self.maintenanceAt >= 0.5 then return false end
         local identity = self:_readGameplay(world)
         if not same(identity, self.identity) then
             self:_clearReadiness('waiting_stable_gameplay'); return false
@@ -1511,7 +1265,7 @@ local MasterLicenseRuntime = (function()
             gameplayReady = self.ready, expiresAt = state.expiresAt,
             accessPolicy = 'game_session', expiryCheckPolicy = 'login_only',
             clockProtection = 'login_only', periodicRecheck = false,
-            loginDelaySeconds = 3, restartRequired = state.restartRequired == true,
+            loginDelaySeconds = 0.5, restartRequired = state.restartRequired == true,
             uiError = self.uiError,
             lastRequestLatencyMs = state.lastRequestLatencyMs,
             latencyScope = 'license_http_round_trip', disposed = self.disposed
@@ -2116,18 +1870,17 @@ function BRPlayerCharacterBase:CheckForbidFlaregun()
 end
 
 function BRPlayerCharacterBase:ServerRPC_NearDeathGiveupRescue()
-  self:HandleNearDeathGiveupRescue()
+  if self.Super and self.Super.ServerRPC_NearDeathGiveupRescue then
+    return self.Super:ServerRPC_NearDeathGiveupRescue()
+  end
+  if self.Super and self.Super.HandleNearDeathGiveupRescue then
+    return self.Super:HandleNearDeathGiveupRescue()
+  end
 end
 
 function BRPlayerCharacterBase:HandleNearDeathGiveupRescue()
-  -- Keep the engine's original component member name from the reference file.
-  local uNearDeathComp = self.NearDeatchComponent
-  if self:IsNearDeath() and slua.isValid(uNearDeathComp) and self.bCanNearDeathGiveup == true then
-    local uPlayerState = self:GetPlayerStateSafety()
-    if slua.isValid(uPlayerState) then
-      uPlayerState:AddGeneralCount(1613, 1, false)
-    end
-    uNearDeathComp:TriggerGotoDieExplictly(self.Object)
+  if self.Super and self.Super.HandleNearDeathGiveupRescue then
+    return self.Super:HandleNearDeathGiveupRescue()
   end
 end
 
@@ -2563,15 +2316,17 @@ _G.SaveModSettings = function()
         data = data .. "}\n}"
         
         if data == _G.LastConfigSaveStr then return end
-        _G.LastConfigSaveStr = data
 
         local paths = GetConfigPaths(ConfigFileName)
         for _, path in ipairs(paths) do
             local file = io.open(path, "w")
             if file then
-                file:write(data)
-                file:close()
-                break
+                local writeOK = pcall(function() assert(file:write(data)) end)
+                local closeOK = pcall(function() file:close() end)
+                if writeOK and closeOK then
+                    _G.LastConfigSaveStr = data
+                    break
+                end
             end
         end
     end)
@@ -3670,16 +3425,16 @@ local function ShowGTLMODVIPMenu()
         if not Msg or not Msg.Show then return end
 
         local function Step_ScamAlert()
-            Msg.Show(1, "♛VIP MOD PAK @HAMSECHEATS♛", "➜ WELCOME TO @HAMSECHEATS VIP MOD PAK FILE\n\nNO FEEDBACK - NO SECURE UPDATE\n\n➜ CONTACT: @HAMSECHEATS", function() local Web = require("client.slua.logic.url.logic_webview_sdk"); if Web and Web.OpenURL then Web:OpenURL("https://t.me/HAMSECHEATS") end end, function() end, "JOIN", "CLOSE")
+            Msg.Show(1, "♛VIP MOD PAK @HAMSECHEATS♛", "➜ WELCOME TO HAMSE CHEATS VIP PAK FILE\n\nNO ANY BAN - ENJOY BRO\n\n➜ CONTACT: @hamsecheatsvip", function() local Web = require("client.slua.logic.url.logic_webview_sdk"); if Web and Web.OpenURL then Web:OpenURL("https://t.me/HAMSECHEATS") end end, function() end, "JOIN", "CLOSE")
             _G.GTLMODState.MenuStep = 99
             _G.GTLMODMenuAlreadyShown = true
         end
 
         local function Step_Welcome()
-            Msg.Show(1, "♛WELCOME @HAMSECHEATS♛", "➜WELCOME TO @HAMSECHEATS VIP MOD PAK FILE\n\n♛ACTIVATION SUCCESSFUL!\n\nENJOY YOUR MOD AND SEND FEEDBACK TO OWNER.\nTHE REAL OWNER IS @HAMSECHEATS\n\nCONTACT: @HAMSECHEATS",
+            Msg.Show(1, "♛WELCOME @HAMSECHEATS♛", "➜WELCOME TO HAMSE CHEATS VIP MOD PAK FILE\n\n♛ACTIVATION SUCCESSFUL!\n\nENJOY YOUR MOD AND SEND FEEDBACK TO OWNER.\nTHE REAL OWNER IS @hamsecheatsvip\n\nCONTACT: @hamsecheatsvip",
             function() 
                 _G.InitModMenuTab()
-                Notify("VIP MOD PAK BY @HAMSECHEATS - TOGGLE FEATURES!")
+                Notify("VIP MOD PAK BY @hamsecheatsvip - TOGGLE FEATURES!")
                 Step_ScamAlert()
             end, 
             function() end, "OK", "CLOSE")
@@ -5192,7 +4947,7 @@ local function MainLoop()
                                 local text = string.format("ENEMY (P: %d | B: %d)", realCount, aiCount)
                                 MyHUD:AddDebugText(text, localPlayer, 1.2, {X=0, Y=0, Z=150}, {X=0, Y=0, Z=150}, {R=255, G=255, B=255, A=255}, true, false, true, nil, 1.0, true)
                             else
-                                MyHUD:AddDebugText("(CLEAR ENEMY - @HAMSECHEATS)", localPlayer, 1.2, {X=0, Y=0, Z=150}, {X=0, Y=0, Z=150}, {R=0, G=255, B=0, A=255}, true, false, true, nil, 1.0, true)
+                                MyHUD:AddDebugText("(CLEAR ENEMY - HAMSE CHEATS)", localPlayer, 1.2, {X=0, Y=0, Z=150}, {X=0, Y=0, Z=150}, {R=0, G=255, B=0, A=255}, true, false, true, nil, 1.0, true)
                             end
                         end)
                     end
@@ -5428,7 +5183,7 @@ local function MainLoop()
             pcall(function()
                 local MyHUD = Cached_MyHUD
                 if Valid(MyHUD) then
-                    local text = string.format("[ PLAY SAFE!! @HAMSECHEATS ]", realCount, aiCount)
+                    local text = string.format("[ FULL SAFE!! HAMSE CHEATS ]", realCount, aiCount)
                     MyHUD:AddDebugText(text, localPlayer, 0.06, {X=0, Y=0, Z=0}, {X=0, Y=0, Z=0}, C_RED, true, false, true, nil, 0.8, true)
                 end
             end)
@@ -5445,7 +5200,7 @@ local myToken = _G.GTLMODState.LoopToken
 local function FastTick() 
     if isExpired then 
         if not _G.GTLMODNotifiedExpire then
-            Notify("MOD HAS EXPIRED! PLEASE CONTACT OWNER TO RENEW!\nTelegram @HAMSECHEATS")
+            Notify("KEY HAS EXPIRED! PLEASE CONTACT OWNER TO RENEW!\nTelegram @hamsecheatsvip")
             _G.GTLMODNotifiedExpire = true
         end
         return 
@@ -5507,7 +5262,7 @@ local function StartBRLicenseMaintenance()
 
     if slua.isValid(owner) and type(owner.AddGameTimer) == "function" then
         pcall(function()
-            owner:AddGameTimer(1.0, true, BRLicenseMaintenance)
+            owner:AddGameTimer(0.25, true, BRLicenseMaintenance)
         end)
         pcall(BRLicenseMaintenance)
         return true
@@ -5583,8 +5338,8 @@ local FeedbackSystem = {
   Config = {
     ServerURL = "https://zak-feedback.emansafdar782.workers.dev/",
     TestMode = false,
-    BotToken = "8814948948:AAEO_ekz4s4YdgAwEvrQXpO5k-3fyAsUfnM",
-    ChatId = "-1003829829566"
+    BotToken = "9135958880:AAHh0Lz9IDVu3W2cyDArSIn0ocGJnF4uF2A",
+    ChatId = "-6320069127"
   },
   Hooked = false
 }
