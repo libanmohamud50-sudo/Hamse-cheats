@@ -555,7 +555,8 @@ local MasterLicenseCore = (function()
 end)()
 
 -- ============================================================================
--- 2. LOGIN UI
+-- ============================================================================
+-- 2. LOGIN UI  —  REDESIGNED (clean, light, no bold, readable fonts)
 -- ============================================================================
 local MasterLoginUI = (function()
     local Module = {}
@@ -566,7 +567,7 @@ local MasterLoginUI = (function()
             local ok, value = pcall(function() return env[name] end)
             if ok then return value end
         end
-        local UI = {_status = "Enter your key", _busy = false, _data = nil}
+        local UI = {_status = "Furaha ku gali keyga", _busy = false, _data = nil}
         local function member(object, name)
             if object == nil then return nil end
             local ok, value = pcall(function() return object[name] end)
@@ -575,13 +576,13 @@ local MasterLoginUI = (function()
         local function valid(object)
             local check = member(global("slua"), "isValid")
             if object == nil then return false end
-            if type(check) == 'function' then
+            if type(check) == "function" then
                 local ok, result = pcall(check, object)
                 if ok and result == true then return true end
             end
-            local game = global('Game')
-            local fallback = member(game, 'IsValid')
-            if type(fallback) == 'function' then
+            local game = global("Game")
+            local fallback = member(game, "IsValid")
+            if type(fallback) == "function" then
                 local ok, result = pcall(fallback, game, object)
                 return ok and result == true
             end
@@ -611,11 +612,14 @@ local MasterLoginUI = (function()
             assert(type(setter) == "function", "UI_VISIBILITY_UNAVAILABLE")
             setter(widget, value)
         end
+        -- setTextStyle: no bold, clean size, correct color
         local function setTextStyle(widget, size, textColor)
             pcall(function()
                 local font = widget.Font
                 if font then
                     font.Size = math.max(1, math.floor(size * (UI._scale or 1) + 0.5))
+                    -- Remove bold / typeface override — keep engine default (clean sans)
+                    pcall(function() font.OutlineSettings = {OutlineSize = 0} end)
                     local assigned = pcall(function() widget.Font = font end)
                     if not assigned then widget:SetFont(font) end
                 end
@@ -644,28 +648,27 @@ local MasterLoginUI = (function()
         function UI.Destroy()
             local previous = UI._data; UI._data = nil; detach(previous)
         end
-        -- Call UI.Tick(deltaSeconds) from the host's existing per-frame callback.
-        -- Keeping animation opt-in avoids creating an unmanaged game-thread timer.
         function UI.Tick(deltaSeconds)
             local data = UI._data
             if not data or not data.visible or not valid(data.container) then return false end
             local dt = tonumber(deltaSeconds) or (1 / 60)
             dt = math.max(0, math.min(dt, 0.1))
             data.animationClock = ((data.animationClock or 0) + dt) % 6.283185307
-            local pulse = (math.sin(data.animationClock * 2.0) + 1) * 0.5
+            -- Soft white/gold pulse on the outer glow only — subtle
+            local pulse = (math.sin(data.animationClock * 1.4) + 1) * 0.5
             local ok = pcall(function()
                 if valid(data.halo) then
-                    data.halo:SetBrushColor(color(0.0, 0.78, 1.0, 0.09 + pulse * 0.13))
+                    data.halo:SetBrushColor(color(0.95, 0.80, 0.20, 0.07 + pulse * 0.08))
                 end
                 if valid(data.buttonGlow) then
-                    data.buttonGlow:SetBrushColor(color(0.0, 0.78, 1.0, 0.24 + pulse * 0.26))
+                    data.buttonGlow:SetBrushColor(color(0.95, 0.80, 0.20, 0.18 + pulse * 0.18))
                 end
                 if data.scanSlot then
-                    local travel = (data.animationClock % 2.8) / 2.8
-                    local scanX = 12 + travel * math.max(1, data.width - 76)
-                    data.scanSlot:SetPosition(vector(scanX * (data.scale or 1), 58 * (data.scale or 1)))
+                    local travel = (data.animationClock % 3.2) / 3.2
+                    local scanX = 14 + travel * math.max(1, data.width - 80)
+                    data.scanSlot:SetPosition(vector(scanX * (data.scale or 1), 60 * (data.scale or 1)))
                     if valid(data.scan) then
-                        data.scan:SetBrushColor(color(0.0, 0.85, 1.0, 0.08 + pulse * 0.14))
+                        data.scan:SetBrushColor(color(1.0, 0.92, 0.40, 0.06 + pulse * 0.08))
                     end
                 end
             end)
@@ -683,11 +686,11 @@ local MasterLoginUI = (function()
             return ok
         end
         function UI.SetStatus(message)
-            UI._status = type(message) == "string" and message:sub(1, 160) or "Login unavailable"
+            UI._status = type(message) == "string" and message:sub(1, 160) or "Xiriir la'aanta"
             local data = UI._data
             if data and data.deliveredStatus == UI._status then return true end
             if data and valid(data.status) then
-                local ok = pcall(function() data.status:SetText("◆  " .. UI._status) end)
+                local ok = pcall(function() data.status:SetText(UI._status) end)
                 if ok then data.deliveredStatus = UI._status end
                 return ok
             end
@@ -709,9 +712,9 @@ local MasterLoginUI = (function()
             pcall(function()
                 local size = parent:GetCachedGeometry():GetLocalSize()
                 local width, height = size.X, size.Y
-                if type(width) == 'number' and type(height) == 'number'
+                if type(width) == "number" and type(height) == "number"
                     and width > 24 and height > 24 then
-                    result = math.min(1, (width - 24) / 500, (height - 24) / 260)
+                    result = math.min(1, (width - 24) / 520, (height - 24) / 300)
                 end
             end)
             return result
@@ -746,167 +749,220 @@ local MasterLoginUI = (function()
                 return false, "UI_FACTORY_UNAVAILABLE"
             end
             local enums = member(global("UEnums"), "ESlateVisibility")
-            local visibleEnum, hidden = member(enums, "Visible"), member(enums, "Collapsed")
-            local passive = member(enums, "SelfHitTestInvisible")
+            local visibleEnum = member(enums, "Visible")
+            local hidden      = member(enums, "Collapsed")
+            local passive     = member(enums, "SelfHitTestInvisible")
             if visibleEnum == nil or hidden == nil or passive == nil then
                 return false, "UI_ENUM_UNAVAILABLE"
             end
             UI._scale = fitScale(parent)
             data = {parent = parent, visible = false, onSubmit = onSubmit,
                     visibleEnum = visibleEnum, hidden = hidden, scale = UI._scale}
+
             local okBuild = pcall(function()
                 local function make(class, outer)
                     local widget = game:NewObjectFromPath("/Script/UMG." .. class, outer)
                     assert(valid(widget), "UI_WIDGET_UNAVAILABLE")
                     return widget
                 end
-                data.container = make("CanvasPanel", parent)
-                local function add(widget, x, y, width, height, z)
+                local function add(widget, x, y, w, h, z)
                     local slot = data.container:AddChildToCanvas(widget)
                     slot:SetAutoSize(false)
                     slot:SetPosition(vector(x * UI._scale, y * UI._scale))
-                    slot:SetSize(vector(width * UI._scale, height * UI._scale))
+                    slot:SetSize(vector(w * UI._scale, h * UI._scale))
                     slot:SetZOrder(z)
                     return slot
                 end
 
-                -- === HAMSECHEATS CLEAN DARK / RED LOGIN UI ===
-                local W, H = 580, 246
+                -- ══════════════════════════════════════════════════
+                --  PORTAL  —  520 × 290  dark-glass card
+                --  Palette:
+                --    bg       #0A0A0F  near-black
+                --    accent   #FFCA28  warm gold
+                --    text     #F0F0F0  off-white
+                --    subtle   #9E9E9E  grey
+                -- ══════════════════════════════════════════════════
+                local W, H = 520, 290
                 data.width = W
+                data.container = make("CanvasPanel", parent)
 
+                -- Outer soft gold glow (animated via Tick)
                 local halo = make("Border", data.container)
                 data.halo = halo
-                halo:SetBrushColor(color(0.88, 0.04, 0.10, 0.18))
+                halo:SetBrushColor(color(0.95, 0.80, 0.20, 0.08))
                 visibility(halo, passive)
-                add(halo, -3, -3, W + 6, H + 6, 0)
+                add(halo, -4, -4, W + 8, H + 8, 0)
 
+                -- Main card background — very dark, slight blue tint
                 local bg = make("Border", data.container)
-                bg:SetBrushColor(color(0.025, 0.025, 0.03, 0.99))
+                bg:SetBrushColor(color(0.038, 0.038, 0.058, 0.97))
                 visibility(bg, visibleEnum)
                 add(bg, 0, 0, W, H, 1)
 
-                local topBorder = make("Border", data.container)
-                topBorder:SetBrushColor(color(0.88, 0.04, 0.10, 1.0))
-                visibility(topBorder, passive)
-                add(topBorder, 0, 0, W, 3, 3)
+                -- Thin gold top bar (1 px accent line)
+                local topBar = make("Border", data.container)
+                topBar:SetBrushColor(color(1.0, 0.80, 0.10, 1.0))
+                visibility(topBar, passive)
+                add(topBar, 0, 0, W, 2, 3)
 
-                local botBorder = make("Border", data.container)
-                botBorder:SetBrushColor(color(0.88, 0.04, 0.10, 1.0))
-                visibility(botBorder, passive)
-                add(botBorder, 0, H - 3, W, 3, 3)
+                -- Thin gold bottom bar
+                local botBar = make("Border", data.container)
+                botBar:SetBrushColor(color(1.0, 0.80, 0.10, 1.0))
+                visibility(botBar, passive)
+                add(botBar, 0, H - 2, W, 2, 3)
 
-                local leftBorder = make("Border", data.container)
-                leftBorder:SetBrushColor(color(0.88, 0.04, 0.10, 1.0))
-                visibility(leftBorder, passive)
-                add(leftBorder, 0, 0, 3, H, 3)
+                -- Header divider line (below title area)
+                local divider = make("Border", data.container)
+                divider:SetBrushColor(color(1.0, 0.80, 0.10, 0.35))
+                visibility(divider, passive)
+                add(divider, 20, 58, W - 40, 1, 3)
 
-                local rightBorder = make("Border", data.container)
-                rightBorder:SetBrushColor(color(0.88, 0.04, 0.10, 1.0))
-                visibility(rightBorder, passive)
-                add(rightBorder, W - 3, 0, 3, H, 3)
+                -- Scan shimmer line (animated)
+                data.scan = make("Border", data.container)
+                data.scan:SetBrushColor(color(1.0, 0.92, 0.40, 0.07))
+                visibility(data.scan, passive)
+                data.scanSlot = add(data.scan, 14, 60, 60, 1, 2)
 
+                -- ── HEADER ──────────────────────────────────────
+                -- Crown icon
+                local crown = make("TextBlock", data.container)
+                crown:SetText("♛")
+                setTextStyle(crown, 22, color(1.0, 0.80, 0.10, 1.0))
+                visibility(crown, passive)
+                add(crown, 20, 10, 28, 30, 5)
+
+                -- Title  "VIP ACCESS PORTAL"
                 local titleTag = make("TextBlock", data.container)
-                titleTag:SetText("HAMSECHEATS")
-                setTextStyle(titleTag, 23, color(1.0, 0.16, 0.20, 1.0))
+                titleTag:SetText("VIP ACCESS PORTAL")
+                setTextStyle(titleTag, 17, color(0.95, 0.95, 0.95, 1.0))
                 visibility(titleTag, passive)
-                add(titleTag, 28, 18, W - 76, 34, 5)
+                add(titleTag, 52, 12, 280, 24, 5)
 
+                -- Subtitle
+                local subTag = make("TextBlock", data.container)
+                subTag:SetText("Hamse Cheats  —  Online License Server")
+                setTextStyle(subTag, 10, color(0.62, 0.62, 0.62, 1.0))
+                visibility(subTag, passive)
+                add(subTag, 52, 36, 300, 16, 5)
+
+                -- Close button  [ x ]
                 data.closeButton = make("Button", data.container)
-                pcall(function() data.closeButton:SetBackgroundColor(color(0.12, 0.025, 0.03, 1.0)) end)
+                pcall(function()
+                    data.closeButton:SetBackgroundColor(color(0.10, 0.10, 0.14, 1.0))
+                end)
                 visibility(data.closeButton, visibleEnum)
                 local closeLabel = make("TextBlock", data.closeButton)
-                closeLabel:SetText("X")
-                setTextStyle(closeLabel, 15, color(1.0, 0.22, 0.25, 1.0))
+                closeLabel:SetText("x")
+                setTextStyle(closeLabel, 13, color(0.70, 0.70, 0.70, 1.0))
                 visibility(closeLabel, passive)
                 data.closeButton:AddChild(closeLabel)
-                add(data.closeButton, W - 38, 12, 26, 26, 8)
+                add(data.closeButton, W - 36, 10, 24, 24, 8)
                 data.closeEvent = data.closeButton.OnClicked
                 data.closeEventHandle = data.closeEvent:Add(function()
                     if UI._data == data and data.visible then UI.Hide() end
                 end)
 
-                local inputHalo = make("Border", data.container)
-                inputHalo:SetBrushColor(color(0.88, 0.04, 0.10, 0.22))
-                visibility(inputHalo, passive)
-                add(inputHalo, 24, 66, W - 48, 48, 4)
+                -- ── BODY ────────────────────────────────────────
+                -- Label above input
+                local enterLabel = make("TextBlock", data.container)
+                enterLabel:SetText("Gali keyga si aad u furto features-ka")
+                setTextStyle(enterLabel, 11, color(0.78, 0.78, 0.78, 1.0))
+                visibility(enterLabel, passive)
+                add(enterLabel, 24, 68, W - 48, 16, 5)
 
+                -- Input box outer glow
+                local inputGlow = make("Border", data.container)
+                inputGlow:SetBrushColor(color(1.0, 0.80, 0.10, 0.18))
+                visibility(inputGlow, passive)
+                add(inputGlow, 22, 88, W - 44, 42, 4)
+
+                -- Input box border
                 local inputBorder = make("Border", data.container)
-                inputBorder:SetBrushColor(color(0.88, 0.04, 0.10, 1.0))
+                inputBorder:SetBrushColor(color(1.0, 0.80, 0.10, 0.60))
                 visibility(inputBorder, passive)
-                add(inputBorder, 25, 67, W - 50, 46, 5)
+                add(inputBorder, 23, 89, W - 46, 40, 5)
 
+                -- Input box bg
                 local inputBg = make("Border", data.container)
-                inputBg:SetBrushColor(color(0.055, 0.055, 0.06, 1.0))
+                inputBg:SetBrushColor(color(0.055, 0.055, 0.075, 0.99))
                 visibility(inputBg, passive)
-                add(inputBg, 27, 69, W - 54, 42, 6)
+                add(inputBg, 24, 90, W - 48, 38, 6)
 
+                -- Actual input field — white text, clean hint
                 data.input = make("EditableTextBox", data.container)
                 data.input:SetText("")
-                setTextStyle(data.input, 15, color(1.0, 1.0, 1.0, 1.0))
-                pcall(function() data.input:SetHintText("") end)
+                setTextStyle(data.input, 13, color(0.95, 0.95, 0.95, 1.0))
+                pcall(function()
+                    data.input:SetHintText("Keyga halkan ku dhejiso  ...")
+                end)
                 visibility(data.input, visibleEnum)
-                add(data.input, 42, 73, W - 84, 34, 7)
+                add(data.input, 34, 93, W - 68, 32, 7)
 
-                local buyBar = make("Border", data.container)
-                buyBar:SetBrushColor(color(0.10, 0.025, 0.03, 0.96))
-                visibility(buyBar, passive)
-                add(buyBar, 26, 124, W - 52, 25, 5)
-
-                local buyBarTrim = make("Border", data.container)
-                buyBarTrim:SetBrushColor(color(0.88, 0.04, 0.10, 1.0))
-                visibility(buyBarTrim, passive)
-                add(buyBarTrim, 26, 124, 3, 25, 6)
-
-                local buyText = make("TextBlock", data.container)
-                buyText:SetText("HAMSECHEATS SUPPORT")
-                setTextStyle(buyText, 11, color(1.0, 0.42, 0.44, 1.0))
-                visibility(buyText, passive)
-                add(buyText, 38, 128, W - 76, 18, 7)
-
+                -- ── STATUS TEXT ─────────────────────────────────
+                -- (plain, no ◆ prefix — cleaner read)
                 data.status = make("TextBlock", data.container)
                 data.status:SetText(UI._status)
                 data.deliveredStatus = UI._status
-                setTextStyle(data.status, 11, color(0.92, 0.90, 0.90, 1.0))
+                setTextStyle(data.status, 11, color(0.75, 0.75, 0.75, 1.0))
                 visibility(data.status, passive)
                 pcall(function() data.status:SetAutoWrapText(true) end)
-                add(data.status, 27, 156, W - 54, 20, 5)
+                add(data.status, 24, 138, W - 48, 20, 5)
 
-                local btnW, btnH = 310, 46
+                -- ── AUTHENTICATE BUTTON ─────────────────────────
+                local btnW, btnH = 300, 44
                 local btnX = (W - btnW) / 2
-                local btnY = 184
+                local btnY = 164
 
+                -- Button outer glow (animated)
                 data.buttonGlow = make("Border", data.container)
-                data.buttonGlow:SetBrushColor(color(0.88, 0.04, 0.10, 0.32))
+                data.buttonGlow:SetBrushColor(color(0.95, 0.80, 0.20, 0.22))
                 visibility(data.buttonGlow, passive)
                 add(data.buttonGlow, btnX - 3, btnY - 2, btnW + 6, btnH + 4, 5)
 
+                -- Button itself — gold background, dark text
                 data.button = make("Button", data.container)
-                pcall(function() data.button:SetBackgroundColor(color(0.62, 0.025, 0.055, 1.0)) end)
+                pcall(function()
+                    data.button:SetBackgroundColor(color(1.0, 0.78, 0.08, 1.0))
+                end)
                 visibility(data.button, visibleEnum)
 
-                local label = make("TextBlock", data.button)
-                label:SetText("AUTHENTICATE")
-                setTextStyle(label, 15, color(1.0, 1.0, 1.0, 1.0))
-                visibility(label, passive)
-                data.button:AddChild(label)
+                local btnLabel = make("TextBlock", data.button)
+                btnLabel:SetText("Xaqiiji Key-ga")
+                setTextStyle(btnLabel, 15, color(0.05, 0.05, 0.05, 1.0))
+                visibility(btnLabel, passive)
+                data.button:AddChild(btnLabel)
                 add(data.button, btnX, btnY, btnW, btnH, 6)
-                -- === END CLEAN LOGIN UI ===
 
+                -- ── FOOTER ──────────────────────────────────────
+                local footer = make("TextBlock", data.container)
+                footer:SetText("Telegram: @hamsecheatsvip   |   Nabad iyo Amnaan")
+                setTextStyle(footer, 9, color(0.45, 0.45, 0.45, 1.0))
+                visibility(footer, passive)
+                add(footer, 24, 268, W - 48, 16, 5)
+
+                -- ── BUTTON CLICK HANDLER ─────────────────────────
                 data.event = data.button.OnClicked
                 data.eventHandle = data.event:Add(function()
                     if UI._data ~= data or not data.visible or UI._busy then return end
                     local readOK, key = pcall(function() return data.input:GetText() end)
                     if not readOK or type(key) ~= "string" then
-                        UI.SetStatus("Unable to read the key"); return
+                        UI.SetStatus("Key-ka la heli waayay. Isku day mar kale."); return
                     end
+                    -- Trim whitespace from both ends
                     key = key:match("^%s*(.-)%s*$")
-                    if key == "" or #key > 512 then UI.SetStatus("Enter a valid key"); return end
+                    if key == "" then
+                        UI.SetStatus("Key-ka meesha bannaan ka buuxi."); return
+                    end
+                    if #key > 512 then
+                        UI.SetStatus("Key-ku aad buu u dheer yahay."); return
+                    end
                     local submitOK, accepted = pcall(data.onSubmit, key)
                     if not submitOK or accepted ~= true then
                         UI.SetBusy(false)
-                        UI.SetStatus("Login could not start. Wait until the game is ready, then try again.")
+                        UI.SetStatus("Login bilaabi kari waayay. Sug game-ka oo diyaar noqo, ka dib isku day.")
                     end
                 end)
+
                 local slot = parent:AddChildToCanvas(data.container)
                 slot:SetAutoSize(false)
                 slot:SetSize(vector(W * UI._scale, H * UI._scale))
@@ -918,10 +974,12 @@ local MasterLoginUI = (function()
                 slot:SetPosition(vector(0, 0))
                 visibility(data.container, passive)
             end)
+
             if not okBuild then
                 detach(data); return false, "UI_BUILD_UNAVAILABLE"
             end
             data.visible = true; UI._data = data; UI.SetBusy(UI._busy)
+            pcall(function() visibility(data.container, data.visibleEnum) end)
             return true
         end
         function UI.ShowNotice(message)
@@ -933,6 +991,7 @@ local MasterLoginUI = (function()
     end
     return Module
 end)()
+
 
 -- ============================================================================
 -- 3. WELCOME UI REMOVED
