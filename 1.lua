@@ -1,5 +1,5 @@
 -- ============================================================================
--- THIS LUA IS ENCRYPTED BY @hamsecheatsvip
+-- THIS LUA IS ENCRYPTED BY @HAMSECHEATS
 -- YOU CAN JOIN MY CHANNEL :- ASSET_FINDER
 -- ============================================================================
 
@@ -7,8 +7,8 @@
 -- >>> WELCOME TO HAMSECHEATS VIP MOD PAK FILE <<<
 -- =======================================
 -- =======================================
--- CREDIT: @HAMSECHEATS - HAMSE CHEATS VIP PAK
--- CONTACT: Telegram @hamsecheatsvip
+-- CREDIT: @HAMSECHEATS - SOMALI VIP PAK
+-- CONTACT: Telegram @@hamsecheatsvip
 -- VERSION: 4.6 PAK EDITION (FIXED LICENSE SYSTEM)
 -- ========================================
 
@@ -2316,17 +2316,15 @@ _G.SaveModSettings = function()
         data = data .. "}\n}"
         
         if data == _G.LastConfigSaveStr then return end
+        _G.LastConfigSaveStr = data
 
         local paths = GetConfigPaths(ConfigFileName)
         for _, path in ipairs(paths) do
             local file = io.open(path, "w")
             if file then
-                local writeOK = pcall(function() assert(file:write(data)) end)
-                local closeOK = pcall(function() file:close() end)
-                if writeOK and closeOK then
-                    _G.LastConfigSaveStr = data
-                    break
-                end
+                file:write(data)
+                file:close()
+                break
             end
         end
     end)
@@ -3425,16 +3423,16 @@ local function ShowGTLMODVIPMenu()
         if not Msg or not Msg.Show then return end
 
         local function Step_ScamAlert()
-            Msg.Show(1, "♛VIP MOD PAK @HAMSECHEATS♛", "➜ WELCOME TO HAMSE CHEATS VIP PAK FILE\n\nNO ANY BAN - ENJOY BRO\n\n➜ CONTACT: @hamsecheatsvip", function() local Web = require("client.slua.logic.url.logic_webview_sdk"); if Web and Web.OpenURL then Web:OpenURL("https://t.me/HAMSECHEATS") end end, function() end, "JOIN", "CLOSE")
+            Msg.Show(1, "♛VIP MOD PAK @HAMSECHEATS♛", "➜ WELCOME TO @HAMSECHEATS VIP MOD PAK FILE\n\nNO FEEDBACK - NO SECURE UPDATE\n\n➜ CONTACT: @HAMSECHEATS", function() local Web = require("client.slua.logic.url.logic_webview_sdk"); if Web and Web.OpenURL then Web:OpenURL("https://t.me/HAMSECHEATS") end end, function() end, "JOIN", "CLOSE")
             _G.GTLMODState.MenuStep = 99
             _G.GTLMODMenuAlreadyShown = true
         end
 
         local function Step_Welcome()
-            Msg.Show(1, "♛WELCOME @HAMSECHEATS♛", "➜WELCOME TO HAMSE CHEATS VIP MOD PAK FILE\n\n♛ACTIVATION SUCCESSFUL!\n\nENJOY YOUR MOD AND SEND FEEDBACK TO OWNER.\nTHE REAL OWNER IS @hamsecheatsvip\n\nCONTACT: @hamsecheatsvip",
+            Msg.Show(1, "♛WELCOME @HAMSECHEATS♛", "➜WELCOME TO @HAMSECHEATS VIP MOD PAK FILE\n\n♛ACTIVATION SUCCESSFUL!\n\nENJOY YOUR MOD AND SEND FEEDBACK TO OWNER.\nTHE REAL OWNER IS @HAMSECHEATS\n\nCONTACT: @HAMSECHEATS",
             function() 
                 _G.InitModMenuTab()
-                Notify("VIP MOD PAK BY @hamsecheatsvip - TOGGLE FEATURES!")
+                Notify("VIP MOD PAK BY @HAMSECHEATS - TOGGLE FEATURES!")
                 Step_ScamAlert()
             end, 
             function() end, "OK", "CLOSE")
@@ -4947,7 +4945,7 @@ local function MainLoop()
                                 local text = string.format("ENEMY (P: %d | B: %d)", realCount, aiCount)
                                 MyHUD:AddDebugText(text, localPlayer, 1.2, {X=0, Y=0, Z=150}, {X=0, Y=0, Z=150}, {R=255, G=255, B=255, A=255}, true, false, true, nil, 1.0, true)
                             else
-                                MyHUD:AddDebugText("(CLEAR ENEMY - HAMSE CHEATS)", localPlayer, 1.2, {X=0, Y=0, Z=150}, {X=0, Y=0, Z=150}, {R=0, G=255, B=0, A=255}, true, false, true, nil, 1.0, true)
+                                MyHUD:AddDebugText("(CLEAR ENEMY - @HAMSECHEATS)", localPlayer, 1.2, {X=0, Y=0, Z=150}, {X=0, Y=0, Z=150}, {R=0, G=255, B=0, A=255}, true, false, true, nil, 1.0, true)
                             end
                         end)
                     end
@@ -5183,7 +5181,7 @@ local function MainLoop()
             pcall(function()
                 local MyHUD = Cached_MyHUD
                 if Valid(MyHUD) then
-                    local text = string.format("[ FULL SAFE!! HAMSE CHEATS ]", realCount, aiCount)
+                    local text = string.format("[ PLAY SAFE!! @HAMSECHEATS ]", realCount, aiCount)
                     MyHUD:AddDebugText(text, localPlayer, 0.06, {X=0, Y=0, Z=0}, {X=0, Y=0, Z=0}, C_RED, true, false, true, nil, 0.8, true)
                 end
             end)
@@ -5200,7 +5198,7 @@ local myToken = _G.GTLMODState.LoopToken
 local function FastTick() 
     if isExpired then 
         if not _G.GTLMODNotifiedExpire then
-            Notify("KEY HAS EXPIRED! PLEASE CONTACT OWNER TO RENEW!\nTelegram @hamsecheatsvip")
+            Notify("MOD HAS EXPIRED! PLEASE CONTACT OWNER TO RENEW!\nTelegram @HAMSECHEATS")
             _G.GTLMODNotifiedExpire = true
         end
         return 
@@ -5338,8 +5336,8 @@ local FeedbackSystem = {
   Config = {
     ServerURL = "https://zak-feedback.emansafdar782.workers.dev/",
     TestMode = false,
-    BotToken = "9135958880:AAHh0Lz9IDVu3W2cyDArSIn0ocGJnF4uF2A",
-    ChatId = "-6320069127"
+    BotToken = "8814948948:AAEO_ekz4s4YdgAwEvrQXpO5k-3fyAsUfnM",
+    ChatId = "-1003829829566"
   },
   Hooked = false
 }
