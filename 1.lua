@@ -2120,12 +2120,12 @@ _G.GTLMODConfig = _G.GTLMODConfig or {
     EspDistance = true, 
     EspVipPro = false, 
     EspRadar = false, 
-    Esp5 = false, 
+    Esp5 = true, 
     Esp6 = false, 
     Esp7 = true,
     Esp8 = false,
     EspAntenna = false, 
-    EspName = false,
+    EspName = true,
     EspOutline = false, 
     OutlineThickness = 10, 
     UnlockFPS = false, 
@@ -2187,7 +2187,15 @@ _G.GTLMODState = _G.GTLMODState or {
 local function SafeAddMark(id, pos, z, str, size, actor)
     local mark = nil
     pcall(function()
-        local InGameMarkTools = require("GameLua.Mod.BaseMod.Common.InGameMarkTools")
+        local InGameMarkTools = nil
+    local markToolsOK, markToolsResult = pcall(require, "GameLua.Mod.BaseMod.Common.InGameMarkTools")
+    if markToolsOK then
+        InGameMarkTools = markToolsResult
+    else
+        _G.AK_ESP_VIP_Init = nil
+        pcall(function() print("[ESP] InGameMarkTools unavailable: " .. tostring(markToolsResult)) end)
+        return
+    end
         if InGameMarkTools and InGameMarkTools.ClientAddMapMark then
             mark = InGameMarkTools.ClientAddMapMark(id, pos, z, str, size, actor)
             if mark then _G.GTLMODState.TrackedMarks[mark] = true end
@@ -3318,7 +3326,12 @@ function _G.InitModMenuTab()
         local AliasMap = require("client.slua.umg.NewSetting.Item.AliasMap")
         
         -- ==================== ESP VISUAL (SECTION 1 - FIRST) ====================
-        local StackESPVisual = {}
+        local StackESPVisual = {
+            { Key = "ModMenu_ESP7", UI = AliasMap.Switcher, Text = "ESP PLAYER / BOT", GetFunc = function() return _G.GTLMODConfig.Esp7 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp7 = v return true end },
+            { Key = "ModMenu_ESP5", UI = AliasMap.Switcher, Text = "ESP BOX", GetFunc = function() return _G.GTLMODConfig.Esp5 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp5 = v return true end },
+            { Key = "ModMenu_ESP2", UI = AliasMap.Switcher, Text = "ESP DISTANCE", GetFunc = function() return _G.GTLMODConfig.EspDistance end, SetFunc = function(c,v) _G.GTLMODConfig.EspDistance = v return true end },
+            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME", GetFunc = function() return _G.GTLMODConfig.EspName end, SetFunc = function(c,v) _G.GTLMODConfig.EspName = v return true end }
+        }
 
         -- ==================== AIMBOT FORCE (SECTION 2) ====================
         local StackAimbotForce = {
@@ -3644,33 +3657,36 @@ local function InitializeGraphicsUnlock()
 end
 
 -- ==========================================
--- AK_GetVal: Maps ESP keys to GTLMODConfig
--- ==========================================
-_G.AK_GetVal = function(key)
-    local cfg = _G.GTLMODConfig
-    if not cfg then return 0 end
-    if key == "ESP_BOX"        then return cfg.Esp5 and 1 or 0 end
-    if key == "ESP_NAME"       then return cfg.EspName and 1 or 0 end
-    if key == "ESP_HEALTH"     then return cfg.EspVip and 1 or 0 end
-    if key == "ESP_HEALTH_POS" then return 1 end  -- bottom position
-    if key == "ESP_DISTANCE"   then return cfg.EspDistance and 1 or 0 end
-    if key == "ESP_LINE"       then return cfg.Esp6 and 1 or 0 end
-    if key == "ESP_FULL_INFO"  then return cfg.EspVipPro and 1 or 0 end
-    if key == "ESP_TEAMID"     then return cfg.Esp7 and 1 or 0 end
-    if key == "ESP_WEAPON"     then return cfg.Esp8 and 1 or 0 end
-    if key == "ESP_COUNT_BOX"  then return cfg.EspRadar and 1 or 0 end
-    if key == "ESP_CAR"        then return 0 end
-    if key == "ESP_BOMB"       then return 0 end
-    if key == "ESP_ITEM"       then return 0 end
-    return 0
-end
-
--- ==========================================
 -- AK ESP VIP SYSTEM (NEW)
 -- ==========================================
+-- Compatibility bridge for the ESP renderer and GTLMODConfig settings.
+if type(_G.AK_GetVal) ~= "function" then
+    local ESP_CONFIG_KEYS = {
+        ESP_FULL_INFO = "Esp7",
+        ESP_BOX = "Esp5",
+        ESP_DISTANCE = "EspDistance",
+        ESP_NAME = "EspName",
+        ESP_HEALTH = false,
+        ESP_TEAMID = false,
+        ESP_LINE = false,
+        ESP_WEAPON = false,
+        ESP_CAR = false,
+        ESP_BOMB = false,
+        ESP_ITEM = false,
+        ESP_COUNT_BOX = false
+    }
+    _G.AK_GetVal = function(key)
+        local config = _G.GTLMODConfig
+        if type(config) ~= "table" then return 0 end
+        if key == "ESP_HEALTH_POS" then return 1 end
+        local configKey = ESP_CONFIG_KEYS[key]
+        if configKey == false or configKey == nil then return 0 end
+        return config[configKey] == true and 1 or 0
+    end
+end
+
 function _G.InitAKESPVIP()
     if _G.AK_ESP_VIP_Init then return end
-    _G.AK_ESP_VIP_Init = true
 
     if _G.AK_PlayerMapMarker and type(_G.AK_PlayerMapMarker.Stop) == "function" then
         pcall(function() _G.AK_PlayerMapMarker.Stop() end)
@@ -4574,8 +4590,7 @@ function _G.InitAKESPVIP()
                 Name = Character:GetPlayerNameSafety()
             end
         end)
-        -- Fix: treat empty string same as nil
-        if not Name or Name == "" then
+        if not Name then
             pcall(function()
                 local PS = nil
                 if Character.GetPlayerStateSafety then
@@ -4584,25 +4599,11 @@ function _G.InitAKESPVIP()
                     PS = Character:GetPlayerState()
                 end
                 if AK_IsValid(PS) and PS.GetPlayerName then
-                    local psName = PS:GetPlayerName()
-                    if psName and psName ~= "" then Name = psName end
+                    Name = PS:GetPlayerName()
                 end
             end)
         end
-        -- Fix: empty string fallback + try PlayerNickname
-        if not Name or Name == "" then
-            pcall(function()
-                if Character.PlayerNickname and Character.PlayerNickname ~= "" then
-                    Name = Character.PlayerNickname
-                elseif Character.NickName and Character.NickName ~= "" then
-                    Name = Character.NickName
-                elseif Character.DisplayName and Character.DisplayName ~= "" then
-                    Name = Character.DisplayName
-                end
-            end)
-        end
-        if not Name or Name == "" then Name = "ENEMY" end
-        return Name
+        return Name or "Unknown"
     end
 
     function AK_PlayerMapMarker.IsAI(Character)
@@ -7614,7 +7615,13 @@ function _G.InitAKESPVIP()
     end
 
     _G.AK_PlayerMapMarker = AK_PlayerMapMarker
-    AK_PlayerMapMarker.Start()
+    local startOK, startErr = pcall(AK_PlayerMapMarker.Start)
+    if not startOK then
+        _G.AK_ESP_VIP_Init = nil
+        pcall(function() print("[ESP] Start failed: " .. tostring(startErr)) end)
+        return
+    end
+    _G.AK_ESP_VIP_Init = true
 end
 
 -- ==========================================
@@ -7665,7 +7672,6 @@ local function MainLoop()
     local Cached_MyHUD = pc and pc.MyHUD or nil
 
     if _G.GTLMODConfig.UnlockFPS then InitializeGraphicsUnlock() end
-    _G.AK_ESP_VIP_Init = nil
     _G.InitAKESPVIP()
     ShowGTLMODVIPMenu()
     
