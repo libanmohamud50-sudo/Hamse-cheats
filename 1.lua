@@ -3330,7 +3330,10 @@ function _G.InitModMenuTab()
             { Key = "ModMenu_ESP7", UI = AliasMap.Switcher, Text = "ESP PLAYER / BOT", GetFunc = function() return _G.GTLMODConfig.Esp7 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp7 = v return true end },
             { Key = "ModMenu_ESP5", UI = AliasMap.Switcher, Text = "ESP BOX", GetFunc = function() return _G.GTLMODConfig.Esp5 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp5 = v return true end },
             { Key = "ModMenu_ESP2", UI = AliasMap.Switcher, Text = "ESP DISTANCE", GetFunc = function() return _G.GTLMODConfig.EspDistance end, SetFunc = function(c,v) _G.GTLMODConfig.EspDistance = v return true end },
-            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME", GetFunc = function() return _G.GTLMODConfig.EspName end, SetFunc = function(c,v) _G.GTLMODConfig.EspName = v return true end }
+            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME", GetFunc = function() return _G.GTLMODConfig.EspName end, SetFunc = function(c,v) _G.GTLMODConfig.EspName = v return true end },
+            { Key = "ModMenu_ESPLine", UI = AliasMap.Switcher, Text = "ESP LINE", GetFunc = function() return _G.GTLMODConfig.EspLine end, SetFunc = function(c,v) _G.GTLMODConfig.EspLine = v return true end },
+            { Key = "ModMenu_ESPWeapon", UI = AliasMap.Switcher, Text = "ESP WEAPON", GetFunc = function() return _G.GTLMODConfig.EspWeapon end, SetFunc = function(c,v) _G.GTLMODConfig.EspWeapon = v return true end },
+            { Key = "ModMenu_ESPCount", UI = AliasMap.Switcher, Text = "PLAYER / BOT COUNT", GetFunc = function() return _G.GTLMODConfig.EspCountBox end, SetFunc = function(c,v) _G.GTLMODConfig.EspCountBox = v return true end }
         }
 
         -- ==================== AIMBOT FORCE (SECTION 2) ====================
@@ -3668,12 +3671,12 @@ if type(_G.AK_GetVal) ~= "function" then
         ESP_NAME = "EspName",
         ESP_HEALTH = false,
         ESP_TEAMID = false,
-        ESP_LINE = false,
-        ESP_WEAPON = false,
+        ESP_LINE = "EspLine",
+        ESP_WEAPON = "EspWeapon",
         ESP_CAR = false,
         ESP_BOMB = false,
         ESP_ITEM = false,
-        ESP_COUNT_BOX = false
+        ESP_COUNT_BOX = "EspCountBox"
     }
     _G.AK_GetVal = function(key)
         local config = _G.GTLMODConfig
