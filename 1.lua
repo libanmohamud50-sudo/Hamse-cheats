@@ -2116,7 +2116,7 @@ local GLOBAL_CONNECTIONS = {
 -- ========================================== 
 _G.GTLMODConfig = _G.GTLMODConfig or { 
     AutoHead = false, 
-    EspVip = false, 
+    EspVip = true, 
     EspDistance = true, 
     EspVipPro = false, 
     EspRadar = false, 
@@ -7688,7 +7688,10 @@ function _G.InitAKESPVIP()
     end
 
     _G.AK_PlayerMapMarker = AK_PlayerMapMarker
-    AK_PlayerMapMarker.Start()
+    -- ESP wuxuu bilowdaa haddii EspVip = true (menu button)
+    if _G.GTLMODConfig and _G.GTLMODConfig.EspVip then
+        AK_PlayerMapMarker.Start()
+    end
 end
 
 -- ==========================================
@@ -7740,22 +7743,12 @@ local function MainLoop()
 
     if _G.GTLMODConfig.UnlockFPS then InitializeGraphicsUnlock() end
     _G.InitAKESPVIP()
-    -- Sync menu toggles → AK ESP runtime state
+    -- Sync runtime flags — menu SetFunc maamulaa Start/Stop; halkan kaliya flags la cusboonaysiiyo
     if _G.AK_PlayerMapMarker then
-        -- ESP on/off: EspVip controls whether ESP runs
-        if _G.GTLMODConfig.EspVip then
-            if not _G.AK_PlayerMapMarker.bActive then
-                pcall(function() _G.AK_PlayerMapMarker.Start() end)
-            end
-        else
-            if _G.AK_PlayerMapMarker.bActive then
-                pcall(function() _G.AK_PlayerMapMarker.Stop() end)
-            end
-        end
-        -- Esp7: show real enemies only (hide bots) when true
+        -- Esp7 = true → real enemies kaliya (bots hide)
         _G.AK_PlayerMapMarker.bIncludeAI = not _G.GTLMODConfig.Esp7
-        -- AK_ESP_FULL_INFO mirrors EspVip
-        _G.GTLMODConfig.AK_ESP_FULL_INFO = _G.GTLMODConfig.EspVip
+        -- ESP_FULL_INFO always true marka AK ESP shaqaynayso — menu EspVip ayaa on/off
+        _G.GTLMODConfig.AK_ESP_FULL_INFO = true
     end
     ShowGTLMODVIPMenu()
     
