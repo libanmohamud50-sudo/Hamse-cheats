@@ -2163,6 +2163,21 @@ _G.GTLMODConfig = _G.GTLMODConfig or {
     AimTouchSniperVisCheck = true,
 
     ModSkin = false,
+
+    -- AK ESP VIP controls (xidhan AK_GetVal/AK_SetVal)
+    AK_ESP_BOX       = false,
+    AK_ESP_HEALTH    = false,
+    AK_ESP_HEALTH_POS = 1,
+    AK_ESP_NAME      = false,
+    AK_ESP_DISTANCE  = true,
+    AK_ESP_LINE      = false,
+    AK_ESP_TEAMID    = false,
+    AK_ESP_WEAPON    = false,
+    AK_ESP_FULL_INFO = true,
+    AK_ESP_COUNT_BOX = false,
+    AK_ESP_CAR       = false,
+    AK_ESP_BOMB      = false,
+    AK_ESP_ITEM      = false,
 }
 
 _G.GTLMODState = _G.GTLMODState or { 
@@ -2439,6 +2454,51 @@ end
 
 _G.ReadLiveConfig = function()
     if _G.SaveModSettings then _G.SaveModSettings() end
+end
+
+-- AK ESP VIP: bridge between AK_GetVal/AK_SetVal and GTLMODConfig
+local AK_ESP_KEY_MAP = {
+    ESP_BOX        = "AK_ESP_BOX",
+    ESP_HEALTH     = "AK_ESP_HEALTH",
+    ESP_HEALTH_POS = "AK_ESP_HEALTH_POS",
+    ESP_NAME       = "AK_ESP_NAME",
+    ESP_DISTANCE   = "AK_ESP_DISTANCE",
+    ESP_LINE       = "AK_ESP_LINE",
+    ESP_TEAMID     = "AK_ESP_TEAMID",
+    ESP_WEAPON     = "AK_ESP_WEAPON",
+    ESP_FULL_INFO  = "AK_ESP_FULL_INFO",
+    ESP_COUNT_BOX  = "AK_ESP_COUNT_BOX",
+    ESP_CAR        = "AK_ESP_CAR",
+    ESP_BOMB       = "AK_ESP_BOMB",
+    ESP_ITEM       = "AK_ESP_ITEM",
+}
+
+_G.AK_GetVal = function(key)
+    local cfg_key = AK_ESP_KEY_MAP[key]
+    if cfg_key and _G.GTLMODConfig then
+        local v = _G.GTLMODConfig[cfg_key]
+        if type(v) == "boolean" then return v and 1 or 0 end
+        if type(v) == "number"  then return v end
+        return 0
+    end
+    return 0
+end
+
+_G.AK_SetVal = function(key, val)
+    local cfg_key = AK_ESP_KEY_MAP[key]
+    if cfg_key and _G.GTLMODConfig then
+        if type(val) == "boolean" then
+            _G.GTLMODConfig[cfg_key] = val
+        elseif type(val) == "number" then
+            -- numeric keys (e.g. ESP_HEALTH_POS) store as number; bool keys store as bool
+            if cfg_key == "AK_ESP_HEALTH_POS" then
+                _G.GTLMODConfig[cfg_key] = val
+            else
+                _G.GTLMODConfig[cfg_key] = (val == 1)
+            end
+        end
+        pcall(function() if _G.SaveModSettings then _G.SaveModSettings() end end)
+    end
 end
 
 -- ==============================================================================
@@ -3319,15 +3379,56 @@ function _G.InitModMenuTab()
         
         -- ==================== ESP VISUAL (SECTION 1 - FIRST) ====================
         local StackESPVisual = {
-            { Key = "ModMenu_ESP1", UI = AliasMap.Switcher, Text = "ESP SKELETON BOX", GetFunc = function() return _G.GTLMODConfig.EspVip end, SetFunc = function(c,v) _G.GTLMODConfig.EspVip = v return true end },
-            { Key = "ModMenu_ESP7", UI = AliasMap.Switcher, Text = "ESP REAL ENEMY/BOT", GetFunc = function() return _G.GTLMODConfig.Esp7 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp7 = v return true end },
-            { Key = "ModMenu_ESP2", UI = AliasMap.Switcher, Text = "ESP ENEMY DISTANCE", GetFunc = function() return _G.GTLMODConfig.EspDistance end, SetFunc = function(c,v) _G.GTLMODConfig.EspDistance = v return true end },
-            { Key = "ModMenu_ESP4", UI = AliasMap.Switcher, Text = "ESP HIT MARK", GetFunc = function() return _G.GTLMODConfig.EspRadar end, SetFunc = function(c,v) _G.GTLMODConfig.EspRadar = v return true end },
-            { Key = "ModMenu_ESP5", UI = AliasMap.Switcher, Text = "ESP BOX", GetFunc = function() return _G.GTLMODConfig.Esp5 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp5 = v return true end },
-            { Key = "ModMenu_ESPAntenna", UI = AliasMap.Switcher, Text = "ESP GREEN ANTENNA", GetFunc = function() return _G.GTLMODConfig.EspAntenna end, SetFunc = function(c,v) _G.GTLMODConfig.EspAntenna = v return true end },
-            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME (VISIBLE)", GetFunc = function() return _G.GTLMODConfig.EspName end, SetFunc = function(c,v) _G.GTLMODConfig.EspName = v return true end },
-            { Key = "ModMenu_ESPOutline_Ex", UI = AliasMap.TitleSwitcher, Text = "ESP ENEMY (RED AURA)", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.EspOutline end, SetFunc = function(c,v) _G.GTLMODConfig.EspOutline = v return true end },
-            { Key = "ModMenu_ESPOutline_Thickness", UI = AliasMap.Slider, Text = "   COLOR SIZE (1-20)", ExpandHandle = "ModMenu_ESPOutline_Ex", MinValue = 1, MaxValue = 20, min = 1, max = 20, GetFunc = function() return _G.GTLMODConfig.OutlineThickness end, SetFunc = function(c,v) _G.GTLMODConfig.OutlineThickness = v return true end }
+            -- ESP SKELETON BOX → xidha EspVip (old ESP on/off) + AK ESP_FULL_INFO
+            { Key = "ModMenu_ESP1", UI = AliasMap.Switcher, Text = "ESP SKELETON BOX",
+              GetFunc = function() return _G.GTLMODConfig.EspVip end,
+              SetFunc = function(c,v)
+                _G.GTLMODConfig.EspVip = v
+                _G.GTLMODConfig.AK_ESP_FULL_INFO = v
+                if _G.AK_PlayerMapMarker then
+                    if v then pcall(function() _G.AK_PlayerMapMarker.Start() end)
+                    else   pcall(function() _G.AK_PlayerMapMarker.Stop()  end) end
+                end
+                return true
+              end },
+            -- ESP REAL ENEMY/BOT → Esp7 (filter bots)
+            { Key = "ModMenu_ESP7", UI = AliasMap.Switcher, Text = "ESP REAL ENEMY/BOT",
+              GetFunc = function() return _G.GTLMODConfig.Esp7 end,
+              SetFunc = function(c,v) _G.GTLMODConfig.Esp7 = v return true end },
+            -- ESP ENEMY DISTANCE → EspDistance + AK ESP_DISTANCE
+            { Key = "ModMenu_ESP2", UI = AliasMap.Switcher, Text = "ESP ENEMY DISTANCE",
+              GetFunc = function() return _G.GTLMODConfig.AK_ESP_DISTANCE end,
+              SetFunc = function(c,v) _G.GTLMODConfig.EspDistance = v; _G.GTLMODConfig.AK_ESP_DISTANCE = v return true end },
+            -- ESP HIT MARK → EspRadar
+            { Key = "ModMenu_ESP4", UI = AliasMap.Switcher, Text = "ESP HIT MARK",
+              GetFunc = function() return _G.GTLMODConfig.EspRadar end,
+              SetFunc = function(c,v) _G.GTLMODConfig.EspRadar = v return true end },
+            -- ESP BOX → Esp5 + AK ESP_BOX
+            { Key = "ModMenu_ESP5", UI = AliasMap.Switcher, Text = "ESP BOX",
+              GetFunc = function() return _G.GTLMODConfig.AK_ESP_BOX end,
+              SetFunc = function(c,v) _G.GTLMODConfig.Esp5 = v; _G.GTLMODConfig.AK_ESP_BOX = v return true end },
+            -- ESP GREEN ANTENNA → EspAntenna
+            { Key = "ModMenu_ESPAntenna", UI = AliasMap.Switcher, Text = "ESP GREEN ANTENNA",
+              GetFunc = function() return _G.GTLMODConfig.EspAntenna end,
+              SetFunc = function(c,v) _G.GTLMODConfig.EspAntenna = v return true end },
+            -- ESP NAME → EspName + AK ESP_NAME
+            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME (VISIBLE)",
+              GetFunc = function() return _G.GTLMODConfig.AK_ESP_NAME end,
+              SetFunc = function(c,v) _G.GTLMODConfig.EspName = v; _G.GTLMODConfig.AK_ESP_NAME = v return true end },
+            -- ESP ENEMY (RED AURA) → EspOutline
+            { Key = "ModMenu_ESPOutline_Ex", UI = AliasMap.TitleSwitcher, Text = "ESP ENEMY (RED AURA)", ExpandIndex = 0,
+              GetFunc = function() return _G.GTLMODConfig.EspOutline end,
+              SetFunc = function(c,v) _G.GTLMODConfig.EspOutline = v return true end },
+            { Key = "ModMenu_ESPOutline_Thickness", UI = AliasMap.Slider, Text = "   COLOR SIZE (1-20)", ExpandHandle = "ModMenu_ESPOutline_Ex", MinValue = 1, MaxValue = 20, min = 1, max = 20,
+              GetFunc = function() return _G.GTLMODConfig.OutlineThickness end,
+              SetFunc = function(c,v) _G.GTLMODConfig.OutlineThickness = v return true end },
+            -- AK ESP extra controls (cusub)
+            { Key = "ModMenu_AK_Health", UI = AliasMap.Switcher, Text = "ESP HEALTH BAR",
+              GetFunc = function() return _G.GTLMODConfig.AK_ESP_HEALTH end,
+              SetFunc = function(c,v) _G.GTLMODConfig.AK_ESP_HEALTH = v return true end },
+            { Key = "ModMenu_AK_Line", UI = AliasMap.Switcher, Text = "ESP SNAP LINE",
+              GetFunc = function() return _G.GTLMODConfig.AK_ESP_LINE end,
+              SetFunc = function(c,v) _G.GTLMODConfig.AK_ESP_LINE = v return true end },
         }
 
         -- ==================== AIMBOT FORCE (SECTION 2) ====================
@@ -7639,6 +7740,23 @@ local function MainLoop()
 
     if _G.GTLMODConfig.UnlockFPS then InitializeGraphicsUnlock() end
     _G.InitAKESPVIP()
+    -- Sync menu toggles → AK ESP runtime state
+    if _G.AK_PlayerMapMarker then
+        -- ESP on/off: EspVip controls whether ESP runs
+        if _G.GTLMODConfig.EspVip then
+            if not _G.AK_PlayerMapMarker.bActive then
+                pcall(function() _G.AK_PlayerMapMarker.Start() end)
+            end
+        else
+            if _G.AK_PlayerMapMarker.bActive then
+                pcall(function() _G.AK_PlayerMapMarker.Stop() end)
+            end
+        end
+        -- Esp7: show real enemies only (hide bots) when true
+        _G.AK_PlayerMapMarker.bIncludeAI = not _G.GTLMODConfig.Esp7
+        -- AK_ESP_FULL_INFO mirrors EspVip
+        _G.GTLMODConfig.AK_ESP_FULL_INFO = _G.GTLMODConfig.EspVip
+    end
     ShowGTLMODVIPMenu()
     
     if _G.GTLMODConfig.IpadView and _G.GTLMODState.CustomTextData then
