@@ -2125,6 +2125,9 @@ _G.GTLMODConfig = _G.GTLMODConfig or {
     Esp7 = true,
     Esp8 = false,
     EspAntenna = false, 
+    EspLine = true,
+    EspWeapon = true,
+    EspCountBox = 1,
     EspName = true,
     EspOutline = false, 
     OutlineThickness = 10, 
@@ -3684,7 +3687,8 @@ if type(_G.AK_GetVal) ~= "function" then
         if key == "ESP_HEALTH_POS" then return 1 end
         local configKey = ESP_CONFIG_KEYS[key]
         if configKey == false or configKey == nil then return 0 end
-        return config[configKey] == true and 1 or 0
+        local value = config[configKey]
+        return (value == true or value == 1) and 1 or 0
     end
 end
 
