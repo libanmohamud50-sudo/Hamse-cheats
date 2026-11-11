@@ -3318,17 +3318,7 @@ function _G.InitModMenuTab()
         local AliasMap = require("client.slua.umg.NewSetting.Item.AliasMap")
         
         -- ==================== ESP VISUAL (SECTION 1 - FIRST) ====================
-        local StackESPVisual = {
-            { Key = "ModMenu_ESP1", UI = AliasMap.Switcher, Text = "ESP SKELETON BOX", GetFunc = function() return _G.GTLMODConfig.EspVip end, SetFunc = function(c,v) _G.GTLMODConfig.EspVip = v return true end },
-            { Key = "ModMenu_ESP7", UI = AliasMap.Switcher, Text = "ESP REAL ENEMY/BOT", GetFunc = function() return _G.GTLMODConfig.Esp7 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp7 = v return true end },
-            { Key = "ModMenu_ESP2", UI = AliasMap.Switcher, Text = "ESP ENEMY DISTANCE", GetFunc = function() return _G.GTLMODConfig.EspDistance end, SetFunc = function(c,v) _G.GTLMODConfig.EspDistance = v return true end },
-            { Key = "ModMenu_ESP4", UI = AliasMap.Switcher, Text = "ESP HIT MARK", GetFunc = function() return _G.GTLMODConfig.EspRadar end, SetFunc = function(c,v) _G.GTLMODConfig.EspRadar = v return true end },
-            { Key = "ModMenu_ESP5", UI = AliasMap.Switcher, Text = "ESP BOX", GetFunc = function() return _G.GTLMODConfig.Esp5 end, SetFunc = function(c,v) _G.GTLMODConfig.Esp5 = v return true end },
-            { Key = "ModMenu_ESPAntenna", UI = AliasMap.Switcher, Text = "ESP GREEN ANTENNA", GetFunc = function() return _G.GTLMODConfig.EspAntenna end, SetFunc = function(c,v) _G.GTLMODConfig.EspAntenna = v return true end },
-            { Key = "ModMenu_ESPName", UI = AliasMap.Switcher, Text = "ESP NAME (VISIBLE)", GetFunc = function() return _G.GTLMODConfig.EspName end, SetFunc = function(c,v) _G.GTLMODConfig.EspName = v return true end },
-            { Key = "ModMenu_ESPOutline_Ex", UI = AliasMap.TitleSwitcher, Text = "ESP ENEMY (RED AURA)", ExpandIndex = 0, GetFunc = function() return _G.GTLMODConfig.EspOutline end, SetFunc = function(c,v) _G.GTLMODConfig.EspOutline = v return true end },
-            { Key = "ModMenu_ESPOutline_Thickness", UI = AliasMap.Slider, Text = "   COLOR SIZE (1-20)", ExpandHandle = "ModMenu_ESPOutline_Ex", MinValue = 1, MaxValue = 20, min = 1, max = 20, GetFunc = function() return _G.GTLMODConfig.OutlineThickness end, SetFunc = function(c,v) _G.GTLMODConfig.OutlineThickness = v return true end }
-        }
+        local StackESPVisual = {}
 
         -- ==================== AIMBOT FORCE (SECTION 2) ====================
         local StackAimbotForce = {
