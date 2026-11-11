@@ -4584,7 +4584,8 @@ function _G.InitAKESPVIP()
                 Name = Character:GetPlayerNameSafety()
             end
         end)
-        if not Name then
+        -- Fix: treat empty string same as nil
+        if not Name or Name == "" then
             pcall(function()
                 local PS = nil
                 if Character.GetPlayerStateSafety then
@@ -4593,11 +4594,25 @@ function _G.InitAKESPVIP()
                     PS = Character:GetPlayerState()
                 end
                 if AK_IsValid(PS) and PS.GetPlayerName then
-                    Name = PS:GetPlayerName()
+                    local psName = PS:GetPlayerName()
+                    if psName and psName ~= "" then Name = psName end
                 end
             end)
         end
-        return Name or "Unknown"
+        -- Fix: empty string fallback + try PlayerNickname
+        if not Name or Name == "" then
+            pcall(function()
+                if Character.PlayerNickname and Character.PlayerNickname ~= "" then
+                    Name = Character.PlayerNickname
+                elseif Character.NickName and Character.NickName ~= "" then
+                    Name = Character.NickName
+                elseif Character.DisplayName and Character.DisplayName ~= "" then
+                    Name = Character.DisplayName
+                end
+            end)
+        end
+        if not Name or Name == "" then Name = "ENEMY" end
+        return Name
     end
 
     function AK_PlayerMapMarker.IsAI(Character)
