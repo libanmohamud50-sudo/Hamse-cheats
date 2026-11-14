@@ -548,12 +548,14 @@ g_masterahsanyt_ESPLoadSettings()
 -- One authorization session per Lua process; gameplay identity never owns it.
 do
     local licenseScope
-local MasterLicenseConfig = {
-    url = 'https://key.authapi.xyz/server', game = 'BGMI',
-    timeout = 10, clockSkew = 120, expiryPath = nil,
-    manualExpiry = "2026-12-31 23:59:59", tamperTolerance = 5,
-    secret = 'Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz5E',
-}
+local MasterLicenseConfig = (function()
+    return {
+        url = 'https://a.hamse.workers.dev', game = 'BGMI',
+        timeout = 10, clockSkew = 120, expiryPath = nil,
+        manualExpiry = "2026-12-31 23:59:59", tamperTolerance = 5,
+        secret = 'HAMSE_CHEATS_VIP_2026_V1',
+    }
+end)()
 
 local MasterLicenseCore = (function()
     local Primitives = (function()
@@ -842,59 +844,63 @@ local MasterLicenseCore = (function()
             notify('Signing in...', 'pending')
             if not pending or pending.id ~= requestId or generation ~= requestId then return false end
             local body = 'game=' .. P.form_encode(cfg.game)
-                    .. '&user_key=' .. P.form_encode(key)
-                    .. '&serial=' .. P.form_encode(serial)
+                .. '&user_key=' .. P.form_encode(key)
+                .. '&serial=' .. P.form_encode(serial)
             local function received(success, raw)
-                    if not pending or pending.id ~= requestId or generation ~= requestId then return end
-                    local current, worldNow = readClock()
-                    if not current or worldNow ~= pending.world or current < pending.started
-                        or current >= pending.deadline then
-                        revoke('Request expired. Please sign in again.', 'error'); return
-                    end
-                    if success ~= true or type(raw) ~= 'string' or #raw == 0 or #raw > 32768 then
-                        revoke('Connection failed. Please try again.', 'error'); return
-                    end
-                    local ok, result = pcall(deps.decode, raw)
-                    if not ok or type(result) ~= 'table' then
-                        revoke('Invalid server response.', 'error'); return
-                    end
-                    
-                    if result.status ~= true then 
-    revoke(denyReason(result.reason), 'denied'); 
-    return 
-end
-
-local data = type(result.data) == 'table' and result.data or {}
-if result.valid == false then
-    revoke(denyReason(result.reason or 'invalid'), 'denied'); 
-    return
-end
-
-                    local data = { expire = result.expire }
-                    local expiry, validExpiry = configuredExpiry(result)
-                    if not validExpiry then
-                        revoke('Configured server expiry field is missing or invalid.', 'error'); return
-                    end
-                    if expiry and expiry - data.rng - (current - pending.started) <= 0 then
-                        revoke('Expired', 'denied'); return
-                    end
-                    local fixedExpiry = localExpiry and localExpiry.GetExpiry()
-                    if fixedExpiry then expiry = math.min(expiry or fixedExpiry, fixedExpiry) end
-                    lastRequestLatencyMs = (current - pending.started) * 1000
-                    lastResponseTime, lastResponseWorld = current, worldNow
-                    pending = nil
-                    -- Kaydi key-ga
-                    local f = io.open("/storage/emulated/0/Download/key.txt", "w")
-                    if f then f:write(key) f:close() end
-                    
-                    allowed, expiresAt = true, expiry
-                    saveSession(expiresAt)
-                    if not startPayload() then return end
-                    notify('Login successful.', 'active')
+                if not pending or pending.id ~= requestId or generation ~= requestId then return end
+                local current, worldNow = readClock()
+                if not current or worldNow ~= pending.world or current < pending.started
+                    or current >= pending.deadline then
+                    revoke('Request expired. Please sign in again.', 'error'); return
                 end
+                if success ~= true or type(raw) ~= 'string' or #raw == 0 or #raw > 32768 then
+                    revoke('Connection failed. Please try again.', 'error'); return
+                end
+                local ok, result = pcall(deps.decode, raw)
+                if not ok or type(result) ~= 'table' then
+                    revoke('Invalid server response.', 'error'); return
+                end
+                if result.status ~= true then revoke(denyReason(result.reason), 'denied'); return end
+                local data = result.data
+                if type(data) ~= 'table' or type(data.token) ~= 'string' or #data.token ~= 32
+                    or not data.token:match('^[%x]+$') or not finite(data.rng) or data.rng % 1 ~= 0 then
+                    revoke('Incomplete server response.', 'error'); return
+                end
+                local expected = P.md5(cfg.game .. '-' .. key .. '-' .. serial .. '-' .. cfg.secret)
+                if not P.constant_time_equal(data.token:lower(), expected) then
+                    revoke('Server token verification failed.', 'denied'); return
+                end
+                local okWall, wall = pcall(deps.wall)
+                if not okWall or not finite(wall) then
+                    revoke('Phone clock unavailable.', 'error'); return
+                end
+                if localExpiry then
+                    local accepted, text, state = localExpiry.Accept(
+                        data.rng, current, worldNow, wall, current - pending.started)
+                    if not accepted then revoke(text, state); return end
+                elseif math.abs(wall - data.rng) > cfg.clockSkew then
+                    revoke('Phone/server clock mismatch. Check automatic time.', 'error'); return
+                end
+                local expiry, validExpiry = configuredExpiry(result)
+                if not validExpiry then
+                    revoke('Configured server expiry field is missing or invalid.', 'error'); return
+                end
+                if expiry and expiry - data.rng - (current - pending.started) <= 0 then
+                    revoke('Expired', 'denied'); return
+                end
+                local fixedExpiry = localExpiry and localExpiry.GetExpiry()
+                if fixedExpiry then expiry = math.min(expiry or fixedExpiry, fixedExpiry) end
+                lastRequestLatencyMs = (current - pending.started) * 1000
+                lastResponseTime, lastResponseWorld = current, worldNow
+                pending = nil
+                allowed, expiresAt = true, expiry
+                saveSession(expiresAt)
+                if not startPayload() then return end
+                notify('Login successful.', 'active')
+            end
             local ok, accepted = pcall(deps.post, cfg.url,
-                    {['Content-Type'] = 'application/x-www-form-urlencoded'},
-                    body, received, cfg.timeout)
+                {['Content-Type'] = 'application/x-www-form-urlencoded'},
+                body, received, cfg.timeout)
             if not ok or accepted == false then
                 revoke('HTTP request could not start.', 'error'); return false
             end
