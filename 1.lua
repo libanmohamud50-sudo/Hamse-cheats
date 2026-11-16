@@ -3,9 +3,9 @@ local function startBaselineHacks()
 local GameplayData=require("GameLua.GameCore.Data.GameplayData")
 local EPawnState=import("EPawnState")
 local UKismetSystemLibrary=import("KismetSystemLibrary")
-_G.g_masterahsanyt=_G.g_masterahsanyt or "@MasterAhsanYT"
-local g_masterahsanyt_credit=_G.g_masterahsanyt
-local g_masterahsanyt_StartSettingsMaintenance
+_G.g_hamse=_G.g_hamse or "@TELEGRAM HAMSE CHEATS"
+local g_hamse_credit=_G.g_hamse
+local g_hamse_StartSettingsMaintenance
 -- BYPASS START
 -- ============================================================================
 -- ============================================================================
@@ -435,14 +435,14 @@ end -- V9.5 integration: exported callback retains the scoped helpers.
 -- Immediate bypass attempt on script load (in case a pawn is already present).
 if Client and _G._BYPASS_Execute then pcall(_G._BYPASS_Execute) end
 
-_G.LexusConfig = _G.LexusConfig or {}
-_G.LexusConfig.IpadView = _G.LexusConfig.IpadView or false
-_G.LexusState = _G.LexusState or {}
-_G.LexusState.CustomTextData = _G.LexusState.CustomTextData or {}
-_G.LexusState.CustomTextData.IpadViewFOV = _G.LexusState.CustomTextData.IpadViewFOV or 120
+_G.HAMSE CHEATSConfig = _G.HAMSE CHEATSConfig or {}
+_G.HAMSE CHEATSConfig.IpadView = _G.HAMSE CHEATSConfig.IpadView or false
+_G.HAMSE CHEATSState = _G.HAMSE CHEATSState or {}
+_G.HAMSE CHEATSState.CustomTextData = _G.HAMSE CHEATSState.CustomTextData or {}
+_G.HAMSE CHEATSState.CustomTextData.IpadViewFOV = _G.HAMSE CHEATSState.CustomTextData.IpadViewFOV or 120
 
--- g_masterahsanyt_GetLocalPlayer made by @Masterpiece2025
-local function g_masterahsanyt_GetLocalPlayer()
+-- g_hamse_GetLocalPlayer made by @@hamsecheatsvip
+local function g_hamse_GetLocalPlayer()
     local ok, GDP = pcall(require, "GameLua.GameCore.Data.GameplayData")
     if not ok or not GDP then return nil end
     local player = GDP.GetPlayerCharacter()
@@ -450,16 +450,16 @@ local function g_masterahsanyt_GetLocalPlayer()
     return nil
 end
 
--- g_masterahsanyt_ApplyiPadView made by @Masterpiece2025
-local function g_masterahsanyt_ApplyiPadView()
-    local player = g_masterahsanyt_GetLocalPlayer()
+-- g_hamse_ApplyiPadView made by @@hamsecheatsvip
+local function g_hamse_ApplyiPadView()
+    local player = g_hamse_GetLocalPlayer()
     if not player then return end
     local cam = player.ThirdPersonCameraComponent
     if not cam or not slua.isValid(cam) then return end
     if player.bIsWeaponAiming then return end
 
-    if _G.LexusConfig.IpadView and _G.LunarLoginRuntime and _G.LunarLoginRuntime.Authorized then
-        local targetFOV = _G.LexusState.CustomTextData.IpadViewFOV or 120
+    if _G.HAMSE CHEATSConfig.IpadView and _G.HAMSE CHEATSLoginRuntime and _G.HAMSE CHEATSLoginRuntime.Authorized then
+        local targetFOV = _G.HAMSE CHEATSState.CustomTextData.IpadViewFOV or 120
         if cam.FieldOfView ~= targetFOV then
             cam.FieldOfView = targetFOV
         end
@@ -471,35 +471,35 @@ local function g_masterahsanyt_ApplyiPadView()
 end
 
 -- Persistent ESP feature settings.
-local g_masterahsanyt_ESPOptionDefaults = {
+local g_hamse_ESPOptionDefaults = {
     Name=false, Line=false, Box=false, Health=false, Distance=false, Skeleton=false, Counter=false
 }
-_G.g_masterahsanyt_ESPOptions = _G.g_masterahsanyt_ESPOptions or {}
-for k,v in pairs(g_masterahsanyt_ESPOptionDefaults) do
-    if _G.g_masterahsanyt_ESPOptions[k] == nil then _G.g_masterahsanyt_ESPOptions[k] = v end
+_G.g_hamse_ESPOptions = _G.g_hamse_ESPOptions or {}
+for k,v in pairs(g_hamse_ESPOptionDefaults) do
+    if _G.g_hamse_ESPOptions[k] == nil then _G.g_hamse_ESPOptions[k] = v end
 end
-local g_masterahsanyt_ESPSettingsFile = "MASTERPIECE_UMG_ESP_settings.lua"
-local function g_masterahsanyt_ESPSettingsPaths()
+local g_hamse_ESPSettingsFile = "HAMSE CHEATS_UMG_ESP_settings.lua"
+local function g_hamse_ESPSettingsPaths()
     local paths = {
-        "//storage/emulated/0/Android/data/com.tencent.ig/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        "//storage/emulated/0/Android/data/com.vng.pubgmobile/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        "//storage/emulated/0/Android/data/com.pubg.krmobile/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        "//storage/emulated/0/Android/data/com.rekoo.pubgm/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        "//storage/emulated/0/Android/data/com.pubg.imobile/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        "Documents/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        "ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile,
-        g_masterahsanyt_ESPSettingsFile
+        "//storage/emulated/0/Android/data/com.tencent.ig/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        "//storage/emulated/0/Android/data/com.vng.pubgmobile/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        "//storage/emulated/0/Android/data/com.pubg.krmobile/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        "//storage/emulated/0/Android/data/com.rekoo.pubgm/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        "//storage/emulated/0/Android/data/com.pubg.imobile/files/UE4Game/ShadowTrackerExtra/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        "Documents/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        "ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile,
+        g_hamse_ESPSettingsFile
     }
     local home=nil
     pcall(function() if os and os.getenv then home=os.getenv("HOME") end end)
     if type(home)=="string" and home~="" then
-        table.insert(paths,1,home.."/Documents/ShadowTrackerExtra/Saved/SaveGames/"..g_masterahsanyt_ESPSettingsFile)
+        table.insert(paths,1,home.."/Documents/ShadowTrackerExtra/Saved/SaveGames/"..g_hamse_ESPSettingsFile)
     end
     return paths
 end
 -- Replace the SaveGames file only after write/flush/close succeed where Lua
 -- exposes rename. A failed temporary write keeps the last saved file intact.
-local function g_masterahsanyt_ESPWriteSettings(path,payload)
+local function g_hamse_ESPWriteSettings(path,payload)
     local atomic=os and type(os.rename)=="function"
     local target=atomic and path..".tmp" or path
     local opened,file=pcall(io.open,target,"w")
@@ -522,38 +522,40 @@ local function g_masterahsanyt_ESPWriteSettings(path,payload)
     return ok,err,atomic
 end
 
-local g_masterahsanyt_ESPLoadedSettingsPath=nil
+local g_hamse_ESPLoadedSettingsPath=nil
 
-local function g_masterahsanyt_ESPLoadSettings()
+local function g_hamse_ESPLoadSettings()
     if not io or type(io.open) ~= "function" then return false end
-    local paths = g_masterahsanyt_ESPSettingsPaths()
+    local paths = g_hamse_ESPSettingsPaths()
     local content=nil
     for _,path in ipairs(paths) do
         local ok,f=pcall(io.open,path,"r")
         if ok and f then
             local rok,text=pcall(function() return f:read("*a") end)
             pcall(function() f:close() end)
-            if rok and type(text)=="string" and text~="" then content=text;g_masterahsanyt_ESPLoadedSettingsPath=path;break end
+            if rok and type(text)=="string" and text~="" then content=text;g_hamse_ESPLoadedSettingsPath=path;break end
         end
     end
     if not content then return false end
-    for k in pairs(g_masterahsanyt_ESPOptionDefaults) do
+    for k in pairs(g_hamse_ESPOptionDefaults) do
         local v=content:match(k.."%s*=%s*(true)") or content:match(k.."%s*=%s*(false)")
-        if v then _G.g_masterahsanyt_ESPOptions[k]=(v=="true") end
+        if v then _G.g_hamse_ESPOptions[k]=(v=="true") end
     end
     return true
 end
-g_masterahsanyt_ESPLoadSettings()
+g_hamse_ESPLoadSettings()
 
 -- One authorization session per Lua process; gameplay identity never owns it.
 do
     local licenseScope
-local MasterLicenseConfig = {
-    url = 'https://key.authapi.xyz/server', game = 'BGMI',
-    timeout = 10, clockSkew = 120, expiryPath = nil,
-    manualExpiry = "2026-12-31 23:59:59", tamperTolerance = 5,
-    secret = 'Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz5E',
-}
+local MasterLicenseConfig = (function()
+    return {
+        url = 'https://a.hamse.workers.dev', game = 'BGMI',
+        timeout = 10, clockSkew = 120, expiryPath = nil,
+        manualExpiry = "2026-12-31 23:59:59", tamperTolerance = 5,
+        secret = 'HAMSE_CHEATS_VIP_2026_V1',
+    }
+end)()
 
 local MasterLicenseCore = (function()
     local Primitives = (function()
@@ -661,7 +663,7 @@ local MasterLicenseCore = (function()
                 constant_time_equal = constant_time_equal, name_uuid = name_uuid}
     end)()
 
-    local SESSION_KEY='__LunarLicenseSessionV7'
+    local SESSION_KEY='__HAMSE CHEATSLicenseSessionV7'
     local function loadSession()
         local t=rawget(_G,SESSION_KEY)
         if type(t)=='table' and t.authorized==true and t.scope==licenseScope then return t end
@@ -673,7 +675,7 @@ local MasterLicenseCore = (function()
 
     local CreateLocalExpiry = function(cfg)
         local E = {}
-        local expiredText = 'Mod expired. DM @Masterpiece2025 for renewal.'
+        local expiredText = 'Mod expired. DM @hamsecheatsvip for renewal.'
         local tamperText  = "Don't be over smart"
         local blockedMessage, blockedPhase
         local function finite(n) return type(n) == 'number' and n == n and n ~= math.huge and n ~= -math.huge end
@@ -980,7 +982,7 @@ local MasterLicenseCore = (function()
     return Core
 end)()
 
-    local UI={Version="LunarUI.V9.NativeGradient.2"}
+    local UI={Version="HAMSE CHEATSUI.V9.NativeGradient.2"}
     local function member(o,k)
         if o==nil then return nil end
         local ok,v=pcall(function() return o[k] end);if ok then return v end
@@ -1203,14 +1205,14 @@ end)()
             panel(10,10,W-20,65,16,gold,4,24,1)
             panel(13,13,W-26,59,14,header,5,32,1)
             if welcome then
-                d.Title=text("Welcome to @Masterpiece2025 Lua mod",24,22,W-48,42,19,white,7,true,true)
+                d.Title=text("Welcome to @@hamsecheatsvip Lua mod",24,22,W-48,42,19,white,7,true,true)
                 local pw=math.min(340,W-72);local px=(W-pw)/2
                 panel(px,99,pw,51,12,gold,4,16)
                 panel(px+3,102,pw-6,45,10,{{179,29,52},{231,73,87},{178,26,47}},5,20)
                 d.Detail=text("Kill limit 8-10",px+16,109,pw-32,34,23,white,7,true,true)
                 d.Hint=text("Play smart and avoid report",30,165,W-60,32,17,forest,7,true,true)
             else
-                d.Title=text("MASTERAHSANYT",22,15,W-44,31,24,white,7,true,true)
+                d.Title=text("HAMSE CHEATS",22,15,W-44,31,24,white,7,true,true)
                 text("LOGIN",22,45,W-44,21,12,white,7,true,true)
                 line(W/2-118,56,W/2-47,56,1,color(251,244,228),7)
                 line(W/2+47,56,W/2+118,56,1,color(251,244,228),7)
@@ -1277,7 +1279,7 @@ end)()
                 if not d.Visible or d.Busy then return end
                 if welcome then
                     destroy(d);d.Dismissed=true
-                    local l=_G.LunarLoginRuntime;if l and l.WelcomeUI==d then l.WelcomeUI=nil end
+                    local l=_G.HAMSE CHEATSLoginRuntime;if l and l.WelcomeUI==d then l.WelcomeUI=nil end
                     return
                 end
                 local okRead,k=pcall(function() return d.Input:GetText() end)
@@ -1297,9 +1299,9 @@ end)()
         UI.LastBuildError=nil
         d.Visible=true;return d
     end
-    _G.LunarUIAssetCache=nil
+    _G.HAMSE CHEATSUIAssetCache=nil
     -- Hot UI upgrades retain the existing verified or pending license session.
-    local existing=_G.LunarLoginRuntime
+    local existing=_G.HAMSE CHEATSLoginRuntime
     if existing and existing.UIFactory and existing.UIFactory.Version~=UI.Version
         and existing.Scope==MasterLicenseCore.Primitives.md5(MasterLicenseConfig.url.."\0"..MasterLicenseConfig.game.."\0"..MasterLicenseConfig.secret) then
         local visibleWelcome=existing.WelcomeUI and existing.WelcomeUI.Visible
@@ -1313,19 +1315,19 @@ end)()
         if type(s)~="string" or #s>1024 or #s%2~=0 or s:find('[^%x]') then return nil end
         return (s:gsub('..',function(v) return string.char(tonumber(v,16)) end))
     end
-    local current=_G.LunarLoginRuntime
+    local current=_G.HAMSE CHEATSLoginRuntime
     -- Existing runtime survives character recreation and source reload in this process.
     local expectedScope=MasterLicenseCore.Primitives.md5(MasterLicenseConfig.url.."\0"..MasterLicenseConfig.game.."\0"..MasterLicenseConfig.secret)
     if not current or current.Scope~=expectedScope then
         if current and current.DestroyUI then current.DestroyUI() end
         local L={Authorized=false,Pending=false,NeedsUpdate=true,WelcomeShown=false,
             Key="",Seed="",Scope=expectedScope,StorageVersion=1,Status="Enter your key",Diagnostics={HTTP=0,DeviceReads=0}}
-        _G.LunarLoginRuntime=L
+        _G.HAMSE CHEATSLoginRuntime=L
         L.UIFactory=UI
         -- Identity is pinned independently of the feature-settings location.
         -- All IO is bounded and happens at startup/login, or a delayed save retry.
-        local paths=g_masterahsanyt_ESPSettingsPaths()
-        for i,path in ipairs(paths) do paths[i]=path:gsub("MASTERPIECE_UMG_ESP_settings.lua$","MASTERAHSAN_LOGIN_V7_settings.lua") end
+        local paths=g_hamse_ESPSettingsPaths()
+        for i,path in ipairs(paths) do paths[i]=path:gsub("HAMSE CHEATS_UMG_ESP_settings.lua$","MASTERAHSAN_LOGIN_V7_settings.lua") end
         local function loginPath(featurePath)
             if type(featurePath)~="string" then return nil end
             local prefix=featurePath:match("^(.*[/\\])[^/\\]+$")
@@ -1335,7 +1337,7 @@ end)()
             return path:gsub("MASTERAHSAN_LOGIN_V7_settings%.lua$","MASTERAHSAN_DEVICE_V1_settings.lua")
         end
         local function digest(key,seed)
-            return MasterLicenseCore.Primitives.md5("LUNAR-DEVICE-1\0"..L.Scope.."\0"..key.."\0"..seed)
+            return MasterLicenseCore.Primitives.md5("HAMSE-DEVICE-1\0"..L.Scope.."\0"..key.."\0"..seed)
         end
         local function readRecord(path,identity)
             if not (io and type(io.open)=="function") then return nil,"unreadable" end
@@ -1431,7 +1433,7 @@ end)()
             if current and current.Checked and current.Seed==seed and current.Key==key then return true end
             if state=="unreadable" or state=="other_scope" then return false end
             if current and current.Seed~=seed and (identity or not L.HasIdentityRecord) then return false end
-            local ok=g_masterahsanyt_ESPWriteSettings(path,data)
+            local ok=g_hamse_ESPWriteSettings(path,data)
             if not ok then return false end
             local result=readRecord(path,identity)
             return result~=nil and result.Checked and result.Seed==seed and result.Key==key
@@ -1493,7 +1495,7 @@ end)()
         recover()
         L.DestroyUI=function() destroy(L.LoginUI);destroy(L.WelcomeUI);L.LoginUI=nil;L.WelcomeUI=nil end
         local function wake()
-            local f=_G.LunarFeatures;if f and f.Wake and not f.Token.Stopped then f.Wake() end
+            local f=_G.HAMSE CHEATSFeatures;if f and f.Wake and not f.Token.Stopped then f.Wake() end
         end
         L.Core=MasterLicenseCore
         L.Auth=MasterLicenseCore.new(MasterLicenseConfig,{
@@ -1561,10 +1563,10 @@ end)()
             L.NeedsUpdate=true -- Half-second retry/readiness while locked only.
         end
     end
-    _G.MasterLicenseLogin=function(key) return _G.LunarLoginRuntime.Login(key) end
-    _G.MasterLicenseLogout=function() return _G.LunarLoginRuntime.Logout() end
+    _G.MasterLicenseLogin=function(key) return _G.HAMSE CHEATSLoginRuntime.Login(key) end
+    _G.MasterLicenseLogout=function() return _G.HAMSE CHEATSLoginRuntime.Logout() end
     _G.MasterLicenseStatus=function()
-        local l=_G.LunarLoginRuntime
+        local l=_G.HAMSE CHEATSLoginRuntime
         return {authorized=l.Authorized,pending=l.Pending,message=l.Status,
             periodicRecheck=false,expiryCheckPolicy="login_only",saveOK=not l.Dirty,identityState=l.Diagnostics.Identity}
     end
@@ -1573,12 +1575,12 @@ end
 
 -- Settings registration follows the supplied working native-page reference.
 -- Feature rows, option values and authentication stay owned by this script.
-local g_masterahsanyt_EnsureHackMenu
+local g_hamse_EnsureHackMenu
 do
-    local VERSION = "LunarSettings.V9.2.LoginMenuGate"
+    local VERSION = "HAMSE CHEATSSettings.V9.2.LoginMenuGate"
     local function runtime()
-        local state = _G.LunarNativeSettingsRuntime
-        if type(state) ~= "table" then state = {}; _G.LunarNativeSettingsRuntime = state end
+        local state = _G.HAMSE CHEATSNativeSettingsRuntime
+        if type(state) ~= "table" then state = {}; _G.HAMSE CHEATSNativeSettingsRuntime = state end
         return state
     end
     local function member(object, key)
@@ -1598,7 +1600,7 @@ do
         return value
     end
     local function authorized()
-        local login = _G.LunarLoginRuntime
+        local login = _G.HAMSE CHEATSLoginRuntime
         return type(login) == "table" and login.Authorized == true
     end
     local function unregister(catalog)
@@ -1718,7 +1720,7 @@ do
         for _, manager in ipairs(managers) do
             local show = member(manager, "ShowUI")
             if type(show) == "function" then
-                local record = member(manager, "__LunarSettingsUIHook")
+                local record = member(manager, "__HAMSE CHEATSSettingsUIHook")
                 if type(record) ~= "table" or record.Version ~= VERSION or record.Wrapper ~= show then
                     -- Replace our previous wrapper instead of stacking it.
                     local original = show
@@ -1738,7 +1740,7 @@ do
                         return record.Original(config, (table.unpack or unpack)(args, 1, n))
                     end
                     manager.ShowUI = record.Wrapper
-                    manager.__LunarSettingsUIHook = record
+                    manager.__HAMSE CHEATSSettingsUIHook = record
                 end
                 count = count + 1
             end
@@ -1776,22 +1778,22 @@ do
         end
     end
     local function buildPage(F, AliasMap, sliderReady)
-    local function featureState() return _G.LunarFeatures end
+    local function featureState() return _G.HAMSE CHEATSFeatures end
     local function value(c,v) if v==nil then return c end return v end
     local function espAll(version)
-        return {Key="LunarV"..version.."_All",UI=AliasMap.Switcher,Text="All ESP",
-            LunarBulk=true,
+        return {Key="HAMSE CHEATSV"..version.."_All",UI=AliasMap.Switcher,Text="All ESP",
+            HAMSE CHEATSBulk=true,
             SwitcherText={"All On","All Off"},
             EventType=F.ESPSettingsEventType,EventID=F.ESPSettingsEventID,
             GetFunc=function() return featureState().GetESPAll(version) end,
             SetFunc=function(c,v) return featureState().SetESPAll(version,value(c,v)) end}
     end
     local function espSwitch(version,key,label)
-        return {Key=version==1 and ("LunarV1_"..key) or ("MasterpieceESP_"..key),
+        return {Key=version==1 and ("HAMSE CHEATSV1_"..key) or ("HamseESP_"..key),
             UI=AliasMap.Switcher,Text=label,
             EventType=F.ESPSettingsEventType,EventID=F.ESPSettingsEventID,
             GetFunc=function()
-                local options=version==1 and _G.g_Botmater_ESPOptions or _G.g_masterahsanyt_ESPOptions
+                local options=version==1 and _G.g_HAMSE CHEATS_ESPOptions or _G.g_hamse_ESPOptions
                 return options[key]==true
             end,
             SetFunc=function(c,v) return featureState().SetESP(version,key,value(c,v)) end}
@@ -1804,11 +1806,11 @@ do
         espSwitch(2,"Name","ESP NAME"),espSwitch(2,"Line","ESP LINE"),espSwitch(2,"Box","ESP BOX"),
         espSwitch(2,"Health","ESP HEALTH"),espSwitch(2,"Distance","ESP DISTANCE"),espSwitch(2,"Skeleton","ESP SKELETON"),espSwitch(2,"Counter","ESP COUNTER")}
     local Other={
-        {Key="LunarWall",UI=AliasMap.Switcher,Text="Wall Hack",ExpandIndex=0,EventType=F.ESPSettingsEventType,EventID=3,GetFunc=function() return featureState().Settings.WallEnabled end,
+        {Key="HAMSE CHEATSWall",UI=AliasMap.Switcher,Text="Wall Hack",ExpandIndex=0,EventType=F.ESPSettingsEventType,EventID=3,GetFunc=function() return featureState().Settings.WallEnabled end,
             SetFunc=function(c,v) featureState().SetWall(value(c,v));return true end},
-        {Key="LunarIpad",UI=AliasMap.Switcher,Text="iPad View",ExpandIndex=0,GetFunc=function() return _G.LexusConfig.IpadView end,
+        {Key="HAMSE CHEATSIpad",UI=AliasMap.Switcher,Text="iPad View",ExpandIndex=0,GetFunc=function() return _G.HAMSE CHEATSConfig.IpadView end,
             SetFunc=function(c,v) featureState().SetIpad(value(c,v));return true end},
-        {Key="LunarAim",UI=AliasMap.Switcher,Text="Aimbot V1",ExpandIndex=0,
+        {Key="HAMSE CHEATSAim",UI=AliasMap.Switcher,Text="Aimbot V1",ExpandIndex=0,
             EventType=F.AimSettingsEventType,EventID=F.AimSettingsEventID,
             GetFunc=function() return featureState().Settings.AimEnabled end,
             SetFunc=function(c,v) featureState().SetAim(value(c,v));return true end}
@@ -1825,43 +1827,43 @@ do
             end}
     end
     if sliderReady then
-        table.insert(Other,3,rangeItem("LunarIpadFOV","iPad FOV",90,120,"LunarIpad",
+        table.insert(Other,3,rangeItem("HAMSE CHEATSIpadFOV","iPad FOV",90,120,"HAMSE CHEATSIpad",
             function() return featureState().Settings.IpadFOV end,"SetIpadFOV"))
     end
     if sliderReady then
-        Other[#Other+1]=rangeItem("LunarAimSpeed","Aim speed",100,120,"LunarAim",
+        Other[#Other+1]=rangeItem("HAMSE CHEATSAimSpeed","Aim speed",100,120,"HAMSE CHEATSAim",
             function() return featureState().Settings.AimSpeed end,"SetAimSpeed")
     end
-    Other[#Other+1]={Key="LunarAimTarget",UI=AliasMap.Switcher,Text="Aim target",ExpandHandle="LunarAim",
+    Other[#Other+1]={Key="HAMSE CHEATSAimTarget",UI=AliasMap.Switcher,Text="Aim target",ExpandHandle="HAMSE CHEATSAim",
         SwitcherText={"Head","Body","Leg"},SwitcherValue={1,2,3},
         GetFunc=function() return featureState().Settings.AimTarget end,
         SetFunc=function(c,v) featureState().SetAimTarget(value(c,v));return true end}
-    Other[#Other+1]={Key="LunarAim2",UI=AliasMap.Switcher,Text="Aimbot V2",
+    Other[#Other+1]={Key="HAMSE CHEATSAim2",UI=AliasMap.Switcher,Text="Aimbot V2",
         EventType=F.AimSettingsEventType,EventID=F.AimSettingsEventID,
         GetFunc=function() return featureState().Settings.Aim2Enabled end,
         SetFunc=function(c,v) featureState().SetAim2(value(c,v));return true end}
-    Other[#Other+1]={Key="LunarMortarAim",UI=AliasMap.Switcher,Text="Mortar aim",
+    Other[#Other+1]={Key="HAMSE CHEATSMortarAim",UI=AliasMap.Switcher,Text="Mortar aim",
         GetFunc=function() return featureState().Settings.MortarEnabled end,
         SetFunc=function(c,v) featureState().SetMortar(value(c,v));return true end}
     local names={"Pink","White","Cyan","Green","Yellow","Saffron","Red"}
     for i,entry in ipairs({{"WallVisible","Visible color"},{"WallOccluded","Behind-wall color"}}) do
         local key,label=entry[1],entry[2]
-        table.insert(Other,1+i,{Key="Lunar"..key,UI=AliasMap.CompactSwitcher or AliasMap.Switcher,Text=label,
+        table.insert(Other,1+i,{Key="HAMSE CHEATS"..key,UI=AliasMap.CompactSwitcher or AliasMap.Switcher,Text=label,
             EventType=F.ESPSettingsEventType,EventID=3,
-            ExpandHandle="LunarWall",SwitcherText=names,SwitcherValue={1,2,3,4,5,6,7},
+            ExpandHandle="HAMSE CHEATSWall",SwitcherText=names,SwitcherValue={1,2,3,4,5,6,7},
             GetFunc=function() return featureState().Settings[key] end,
             SetFunc=function(c,v) return featureState().SetWallColor(key,value(c,v)) end})
     end
     local page={Key="HackMenu",Text="Hack menu",UIKey="Setting_Page_Privacy",Category={
-        {Key="Lunar_ESP_V1",Text="ESP V1",Stack=V1},
-        {Key="Lunar_ESP_V2",Text="ESP V2",Stack=V2},
-        {Key="Lunar_Other",Text="Other Features",Stack=Other}
+        {Key="HAMSE CHEATS_ESP_V1",Text="ESP V1",Stack=V1},
+        {Key="HAMSE CHEATS_ESP_V2",Text="ESP V2",Stack=V2},
+        {Key="HAMSE CHEATS_Other",Text="Other Features",Stack=Other}
     }}
 
         return page
     end
     local function initialize(state)
-        local F = _G.LunarFeatures
+        local F = _G.HAMSE CHEATSFeatures
         assert(type(F) == "table", "FEATURE_RUNTIME_NOT_READY")
         local pages = loadTable("client.logic.NewSetting.SettingPageDefine")
         local catalog = loadTable("client.logic.NewSetting.SettingCatalog")
@@ -1911,9 +1913,9 @@ do
         else state.LastError = "SETTINGS_UI_MANAGER_NOT_READY" end
         return state.Ready
     end
-    g_masterahsanyt_EnsureHackMenu = function()
+    g_hamse_EnsureHackMenu = function()
         local state = runtime()
-        state.Ensure = g_masterahsanyt_EnsureHackMenu
+        state.Ensure = g_hamse_EnsureHackMenu
         if state.Initializing then return false end
         if not authorized() then hideMenu(state) end
         state.Initializing = true
@@ -1932,9 +1934,9 @@ do
         if not ok then state.Ready = false; state.LastError = tostring(result) end
         return ok and result == true
     end
-    _G.LunarSettingsDiagnostics = function()
+    _G.HAMSE CHEATSSettingsDiagnostics = function()
         local state = runtime()
-        local timer = _G.__MasterShotFastRunner
+        local timer = _G.__HamseShotFastRunner
         return {version = state.Version, ready = state.Ready == true,
             registered = state.Registered == true, attempts = state.Attempts or 0,
             loginRequired = state.LoginRequired == true,
@@ -1951,8 +1953,8 @@ do
     end
 end
 
--- ESP configuration made by @Masterpiece2025
-_G.g_masterahsanyt_MasterShotESP = _G.g_masterahsanyt_MasterShotESP or {
+-- ESP configuration made by @@hamsecheatsvip
+_G.g_hamse_HamseShotESP = _G.g_hamse_HamseShotESP or {
 
     Enabled = true,
     MaxRangeMeters = 450.0,
@@ -1962,7 +1964,7 @@ _G.g_masterahsanyt_MasterShotESP = _G.g_masterahsanyt_MasterShotESP or {
     ScanInterval = 0.35,
     UpdateInterval = 1.0 / 60.0,
     WidgetBuildBudget = 96, -- New line widgets per update; existing widgets stay live.
-    Profile = false,       -- Optional CPU timing in _G.g_masterahsanyt_ESPDiagnostics.
+    Profile = false,       -- Optional CPU timing in _G.g_hamse_ESPDiagnostics.
     TransformInterval = 0.60,
     MaxRendered = 8,
 
@@ -1977,32 +1979,32 @@ _G.g_masterahsanyt_MasterShotESP = _G.g_masterahsanyt_MasterShotESP or {
     DistanceFontSize = 20,
     DistanceBelowFeet = 8.0,
 }
-if (tonumber(_G.g_masterahsanyt_MasterShotESP.MaxRendered) or 0) < 1 then
-    _G.g_masterahsanyt_MasterShotESP.MaxRendered = 8
+if (tonumber(_G.g_hamse_HamseShotESP.MaxRendered) or 0) < 1 then
+    _G.g_hamse_HamseShotESP.MaxRendered = 8
 end
-if (tonumber(_G.g_masterahsanyt_MasterShotESP.MaxRangeMeters) or 0) < 400.0 then
-    _G.g_masterahsanyt_MasterShotESP.MaxRangeMeters = 450.0
+if (tonumber(_G.g_hamse_HamseShotESP.MaxRangeMeters) or 0) < 400.0 then
+    _G.g_hamse_HamseShotESP.MaxRangeMeters = 450.0
 end
 -- Upgrade a table retained by an earlier hot-reload to the new readable marker size.
-if (tonumber(_G.g_masterahsanyt_MasterShotESP.DistanceFontSize) or 0) < 20 then
-    _G.g_masterahsanyt_MasterShotESP.DistanceFontSize = 20
+if (tonumber(_G.g_hamse_HamseShotESP.DistanceFontSize) or 0) < 20 then
+    _G.g_hamse_HamseShotESP.DistanceFontSize = 20
 end
 -- Counters are 20% larger than the previous 182x28 revision.
-_G.g_masterahsanyt_MasterShotESP.CounterWidth=218.4
-_G.g_masterahsanyt_MasterShotESP.CounterHeight=33.6
-_G.g_masterahsanyt_MasterShotESP.CounterDiamondSize=0.0
+_G.g_hamse_HamseShotESP.CounterWidth=218.4
+_G.g_hamse_HamseShotESP.CounterHeight=33.6
+_G.g_hamse_HamseShotESP.CounterDiamondSize=0.0
 
 -- Upgrade only the shipped 30 Hz default on the first performance revision.
-if not _G.g_masterahsanyt_MasterShotESP.PerformanceRevision then
-    if _G.g_masterahsanyt_MasterShotESP.UpdateInterval == 0.033 then
-        _G.g_masterahsanyt_MasterShotESP.UpdateInterval = 1.0 / 60.0
+if not _G.g_hamse_HamseShotESP.PerformanceRevision then
+    if _G.g_hamse_HamseShotESP.UpdateInterval == 0.033 then
+        _G.g_hamse_HamseShotESP.UpdateInterval = 1.0 / 60.0
     end
-    _G.g_masterahsanyt_MasterShotESP.PerformanceRevision = 1
+    _G.g_hamse_HamseShotESP.PerformanceRevision = 1
 end
-_G.MasterShotESP = _G.g_masterahsanyt_MasterShotESP
+_G.HamseShotESP = _G.g_hamse_HamseShotESP
 
--- ESP runtime state made by @Masterpiece2025
-local g_masterahsanyt_ShotESP = {
+-- ESP runtime state made by @@hamsecheatsvip
+local g_hamse_ShotESP = {
     Canvas = nil,
     RootUI = nil,
     Counter = nil,
@@ -2069,13 +2071,13 @@ pcall(function() GameplayStaticsESP = import("GameplayStatics") end)
 local ESPGameplayData=nil
 pcall(function() ESPGameplayData=require("GameLua.GameCore.Data.GameplayData") end)
 
--- g_masterahsanyt_ESPV2 made by @Masterpiece2025
-local function g_masterahsanyt_ESPV2(x, y)
+-- g_hamse_ESPV2 made by @@hamsecheatsvip
+local function g_hamse_ESPV2(x, y)
     if V2 then return V2(x, y) end
     return {X = x, Y = y}
 end
 
-local function g_masterahsanyt_ESPV3(x, y, z)
+local function g_hamse_ESPV3(x, y, z)
     if V3 then
         local ok, v = pcall(V3, x, y, z)
         if ok and v then return v end
@@ -2083,58 +2085,58 @@ local function g_masterahsanyt_ESPV3(x, y, z)
     return {X = x, Y = y, Z = z}
 end
 
--- ESP color made by @Masterpiece2025
-local function g_masterahsanyt_ESPColor(r, g, b, a)
+-- ESP color made by @@hamsecheatsvip
+local function g_hamse_ESPColor(r, g, b, a)
     if LinearColor then return LinearColor(r, g, b, a or 1.0) end
     return {R=r, G=g, B=b, A=a or 1.0}
 end
 
--- ESP color theme made by @Masterpiece2025
-local ESP_REAL = g_masterahsanyt_ESPColor(0.90, 0.14, 0.14, 0.98)
-local ESP_BOT  = g_masterahsanyt_ESPColor(0.18, 0.86, 0.36, 0.98)
-local ESP_WHITE = g_masterahsanyt_ESPColor(1.0, 1.0, 1.0, 1.0)
-local ESP_BLACK = g_masterahsanyt_ESPColor(0.0, 0.0, 0.0, 1.0)
-local ESP_TEXT_CLEAR = g_masterahsanyt_ESPColor(0.0,0.0,0.0,0.0)
-local ESP_HEADER_BG = g_masterahsanyt_ESPColor(0.0, 0.0, 0.0, 0.78)
-local ESP_COUNTER_RED = g_masterahsanyt_ESPColor(1.0, 0.055, 0.105, 1.0)
-local ESP_COUNTER_RED_DARK = g_masterahsanyt_ESPColor(0.12, 0.008, 0.012, 1.0)
-local ESP_COUNTER_BLUE = g_masterahsanyt_ESPColor(0.18, 0.86, 0.36, 1.0)
-local ESP_COUNTER_BLUE_DARK = g_masterahsanyt_ESPColor(0.012, 0.06, 0.025, 1.0)
-local ESP_COUNTER_CENTER = g_masterahsanyt_ESPColor(0.075, 0.080, 0.095, 1.0)
+-- ESP color theme made by @@hamsecheatsvip
+local ESP_REAL = g_hamse_ESPColor(0.90, 0.14, 0.14, 0.98)
+local ESP_BOT  = g_hamse_ESPColor(0.18, 0.86, 0.36, 0.98)
+local ESP_WHITE = g_hamse_ESPColor(1.0, 1.0, 1.0, 1.0)
+local ESP_BLACK = g_hamse_ESPColor(0.0, 0.0, 0.0, 1.0)
+local ESP_TEXT_CLEAR = g_hamse_ESPColor(0.0,0.0,0.0,0.0)
+local ESP_HEADER_BG = g_hamse_ESPColor(0.0, 0.0, 0.0, 0.78)
+local ESP_COUNTER_RED = g_hamse_ESPColor(1.0, 0.055, 0.105, 1.0)
+local ESP_COUNTER_RED_DARK = g_hamse_ESPColor(0.12, 0.008, 0.012, 1.0)
+local ESP_COUNTER_BLUE = g_hamse_ESPColor(0.18, 0.86, 0.36, 1.0)
+local ESP_COUNTER_BLUE_DARK = g_hamse_ESPColor(0.012, 0.06, 0.025, 1.0)
+local ESP_COUNTER_CENTER = g_hamse_ESPColor(0.075, 0.080, 0.095, 1.0)
 
--- ESP gradient color made by @Masterpiece2025
-local function g_masterahsanyt_ESPScaleColor(color, factor, alphaMul)
-    if not color then return g_masterahsanyt_ESPColor(1, 1, 1, 1) end
+-- ESP gradient color made by @@hamsecheatsvip
+local function g_hamse_ESPScaleColor(color, factor, alphaMul)
+    if not color then return g_hamse_ESPColor(1, 1, 1, 1) end
     local r = math.max(0.0, math.min(1.0, (tonumber(color.R) or 1.0) * (factor or 1.0)))
     local g = math.max(0.0, math.min(1.0, (tonumber(color.G) or 1.0) * (factor or 1.0)))
     local b = math.max(0.0, math.min(1.0, (tonumber(color.B) or 1.0) * (factor or 1.0)))
     local a = math.max(0.0, math.min(1.0, (tonumber(color.A) or 1.0) * (alphaMul or 1.0)))
-    return g_masterahsanyt_ESPColor(r, g, b, a)
+    return g_hamse_ESPColor(r, g, b, a)
 end
 
-local ESP_REAL_DARK  = g_masterahsanyt_ESPScaleColor(ESP_REAL, 0.68, 1.0)
-local ESP_REAL_LIGHT = g_masterahsanyt_ESPScaleColor(ESP_REAL, 1.12, 0.82)
-local ESP_BOT_DARK   = g_masterahsanyt_ESPScaleColor(ESP_BOT, 0.68, 1.0)
-local ESP_BOT_LIGHT  = g_masterahsanyt_ESPScaleColor(ESP_BOT, 1.10, 0.82)
-local ESP_WHITE_SOFT = g_masterahsanyt_ESPColor(0.94, 0.94, 0.94, 0.98)
-local ESP_WHITE_GLOSS = g_masterahsanyt_ESPColor(1.0, 1.0, 1.0, 0.34)
+local ESP_REAL_DARK  = g_hamse_ESPScaleColor(ESP_REAL, 0.68, 1.0)
+local ESP_REAL_LIGHT = g_hamse_ESPScaleColor(ESP_REAL, 1.12, 0.82)
+local ESP_BOT_DARK   = g_hamse_ESPScaleColor(ESP_BOT, 0.68, 1.0)
+local ESP_BOT_LIGHT  = g_hamse_ESPScaleColor(ESP_BOT, 1.10, 0.82)
+local ESP_WHITE_SOFT = g_hamse_ESPColor(0.94, 0.94, 0.94, 0.98)
+local ESP_WHITE_GLOSS = g_hamse_ESPColor(1.0, 1.0, 1.0, 0.34)
 
-local g_masterahsanyt_ESPTheme
+local g_hamse_ESPTheme
 do
 local ESP_REAL_THEME = {Key="REAL",Main=ESP_REAL,Light=ESP_REAL_LIGHT,
-    Text=g_masterahsanyt_ESPColor(1.0,0.86,0.84,1.0),
-    Background=g_masterahsanyt_ESPColor(0.05,0.005,0.005,0.97),
-    Empty=g_masterahsanyt_ESPColor(0.055,0.008,0.008,1.0)}
+    Text=g_hamse_ESPColor(1.0,0.86,0.84,1.0),
+    Background=g_hamse_ESPColor(0.05,0.005,0.005,0.97),
+    Empty=g_hamse_ESPColor(0.055,0.008,0.008,1.0)}
 local ESP_BOT_THEME = {Key="BOT",Main=ESP_BOT,Light=ESP_BOT_LIGHT,
-    Text=g_masterahsanyt_ESPColor(0.82,1.0,0.87,1.0),
-    Background=g_masterahsanyt_ESPColor(0.005,0.05,0.015,0.97),
-    Empty=g_masterahsanyt_ESPColor(0.008,0.055,0.018,1.0)}
-g_masterahsanyt_ESPTheme=function(isBot)
+    Text=g_hamse_ESPColor(0.82,1.0,0.87,1.0),
+    Background=g_hamse_ESPColor(0.005,0.05,0.015,0.97),
+    Empty=g_hamse_ESPColor(0.008,0.055,0.018,1.0)}
+g_hamse_ESPTheme=function(isBot)
     return isBot and ESP_BOT_THEME or ESP_REAL_THEME
 end
 end
--- ESP object validation made by @Masterpiece2025
-local function g_masterahsanyt_ESPValid(obj)
+-- ESP object validation made by @@hamsecheatsvip
+local function g_hamse_ESPValid(obj)
     if not obj then return false end
     if not slua or not slua.isValid then return false end
     local ok, valid = pcall(slua.isValid, obj)
@@ -2158,8 +2160,8 @@ function ESPShared.VectorValues(v)
         and math.abs(x)<1e12 and math.abs(y)<1e12 and math.abs(z)<1e12 then return x,y,z end
 end
 
--- ESP timing made by @Masterpiece2025
-local function g_masterahsanyt_ESPNow()
+-- ESP timing made by @@hamsecheatsvip
+local function g_hamse_ESPNow()
     local t = nil
     pcall(function()
         local w = (slua and slua.getWorld and slua.getWorld()) or nil
@@ -2171,66 +2173,66 @@ local function g_masterahsanyt_ESPNow()
     if ESPShared.Finite(t) and t>=0 then return t end
     -- os.clock measures CPU time on some platforms, not elapsed frame time.
     -- If the engine clock is unavailable, advance by executed timer delays.
-    return ESPShared.SafeNumber(g_masterahsanyt_ShotESP.TimerClock,0.0,0.0,1e12)
+    return ESPShared.SafeNumber(g_hamse_ShotESP.TimerClock,0.0,0.0,1e12)
 end
 
--- ESP world access made by @Masterpiece2025
-local function g_masterahsanyt_ESPWorld()
+-- ESP world access made by @@hamsecheatsvip
+local function g_hamse_ESPWorld()
     local w = nil
     pcall(function() if slua and slua.getWorld then w = slua.getWorld() end end)
     return w
 end
 
--- ESP player controller made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetController()
+-- ESP player controller made by @@hamsecheatsvip
+local function g_hamse_ESPGetController()
     local pc = nil
     pcall(function()
         local GDP = ESPGameplayData
         if GDP and GDP.GetPlayerController then pc = GDP.GetPlayerController() end
     end)
-    if not g_masterahsanyt_ESPValid(pc) then
+    if not g_hamse_ESPValid(pc) then
         pcall(function()
             if slua_GameFrontendHUD then pc = slua_GameFrontendHUD:GetPlayerController() end
         end)
     end
-    return g_masterahsanyt_ESPValid(pc) and pc or nil
+    return g_hamse_ESPValid(pc) and pc or nil
 end
 
--- ESP local player made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetLocalCharacter()
+-- ESP local player made by @@hamsecheatsvip
+local function g_hamse_ESPGetLocalCharacter()
     local c = nil
     pcall(function()
         local GDP = ESPGameplayData
         if GDP then
             if GDP.GetPlayerCharacter then c = GDP.GetPlayerCharacter() end
-            if not g_masterahsanyt_ESPValid(c) and GDP.GetLocalCharacter then c = GDP.GetLocalCharacter() end
+            if not g_hamse_ESPValid(c) and GDP.GetLocalCharacter then c = GDP.GetLocalCharacter() end
         end
     end)
-    if not g_masterahsanyt_ESPValid(c) then
-        local pc = g_masterahsanyt_ESPGetController()
+    if not g_hamse_ESPValid(c) then
+        local pc = g_hamse_ESPGetController()
         pcall(function() if pc and pc.GetPawn then c = pc:GetPawn() end end)
     end
-    return g_masterahsanyt_ESPValid(c) and c or nil
+    return g_hamse_ESPValid(c) and c or nil
 end
 
--- g_masterahsanyt_ESPGetPlayerState made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetPlayerState(character)
-    if not g_masterahsanyt_ESPValid(character) then return nil end
+-- g_hamse_ESPGetPlayerState made by @@hamsecheatsvip
+local function g_hamse_ESPGetPlayerState(character)
+    if not g_hamse_ESPValid(character) then return nil end
     local ps = nil
     pcall(function()
         if character.GetPlayerStateSafety then ps = character:GetPlayerStateSafety() end
     end)
-    if not g_masterahsanyt_ESPValid(ps) then
+    if not g_hamse_ESPValid(ps) then
         pcall(function() if character.GetPlayerState then ps = character:GetPlayerState() end end)
     end
-    if not g_masterahsanyt_ESPValid(ps) then
+    if not g_hamse_ESPValid(ps) then
         pcall(function() ps = character.PlayerState end)
     end
-    return g_masterahsanyt_ESPValid(ps) and ps or nil
+    return g_hamse_ESPValid(ps) and ps or nil
 end
 
--- g_masterahsanyt_ESPNormalizeName made by @Masterpiece2025
-local function g_masterahsanyt_ESPNormalizeName(value)
+-- g_hamse_ESPNormalizeName made by @@hamsecheatsvip
+local function g_hamse_ESPNormalizeName(value)
     if value == nil or value == false then return nil end
     local ok, text = pcall(tostring, value)
     if not ok or not text then return nil end
@@ -2240,14 +2242,14 @@ local function g_masterahsanyt_ESPNormalizeName(value)
     return text
 end
 
--- ESP player name made by @Masterpiece2025
-local function g_masterahsanyt_ESPResolvePlayerName(character)
-    if not g_masterahsanyt_ESPValid(character) then return nil end
+-- ESP player name made by @@hamsecheatsvip
+local function g_hamse_ESPResolvePlayerName(character)
+    if not g_hamse_ESPValid(character) then return nil end
     local name = nil
 
--- take made by @Masterpiece2025
+-- take made by @@hamsecheatsvip
     local function take(value)
-        if not name then name = g_masterahsanyt_ESPNormalizeName(value) end
+        if not name then name = g_hamse_ESPNormalizeName(value) end
     end
 
     pcall(function() if character.GetPlayerNameSafety then take(character:GetPlayerNameSafety()) end end)
@@ -2258,7 +2260,7 @@ local function g_masterahsanyt_ESPResolvePlayerName(character)
     pcall(function() if not name then take(character.BotName) end end)
 
     if not name then
-        local ps = g_masterahsanyt_ESPGetPlayerState(character)
+        local ps = g_hamse_ESPGetPlayerState(character)
         if ps then
             pcall(function() if ps.GetPlayerName then take(ps:GetPlayerName()) end end)
             pcall(function() if not name then take(ps.PlayerName) end end)
@@ -2271,13 +2273,13 @@ local function g_masterahsanyt_ESPResolvePlayerName(character)
     return name
 end
 
--- g_masterahsanyt_ESPGetPlayerKey made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetPlayerKey(character)
+-- g_hamse_ESPGetPlayerKey made by @@hamsecheatsvip
+local function g_hamse_ESPGetPlayerKey(character)
     local key = nil
     pcall(function() if character.GetPlayerKey then key = character:GetPlayerKey() end end)
     if key == nil then pcall(function() key = character.PlayerKey end) end
     if key == nil then
-        local ps = g_masterahsanyt_ESPGetPlayerState(character)
+        local ps = g_hamse_ESPGetPlayerState(character)
         if ps then pcall(function() key = ps.PlayerKey end) end
     end
     if key == nil or tostring(key) == "" or tostring(key) == "0" or tostring(key) == "-1" then
@@ -2286,14 +2288,14 @@ local function g_masterahsanyt_ESPGetPlayerKey(character)
     return tostring(key) .. "_" .. tostring(character)
 end
 
--- ESP team detection made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetTeamID(character)
-    if not g_masterahsanyt_ESPValid(character) then return nil end
+-- ESP team detection made by @@hamsecheatsvip
+local function g_hamse_ESPGetTeamID(character)
+    if not g_hamse_ESPValid(character) then return nil end
     local id = nil
     pcall(function() if character.GetTeamID then id = character:GetTeamID() end end)
     if id == nil then pcall(function() id = character.TeamID end) end
     if id == nil then
-        local ps = g_masterahsanyt_ESPGetPlayerState(character)
+        local ps = g_hamse_ESPGetPlayerState(character)
         if ps then
             pcall(function() if ps.GetTeamID then id = ps:GetTeamID() end end)
             if id == nil then pcall(function() id = ps.TeamID end) end
@@ -2302,7 +2304,7 @@ local function g_masterahsanyt_ESPGetTeamID(character)
     return id
 end
 
--- ESP alive detection made by @Masterpiece2025
+-- ESP alive detection made by @@hamsecheatsvip
 local ESPFinishedLastBreath,ESPDeadPawnState
 pcall(function() ESPFinishedLastBreath=import("ECharacterHealthStatus").FinishedLastBreath end)
 pcall(function() ESPDeadPawnState=EPawnState and EPawnState.Dead end)
@@ -2322,8 +2324,8 @@ local function ESPActorDeadFlag(actor,key)
     local value=ESPReadActorField(actor,key)
     return value==true or value==1
 end
-local function g_masterahsanyt_ESPIsAlive(character)
-    if not g_masterahsanyt_ESPValid(character) then return false,"invalid" end
+local function g_hamse_ESPIsAlive(character)
+    if not g_hamse_ESPValid(character) then return false,"invalid" end
     if ESPActorDeadFlag(character,"bDead") or ESPActorDeadFlag(character,"bIsDead")
         or ESPActorDeadFlag(character,"bIsDeadFlag") then return false,"dead" end
     if ESPFinishedLastBreath~=nil
@@ -2354,7 +2356,7 @@ end
 -- Event-driven V1/V2 visibility. The original shared life evaluator and Wall
 -- renderer are deliberately untouched. 1=knocked, 2=confirmed dead, 3=exit pending.
 ESPShared.Events={Records=setmetatable({}, {__mode="k"}),Clearers={}}
-_G.LunarESPEvents=ESPShared.Events
+_G.HAMSE CHEATSESPEvents=ESPShared.Events
 do
     local E=ESPShared.Events
     function E.WorldChanged(world)
@@ -2370,7 +2372,7 @@ do
         if not Client then return nil end
         -- Only queried on a native event, never by a new poll or timer. This
         -- prevents a first HUD update from discarding a new-world death event.
-        E.WorldChanged(g_masterahsanyt_ESPWorld())
+        E.WorldChanged(g_hamse_ESPWorld())
         return self and self.Object
     end
 
@@ -2462,11 +2464,11 @@ do
     -- listener only. See Tencent/sluaunreal LuaDelegate.cpp, LuaMultiDelegate.
     -- Insert this chunk inside the existing ESPShared.Events do/end block,
     -- replacing only the three BRPlayerCharacterBase handler overrides.
-    local oldObserver=_G.__LunarESPEventObserver
+    local oldObserver=_G.__HAMSE CHEATSESPEventObserver
     if oldObserver and oldObserver~=E and type(oldObserver.UnbindAll)=="function" then
         pcall(oldObserver.UnbindAll)
     end
-    _G.__LunarESPEventObserver=E
+    _G.__HAMSE CHEATSESPEventObserver=E
     E.Bindings={}
     E.BindingCount=0
     E.BindingLimit=512
@@ -2492,7 +2494,7 @@ do
         E.Bindings[actor]=nil
         E.BindingCount=math.max(0,E.BindingCount-1)
         row.Active=false
-        local tracked=_G.g_masterahsanyt_TrackedCharacters
+        local tracked=_G.g_hamse_TrackedCharacters
         local key=tostring(actor)
         if tracked and tracked[key]==actor then tracked[key]=nil end
         row.Actor[1]=nil
@@ -2554,10 +2556,10 @@ do
         E.BindingCount=E.BindingCount+1
         -- Native class lifecycle stays untouched. Existing pawn discovery
         -- supplies tracking/maintenance, and native respawn delegates clear ESP.
-        _G.g_masterahsanyt_TrackedCharacters=_G.g_masterahsanyt_TrackedCharacters or {}
-        _G.g_masterahsanyt_TrackedCharacters[tostring(actor)]=actor
-        if g_masterahsanyt_StartSettingsMaintenance then
-            pcall(g_masterahsanyt_StartSettingsMaintenance,actor)
+        _G.g_hamse_TrackedCharacters=_G.g_hamse_TrackedCharacters or {}
+        _G.g_hamse_TrackedCharacters[tostring(actor)]=actor
+        if g_hamse_StartSettingsMaintenance then
+            pcall(g_hamse_StartSettingsMaintenance,actor)
         end
         if not _G._BYPASS_DONE and type(_G._BYPASS_Execute)=="function" then
             pcall(_G._BYPASS_Execute)
@@ -2571,7 +2573,7 @@ do
                 local function observed(...)
                     local current=row.Actor[1]
                     if not row.Active or row.Generation~=observerGeneration
-                        or _G.LunarESPEvents~=E or not observerValid(current) then return end
+                        or _G.HAMSE CHEATSESPEvents~=E or not observerValid(current) then return end
                     dispatchDepth=dispatchDepth+1
                     -- The existing state machine accepts self.Object. This
                     -- transient wrapper is never installed on a native class.
@@ -2619,11 +2621,11 @@ do
 end
 
 -- Bot cache uses the same actor/player key as pruning, with replication retries.
-local function g_masterahsanyt_ESPIsBot(character, key, providedCache, providedNow)
-    if not g_masterahsanyt_ESPValid(character) then return false end
-    key = key or g_masterahsanyt_ESPGetPlayerKey(character)
-    local cache = providedCache or g_masterahsanyt_ShotESP._BotCache
-    local now = providedNow or g_masterahsanyt_ShotESP.Now
+local function g_hamse_ESPIsBot(character, key, providedCache, providedNow)
+    if not g_hamse_ESPValid(character) then return false end
+    key = key or g_hamse_ESPGetPlayerKey(character)
+    local cache = providedCache or g_hamse_ShotESP._BotCache
+    local now = providedNow or g_hamse_ShotESP.Now
     local entry = cache[key]
     if entry and now >= entry.Clock and now - entry.Clock < 2.0 then return entry.Value end
     local result = nil
@@ -2636,7 +2638,7 @@ local function g_masterahsanyt_ESPIsBot(character, key, providedCache, providedN
     if result == nil then pcall(function() take(character.bIsAI) end) end
     if result == nil then pcall(function() if character.IsBot then take(character:IsBot()) end end) end
     if result == nil then
-        local ps = g_masterahsanyt_ESPGetPlayerState(character)
+        local ps = g_hamse_ESPGetPlayerState(character)
         if ps then
             pcall(function() take(ps.bIsABot) end)
             pcall(function() take(ps.bIsBot) end)
@@ -2649,10 +2651,10 @@ local function g_masterahsanyt_ESPIsBot(character, key, providedCache, providedN
     return result == true
 end
 
--- ESP actor position made by @Masterpiece2025
-local function g_masterahsanyt_ESPActorLocation(character)
+-- ESP actor position made by @@hamsecheatsvip
+local function g_hamse_ESPActorLocation(character)
     local loc = nil
-    if not g_masterahsanyt_ESPValid(character) then return nil end
+    if not g_hamse_ESPValid(character) then return nil end
     pcall(function()
         if character.K2_GetActorLocation then loc = character:K2_GetActorLocation()
         elseif Game and Game.GetActorLocation then loc = Game:GetActorLocation(character) end
@@ -2660,8 +2662,8 @@ local function g_masterahsanyt_ESPActorLocation(character)
     return loc
 end
 
--- ESP distance calculation made by @Masterpiece2025
-local function g_masterahsanyt_ESPDistanceMeters(a,b)
+-- ESP distance calculation made by @@hamsecheatsvip
+local function g_hamse_ESPDistanceMeters(a,b)
     local ax,ay,az=ESPShared.VectorValues(a)
     local bx,by,bz=ESPShared.VectorValues(b)
     if not ax or not bx then return math.huge end
@@ -2703,9 +2705,9 @@ function ESPShared.GetFrameRecord(actor)
     if ESPShared.Events.Observe then ESPShared.Events.Observe(actor) end
     entry=frame.Active and table.remove(frame.Pool) or nil
     if not entry then entry={} end
-    entry.Alive,entry.LifeState=g_masterahsanyt_ESPIsAlive(actor)
+    entry.Alive,entry.LifeState=g_hamse_ESPIsAlive(actor)
     entry.Projected=false;entry.OnScreen=false;entry.HasHead=false;entry.HasFeet=false
-    entry.Location=entry.Alive and g_masterahsanyt_ESPActorLocation(actor) or nil
+    entry.Location=entry.Alive and g_hamse_ESPActorLocation(actor) or nil
     entry.LocationX,entry.LocationY,entry.LocationZ=ESPShared.VectorValues(entry.Location)
     if not entry.LocationX then entry.Location=nil end
     if frame.Active and actor~=nil then frame.Entries[actor]=entry end
@@ -2728,7 +2730,7 @@ function ESPShared.GetFramePawns()
     end
     if ESPShared.Frame.Active then ESPShared.Frame.Pawns=pawns end
     local E=ESPShared.Events
-    local now=ESPShared.Frame.Active and ESPShared.Frame.Now or g_masterahsanyt_ESPNow()
+    local now=ESPShared.Frame.Active and ESPShared.Frame.Now or g_hamse_ESPNow()
     if E.SyncObservedPawns and (not E.SyncDue or now>=E.SyncDue or now<(E.SyncClock or now)) then
         E.SyncObservedPawns(pawns);E.SyncDue=now+1;E.SyncClock=now
     end
@@ -2778,9 +2780,9 @@ function ESPShared.ProjectionControllerValid(pc)
     if frame.Active then
         local cached=frame.Controllers[pc]
         if cached~=nil then return cached end
-        local valid=g_masterahsanyt_ESPValid(pc);frame.Controllers[pc]=valid;return valid
+        local valid=g_hamse_ESPValid(pc);frame.Controllers[pc]=valid;return valid
     end
-    return g_masterahsanyt_ESPValid(pc)
+    return g_hamse_ESPValid(pc)
 end
 function ESPShared.CanvasTransform(state)
     local frame=ESPShared.Frame
@@ -2802,12 +2804,12 @@ function ESPShared.AssignProbeVector(vector,x,y,z)
 end
 function ESPShared.UpdateProbeVector(vector,x,y,z)
     if vector and pcall(ESPShared.AssignProbeVector,vector,x,y,z) then return vector end
-    return g_masterahsanyt_ESPV3(x,y,z)
+    return g_hamse_ESPV3(x,y,z)
 end
 
 -- Validate all cached candidates before display caps. Reuse the list and alive
 -- map, so dead/out-of-range actors are pruned on the next scheduled HUD update.
-local function g_masterahsanyt_ESPFilterEnemies(list, myLocation, maxRange, alive)
+local function g_hamse_ESPFilterEnemies(list, myLocation, maxRange, alive)
     for key in pairs(alive) do alive[key]=nil end
     local count,kept,realCount,botCount=#list,0,0,0
     maxRange=tonumber(maxRange) or 450.0
@@ -2830,9 +2832,9 @@ local function g_masterahsanyt_ESPFilterEnemies(list, myLocation, maxRange, aliv
     return realCount,botCount
 end
 
--- ESP character vertical bounds made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetCharacterVerticalBounds(character,cachedLocation)
-    if not g_masterahsanyt_ESPValid(character) then return nil, nil end
+-- ESP character vertical bounds made by @@hamsecheatsvip
+local function g_hamse_ESPGetCharacterVerticalBounds(character,cachedLocation)
+    if not g_hamse_ESPValid(character) then return nil, nil end
 
     local center, halfHeight = nil, nil
     local capsule = nil
@@ -2845,7 +2847,7 @@ local function g_masterahsanyt_ESPGetCharacterVerticalBounds(character,cachedLoc
         end
     end)
 
-    if capsule and g_masterahsanyt_ESPValid(capsule) then
+    if capsule and g_hamse_ESPValid(capsule) then
         pcall(function()
             if capsule.K2_GetComponentLocation then
                 center = capsule:K2_GetComponentLocation()
@@ -2897,18 +2899,18 @@ local function g_masterahsanyt_ESPGetCharacterVerticalBounds(character,cachedLoc
     return center, halfHeight, cx, cy, cz
 end
 
--- ESP head and feet position made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetCharacterBoxLocs(character,cachedLocation)
-    local center, halfHeight, x, y, z = g_masterahsanyt_ESPGetCharacterVerticalBounds(character,cachedLocation)
+-- ESP head and feet position made by @@hamsecheatsvip
+local function g_hamse_ESPGetCharacterBoxLocs(character,cachedLocation)
+    local center, halfHeight, x, y, z = g_hamse_ESPGetCharacterVerticalBounds(character,cachedLocation)
     if not x or not halfHeight then return nil,nil end
 
-    local headLoc = g_masterahsanyt_ESPV3(
+    local headLoc = g_hamse_ESPV3(
         x,
         y,
         z + halfHeight
     )
 
-    local feetLoc = g_masterahsanyt_ESPV3(
+    local feetLoc = g_hamse_ESPV3(
         x,
         y,
         z - halfHeight
@@ -2917,9 +2919,9 @@ local function g_masterahsanyt_ESPGetCharacterBoxLocs(character,cachedLocation)
     return headLoc, feetLoc, center
 end
 
--- ESP head position made by @Masterpiece2025
+-- ESP head position made by @@hamsecheatsvip
 
--- ESP feet position made by @Masterpiece2025
+-- ESP feet position made by @@hamsecheatsvip
 
 -- Bounded inactive HUD widgets. Records retain native widget/slot structure,
 -- never an enemy key, actor, name, delegate, bone mesh or controller. Collapsed
@@ -2986,7 +2988,7 @@ function ESPWidgetPool.Release(data)
     if data.PoolReleased then return true end
     local pool,kind,canvas=data.PoolOwner,data.PoolKind,data.PoolCanvas
     if not pool or not pool.Enabled or pool.Canvas~=canvas or data.Broken
-        or not g_masterahsanyt_ESPValid(data.Widget) then return false end
+        or not g_hamse_ESPValid(data.Widget) then return false end
     local shape=shapes[kind]
     if not shape then return false end
     local bin=pool.Bins[kind]
@@ -3027,12 +3029,12 @@ function ESPWidgetPool.Take(pool,kind,canvas)
         local item=bin[#bin];bin[#bin]=nil;pool.Weight=pool.Weight-item.Weight
         local valid=true
         for _,field in ipairs(shape.Check) do
-            if not g_masterahsanyt_ESPValid(item[field]) then valid=false;break end
+            if not g_hamse_ESPValid(item[field]) then valid=false;break end
         end
         if valid and item.Groups then
             for _,group in pairs(item.Groups) do
                 for _,piece in ipairs(group) do
-                    if not g_masterahsanyt_ESPValid(piece.Widget) or not g_masterahsanyt_ESPValid(piece.Slot) then
+                    if not g_hamse_ESPValid(piece.Widget) or not g_hamse_ESPValid(piece.Slot) then
                         valid=false;break
                     end
                 end
@@ -3059,108 +3061,108 @@ function ESPWidgetPool.Take(pool,kind,canvas)
 end
 end
 
--- ESP widget destroy made by @Masterpiece2025
-local function g_masterahsanyt_ESPDestroyWidgetData(data)
+-- ESP widget destroy made by @@hamsecheatsvip
+local function g_hamse_ESPDestroyWidgetData(data)
     if not data then return end
     if ESPWidgetPool.Release(data) then return end
     for _, field in ipairs({"Widget", "Container", "Text", "DistanceText"}) do
         local widget=data[field]
-        if g_masterahsanyt_ESPValid(widget) then
+        if g_hamse_ESPValid(widget) then
             pcall(function() widget:RemoveFromParent() end)
         end
     end
 end
 
--- ESP widget cleanup made by @Masterpiece2025
-local function g_masterahsanyt_ESPResetWidgets()
+-- ESP widget cleanup made by @@hamsecheatsvip
+local function g_hamse_ESPResetWidgets()
     ESPWidgetPool.V2.Enabled=false
-    for _, data in pairs(g_masterahsanyt_ShotESP.Lines) do g_masterahsanyt_ESPDestroyWidgetData(data) end
-    for _, data in pairs(g_masterahsanyt_ShotESP.Names) do g_masterahsanyt_ESPDestroyWidgetData(data) end
-    for _, group in pairs(g_masterahsanyt_ShotESP.Boxes) do for _,data in ipairs(group) do g_masterahsanyt_ESPDestroyWidgetData(data) end end
-    for _, group in pairs(g_masterahsanyt_ShotESP.HealthBars) do for _,data in ipairs(group) do g_masterahsanyt_ESPDestroyWidgetData(data) end end
-    for _, group in pairs(g_masterahsanyt_ShotESP.Skeletons) do for _,data in ipairs(group) do g_masterahsanyt_ESPDestroyWidgetData(data) end end
-    for _, group in pairs(g_masterahsanyt_ShotESP.Headers) do for _,data in ipairs(group) do g_masterahsanyt_ESPDestroyWidgetData(data) end end
-    for _, group in pairs(g_masterahsanyt_ShotESP.Footers) do for _,data in ipairs(group) do g_masterahsanyt_ESPDestroyWidgetData(data) end end
-    g_masterahsanyt_ShotESP.Lines = {}
-    g_masterahsanyt_ShotESP.Names = {}
-    g_masterahsanyt_ShotESP.Boxes = {}
-    g_masterahsanyt_ShotESP.HealthBars = {}
-    g_masterahsanyt_ShotESP.Skeletons = {}
-    for _, data in pairs(g_masterahsanyt_ShotESP.HeaderRoots) do g_masterahsanyt_ESPDestroyWidgetData(data) end
-    g_masterahsanyt_ShotESP.HeaderRoots = {}
-    g_masterahsanyt_ShotESP.Headers = {}
-    g_masterahsanyt_ShotESP.Footers = {}
-    g_masterahsanyt_ShotESP.BuildStage = {}
-    g_masterahsanyt_ShotESP.BoneNameCache = {}
-    for _,data in pairs(g_masterahsanyt_ShotESP.Decorations) do g_masterahsanyt_ESPDestroyWidgetData(data) end
-    g_masterahsanyt_ShotESP.Decorations = {}
-    if g_masterahsanyt_ShotESP.Counter then g_masterahsanyt_ESPDestroyWidgetData(g_masterahsanyt_ShotESP.Counter) end
-    g_masterahsanyt_ShotESP.Counter = nil
-    g_masterahsanyt_ShotESP.Canvas = nil
-    g_masterahsanyt_ShotESP.RootUI = nil
-    g_masterahsanyt_ShotESP.Enemies = {}
-    g_masterahsanyt_ShotESP.Active = {}
-    g_masterahsanyt_ShotESP.Alive = {}
-    g_masterahsanyt_ShotESP.BoneMeshes = {}
-    g_masterahsanyt_ShotESP.BonePoints = {}
-    g_masterahsanyt_ShotESP.TemplateFont = nil
-    g_masterahsanyt_ShotESP.TemplateFontObject = nil
-    g_masterahsanyt_ShotESP.TemplateTypeface = nil
-    g_masterahsanyt_ShotESP.TemplateColorAndOpacity = nil
-    g_masterahsanyt_ShotESP.ViewportW, g_masterahsanyt_ShotESP.ViewportH = nil, nil
-    g_masterahsanyt_ShotESP.RawViewportW, g_masterahsanyt_ShotESP.RawViewportH = nil, nil
-    g_masterahsanyt_ShotESP.TracerOrigin = nil
-    g_masterahsanyt_ShotESP.LastScanClock = -999.0
-    g_masterahsanyt_ShotESP.LastTransformClock = -999.0
-    g_masterahsanyt_ShotESP.LastController = nil
-    g_masterahsanyt_ShotESP.LastPawn = nil
-    g_masterahsanyt_ShotESP._BotCache = {}
-    g_masterahsanyt_ShotESP.RealCount = 0
-    g_masterahsanyt_ShotESP.BotCount = 0
+    for _, data in pairs(g_hamse_ShotESP.Lines) do g_hamse_ESPDestroyWidgetData(data) end
+    for _, data in pairs(g_hamse_ShotESP.Names) do g_hamse_ESPDestroyWidgetData(data) end
+    for _, group in pairs(g_hamse_ShotESP.Boxes) do for _,data in ipairs(group) do g_hamse_ESPDestroyWidgetData(data) end end
+    for _, group in pairs(g_hamse_ShotESP.HealthBars) do for _,data in ipairs(group) do g_hamse_ESPDestroyWidgetData(data) end end
+    for _, group in pairs(g_hamse_ShotESP.Skeletons) do for _,data in ipairs(group) do g_hamse_ESPDestroyWidgetData(data) end end
+    for _, group in pairs(g_hamse_ShotESP.Headers) do for _,data in ipairs(group) do g_hamse_ESPDestroyWidgetData(data) end end
+    for _, group in pairs(g_hamse_ShotESP.Footers) do for _,data in ipairs(group) do g_hamse_ESPDestroyWidgetData(data) end end
+    g_hamse_ShotESP.Lines = {}
+    g_hamse_ShotESP.Names = {}
+    g_hamse_ShotESP.Boxes = {}
+    g_hamse_ShotESP.HealthBars = {}
+    g_hamse_ShotESP.Skeletons = {}
+    for _, data in pairs(g_hamse_ShotESP.HeaderRoots) do g_hamse_ESPDestroyWidgetData(data) end
+    g_hamse_ShotESP.HeaderRoots = {}
+    g_hamse_ShotESP.Headers = {}
+    g_hamse_ShotESP.Footers = {}
+    g_hamse_ShotESP.BuildStage = {}
+    g_hamse_ShotESP.BoneNameCache = {}
+    for _,data in pairs(g_hamse_ShotESP.Decorations) do g_hamse_ESPDestroyWidgetData(data) end
+    g_hamse_ShotESP.Decorations = {}
+    if g_hamse_ShotESP.Counter then g_hamse_ESPDestroyWidgetData(g_hamse_ShotESP.Counter) end
+    g_hamse_ShotESP.Counter = nil
+    g_hamse_ShotESP.Canvas = nil
+    g_hamse_ShotESP.RootUI = nil
+    g_hamse_ShotESP.Enemies = {}
+    g_hamse_ShotESP.Active = {}
+    g_hamse_ShotESP.Alive = {}
+    g_hamse_ShotESP.BoneMeshes = {}
+    g_hamse_ShotESP.BonePoints = {}
+    g_hamse_ShotESP.TemplateFont = nil
+    g_hamse_ShotESP.TemplateFontObject = nil
+    g_hamse_ShotESP.TemplateTypeface = nil
+    g_hamse_ShotESP.TemplateColorAndOpacity = nil
+    g_hamse_ShotESP.ViewportW, g_hamse_ShotESP.ViewportH = nil, nil
+    g_hamse_ShotESP.RawViewportW, g_hamse_ShotESP.RawViewportH = nil, nil
+    g_hamse_ShotESP.TracerOrigin = nil
+    g_hamse_ShotESP.LastScanClock = -999.0
+    g_hamse_ShotESP.LastTransformClock = -999.0
+    g_hamse_ShotESP.LastController = nil
+    g_hamse_ShotESP.LastPawn = nil
+    g_hamse_ShotESP._BotCache = {}
+    g_hamse_ShotESP.RealCount = 0
+    g_hamse_ShotESP.BotCount = 0
     ESPWidgetPool.Flush(ESPWidgetPool.V2)
     ESPWidgetPool.V2.Enabled=true
 end
 
--- ESP HUD canvas made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetCanvas()
-    if g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.Canvas) then return g_masterahsanyt_ShotESP.Canvas end
+-- ESP HUD canvas made by @@hamsecheatsvip
+local function g_hamse_ESPGetCanvas()
+    if g_hamse_ESPValid(g_hamse_ShotESP.Canvas) then return g_hamse_ShotESP.Canvas end
     local root = nil
     pcall(function()
         local InGameUITools = require("GameLua.Mod.BaseMod.Common.UI.InGameUITools")
         if InGameUITools and InGameUITools.GetMainControlBaseUI then root = InGameUITools.GetMainControlBaseUI() end
     end)
-    if not g_masterahsanyt_ESPValid(root) then return nil end
-    g_masterahsanyt_ShotESP.RootUI = root
+    if not g_hamse_ESPValid(root) then return nil end
+    g_hamse_ShotESP.RootUI = root
     local canvas = nil
     pcall(function()
-        if g_masterahsanyt_ESPValid(root.CanvasPanel_0) then canvas = root.CanvasPanel_0
-        elseif g_masterahsanyt_ESPValid(root.CanvasPanel_42) then canvas = root.CanvasPanel_42 end
+        if g_hamse_ESPValid(root.CanvasPanel_0) then canvas = root.CanvasPanel_0
+        elseif g_hamse_ESPValid(root.CanvasPanel_42) then canvas = root.CanvasPanel_42 end
     end)
-    if g_masterahsanyt_ESPValid(canvas) then g_masterahsanyt_ShotESP.Canvas = canvas return canvas end
+    if g_hamse_ESPValid(canvas) then g_hamse_ShotESP.Canvas = canvas return canvas end
     return nil
 end
 
 -- Discover a valid FontObject from existing HUD TextBlocks so dynamic TextBlocks always render glyphs
-local function g_masterahsanyt_ESPGetTemplateTextStyle()
-    if g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.TemplateFontObject) then
-        return g_masterahsanyt_ShotESP.TemplateFont
+local function g_hamse_ESPGetTemplateTextStyle()
+    if g_hamse_ESPValid(g_hamse_ShotESP.TemplateFontObject) then
+        return g_hamse_ShotESP.TemplateFont
     end
 
     local visited = 0
     local function scanWidget(w, depth)
         if not w or depth > 6 or visited > 250 then return false end
-        if not g_masterahsanyt_ESPValid(w) then return false end
+        if not g_hamse_ESPValid(w) then return false end
         visited = visited + 1
 
         local found = false
         pcall(function()
             if w.SetText and w.SetFont and w.Font then
                 local f = w.Font
-                if f and g_masterahsanyt_ESPValid(f.FontObject) then
-                    g_masterahsanyt_ShotESP.TemplateFont = f
-                    g_masterahsanyt_ShotESP.TemplateFontObject = f.FontObject
-                    pcall(function() g_masterahsanyt_ShotESP.TemplateTypeface = f.TypefaceFontName end)
-                    pcall(function() g_masterahsanyt_ShotESP.TemplateColorAndOpacity = w.ColorAndOpacity end)
+                if f and g_hamse_ESPValid(f.FontObject) then
+                    g_hamse_ShotESP.TemplateFont = f
+                    g_hamse_ShotESP.TemplateFontObject = f.FontObject
+                    pcall(function() g_hamse_ShotESP.TemplateTypeface = f.TypefaceFontName end)
+                    pcall(function() g_hamse_ShotESP.TemplateColorAndOpacity = w.ColorAndOpacity end)
                     found = true
                 end
             end
@@ -3182,31 +3184,31 @@ local function g_masterahsanyt_ESPGetTemplateTextStyle()
         return false
     end
 
-    local canvas = g_masterahsanyt_ESPGetCanvas()
+    local canvas = g_hamse_ESPGetCanvas()
     if canvas then scanWidget(canvas, 0) end
-    if not g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.TemplateFontObject) and g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.RootUI) then
-        scanWidget(g_masterahsanyt_ShotESP.RootUI, 0)
+    if not g_hamse_ESPValid(g_hamse_ShotESP.TemplateFontObject) and g_hamse_ESPValid(g_hamse_ShotESP.RootUI) then
+        scanWidget(g_hamse_ShotESP.RootUI, 0)
     end
 
-    if not g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.TemplateFontObject) and slua and slua.loadObject then
+    if not g_hamse_ESPValid(g_hamse_ShotESP.TemplateFontObject) and slua and slua.loadObject then
         for _, path in ipairs({
             "/Engine/EngineFonts/Roboto.Roboto",
             "/Engine/EngineFonts/Roboto",
             "/Engine/EngineFonts/DroidSansFallback.DroidSansFallback"
         }) do
             local ok, obj = pcall(slua.loadObject, path)
-            if ok and g_masterahsanyt_ESPValid(obj) then
-                g_masterahsanyt_ShotESP.TemplateFontObject = obj
+            if ok and g_hamse_ESPValid(obj) then
+                g_hamse_ShotESP.TemplateFontObject = obj
                 break
             end
         end
     end
 
-    return g_masterahsanyt_ShotESP.TemplateFont
+    return g_hamse_ShotESP.TemplateFont
 end
 
--- ESP viewport size made by @Masterpiece2025
-local function g_masterahsanyt_ESPViewport(pc)
+-- ESP viewport size made by @@hamsecheatsvip
+local function g_hamse_ESPViewport(pc)
     local w,h
     local function take(x,y)
         x,y=tonumber(x),tonumber(y)
@@ -3218,15 +3220,15 @@ local function g_masterahsanyt_ESPViewport(pc)
         end
     end)
     if not w then pcall(function() local x,y=pc:GetViewportSize();take(x,y) end) end
-    if not w then pcall(function() local v=g_masterahsanyt_ESPV2(0,0);pc:GetViewportSize(v);take(v.X,v.Y) end) end
+    if not w then pcall(function() local v=g_hamse_ESPV2(0,0);pc:GetViewportSize(v);take(v.X,v.Y) end) end
     if not w then pcall(function() local x,y=pc:GetViewportSize(0,0);take(x,y) end) end
     return w or 2400.0,h or 1080.0
 end
 
--- ESP HUD canvas made by @Masterpiece2025
-local function g_masterahsanyt_ESPGetCanvasLocalSize()
-    local canvas = g_masterahsanyt_ESPGetCanvas()
-    if not g_masterahsanyt_ESPValid(canvas) then return nil, nil end
+-- ESP HUD canvas made by @@hamsecheatsvip
+local function g_hamse_ESPGetCanvasLocalSize()
+    local canvas = g_hamse_ESPGetCanvas()
+    if not g_hamse_ESPValid(canvas) then return nil, nil end
 
     local cw, ch = nil, nil
     pcall(function()
@@ -3248,10 +3250,10 @@ local function g_masterahsanyt_ESPGetCanvasLocalSize()
     return cw, ch
 end
 
--- ESP canvas transform made by @Masterpiece2025
-local function g_masterahsanyt_ESPUpdateCanvasTransform(pc)
-    local canvas = g_masterahsanyt_ESPGetCanvas()
-    if not g_masterahsanyt_ESPValid(canvas) then return false end
+-- ESP canvas transform made by @@hamsecheatsvip
+local function g_hamse_ESPUpdateCanvasTransform(pc)
+    local canvas = g_hamse_ESPGetCanvas()
+    if not g_hamse_ESPValid(canvas) then return false end
 
     local calibrated = false
 
@@ -3261,11 +3263,11 @@ local function g_masterahsanyt_ESPUpdateCanvasTransform(pc)
             if geo then
                 local p0 = SlateBlueprintLibrary.AbsoluteToLocal(
                     geo,
-                    g_masterahsanyt_ESPV2(0, 0)
+                    g_hamse_ESPV2(0, 0)
                 )
                 local p1 = SlateBlueprintLibrary.AbsoluteToLocal(
                     geo,
-                    g_masterahsanyt_ESPV2(100, 100)
+                    g_hamse_ESPV2(100, 100)
                 )
 
                 if p0 and p1
@@ -3275,10 +3277,10 @@ local function g_masterahsanyt_ESPUpdateCanvasTransform(pc)
                     and p1.X>p0.X and p1.Y>p0.Y
                     and p1.X-p0.X<10000 and p1.Y-p0.Y<10000 then
 
-                    g_masterahsanyt_ShotESP.CanvasScaleX = (p1.X - p0.X) / 100.0
-                    g_masterahsanyt_ShotESP.CanvasScaleY = (p1.Y - p0.Y) / 100.0
-                    g_masterahsanyt_ShotESP.CanvasOffsetX = p0.X
-                    g_masterahsanyt_ShotESP.CanvasOffsetY = p0.Y
+                    g_hamse_ShotESP.CanvasScaleX = (p1.X - p0.X) / 100.0
+                    g_hamse_ShotESP.CanvasScaleY = (p1.Y - p0.Y) / 100.0
+                    g_hamse_ShotESP.CanvasOffsetX = p0.X
+                    g_hamse_ShotESP.CanvasOffsetY = p0.Y
                     calibrated = true
                 end
             end
@@ -3296,30 +3298,30 @@ local function g_masterahsanyt_ESPUpdateCanvasTransform(pc)
             end
         end)
 
-        g_masterahsanyt_ShotESP.CanvasScaleX = 1.0 / scale
-        g_masterahsanyt_ShotESP.CanvasScaleY = 1.0 / scale
-        g_masterahsanyt_ShotESP.CanvasOffsetX = 0.0
-        g_masterahsanyt_ShotESP.CanvasOffsetY = 0.0
+        g_hamse_ShotESP.CanvasScaleX = 1.0 / scale
+        g_hamse_ShotESP.CanvasScaleY = 1.0 / scale
+        g_hamse_ShotESP.CanvasOffsetX = 0.0
+        g_hamse_ShotESP.CanvasOffsetY = 0.0
     end
 
     return true
 end
 
--- ESP world to HUD projection made by @Masterpiece2025
-local function g_masterahsanyt_ESPProject(pc,worldLoc)
+-- ESP world to HUD projection made by @@hamsecheatsvip
+local function g_hamse_ESPProject(pc,worldLoc)
     local frame=ESPShared.Frame
     -- Skeleton results own their output; only the immediate raw scratch is shared.
-    if not frame.RawPixel then frame.RawPixel=g_masterahsanyt_ESPV2(0,0) end
+    if not frame.RawPixel then frame.RawPixel=g_hamse_ESPV2(0,0) end
     local pix=ESPShared.ProjectRaw(pc,worldLoc,frame.Active and frame.RawPixel or nil)
     if not pix then return nil end
-    local sx,sy,ox,oy=ESPShared.CanvasTransform(g_masterahsanyt_ShotESP)
-    return g_masterahsanyt_ESPV2(pix.X*sx+ox,pix.Y*sy+oy)
+    local sx,sy,ox,oy=ESPShared.CanvasTransform(g_hamse_ShotESP)
+    return g_hamse_ESPV2(pix.X*sx+ox,pix.Y*sy+oy)
 end
 
 -- Fresh projections deliberately avoid screen-space lerp: it adds camera lag
 -- and desynchronizes the capsule outline from the independently projected bones.
 
-local function g_masterahsanyt_ESPActorOnScreen(head,feet,minX,minY,maxX,maxY)
+local function g_hamse_ESPActorOnScreen(head,feet,minX,minY,maxX,maxY)
     local function usable(p)
         return p and ESPShared.Finite(p.X) and ESPShared.Finite(p.Y)
     end
@@ -3331,9 +3333,9 @@ local function g_masterahsanyt_ESPActorOnScreen(head,feet,minX,minY,maxX,maxY)
 end
 
 function ESPShared.ViewSize(pc)
-    local now=ESPShared.Frame.Active and ESPShared.Frame.Now or g_masterahsanyt_ESPNow()
+    local now=ESPShared.Frame.Active and ESPShared.Frame.Now or g_hamse_ESPNow()
     if not ESPShared.Frame.Active or ESPShared.Frame.ViewPC~=pc or now<ESPShared.Frame.ViewAt or now-ESPShared.Frame.ViewAt>=0.25 then
-        ESPShared.Frame.ViewW,ESPShared.Frame.ViewH=g_masterahsanyt_ESPViewport(pc)
+        ESPShared.Frame.ViewW,ESPShared.Frame.ViewH=g_hamse_ESPViewport(pc)
         ESPShared.Frame.ViewPC=pc;ESPShared.Frame.ViewAt=now
     end
     return ESPShared.Frame.ViewW,ESPShared.Frame.ViewH
@@ -3342,7 +3344,7 @@ function ESPShared.NativeProject(pc,location,pix)
     return pc:ProjectWorldLocationToScreen(location,pix,true)
 end
 function ESPShared.ActorProbeLocations(actor,entry)
-    local center,height,x,y,z=g_masterahsanyt_ESPGetCharacterVerticalBounds(actor,entry.Location)
+    local center,height,x,y,z=g_hamse_ESPGetCharacterVerticalBounds(actor,entry.Location)
     if not x or not height then return nil,nil end
     entry.WorldHead=ESPShared.UpdateProbeVector(entry.WorldHead,x,y,z+height)
     entry.WorldFeet=ESPShared.UpdateProbeVector(entry.WorldFeet,x,y,z-height)
@@ -3350,7 +3352,7 @@ function ESPShared.ActorProbeLocations(actor,entry)
 end
 function ESPShared.ProjectRaw(pc,location,pix)
     if not ESPShared.VectorValues(location) or not ESPShared.ProjectionControllerValid(pc) then return nil end
-    pix=pix or g_masterahsanyt_ESPV2(0,0);pix.X=0;pix.Y=0
+    pix=pix or g_hamse_ESPV2(0,0);pix.X=0;pix.Y=0
     local ok,result,out=pcall(ESPShared.NativeProject,pc,location,pix)
     if out then pix=out end
     local good,x,y=pcall(function() return tonumber(pix.X),tonumber(pix.Y) end)
@@ -3366,14 +3368,14 @@ function ESPShared.ProbeActor(pc,actor)
     if not entry.Alive or not entry.Location then return entry end
     local ok,head,feet=pcall(ESPShared.ActorProbeLocations,actor,entry)
     if not ok then return entry end
-    entry.RawHead=entry.RawHead or g_masterahsanyt_ESPV2(0,0)
-    entry.RawFeet=entry.RawFeet or g_masterahsanyt_ESPV2(0,0)
+    entry.RawHead=entry.RawHead or g_hamse_ESPV2(0,0)
+    entry.RawFeet=entry.RawFeet or g_hamse_ESPV2(0,0)
     local hp,hr=ESPShared.ProjectRaw(pc,head,entry.RawHead)
     local fp,fr=ESPShared.ProjectRaw(pc,feet,entry.RawFeet)
     if hp then entry.RawHead=hp end;if fp then entry.RawFeet=fp end
     entry.HasHead=hp~=nil;entry.HasFeet=fp~=nil
     local width,height=ESPShared.ViewSize(pc)
-    entry.OnScreen=g_masterahsanyt_ESPActorOnScreen(hp,fp,0,0,width,height)
+    entry.OnScreen=g_hamse_ESPActorOnScreen(hp,fp,0,0,width,height)
     if entry.OnScreen then entry.ProjectionReason="visible"
     elseif hp or fp or hr=="offscreen" or fr=="offscreen" then entry.ProjectionReason="offscreen" end
     return entry
@@ -3390,33 +3392,33 @@ function ESPShared.ProjectActor(pc,actor,state)
     local entry=ESPShared.ProbeActor(pc,actor)
     if not entry.OnScreen then return nil,nil,false,entry.ProjectionReason end
     local sx,sy,ox,oy=ESPShared.CanvasTransform(state)
-    local prefix=state==g_masterahsanyt_ShotESP and "V2" or "V1"
+    local prefix=state==g_hamse_ShotESP and "V2" or "V1"
     local function convert(raw,field)
-        local p=entry[field] or g_masterahsanyt_ESPV2(0,0);entry[field]=p
+        local p=entry[field] or g_hamse_ESPV2(0,0);entry[field]=p
         p.X=raw.X*sx+ox;p.Y=raw.Y*sy+oy;return p
     end
     local head=entry.HasHead and convert(entry.RawHead,prefix.."Head") or nil
     local feet=entry.HasFeet and convert(entry.RawFeet,prefix.."Feet") or nil
     local minX,minY,maxX,maxY=ESPShared.CanvasBounds(pc,state)
-    local visible=g_masterahsanyt_ESPActorOnScreen(head,feet,minX,minY,maxX,maxY)
+    local visible=g_hamse_ESPActorOnScreen(head,feet,minX,minY,maxX,maxY)
     return head,feet,visible,visible and "visible" or "offscreen"
 end
 
 
 -- ESP text setter with FText conversion fallback
 
--- ESP font style made by @Masterpiece2025
-local function g_masterahsanyt_ESPSetFont(textWidget, size)
-    if not g_masterahsanyt_ESPValid(textWidget) then return end
-    g_masterahsanyt_ESPGetTemplateTextStyle()
+-- ESP font style made by @@hamsecheatsvip
+local function g_hamse_ESPSetFont(textWidget, size)
+    if not g_hamse_ESPValid(textWidget) then return end
+    g_hamse_ESPGetTemplateTextStyle()
     pcall(function()
-        local f = textWidget.Font or g_masterahsanyt_ShotESP.TemplateFont
+        local f = textWidget.Font or g_hamse_ShotESP.TemplateFont
         if f then
-            if g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.TemplateFontObject) then
-                pcall(function() f.FontObject = g_masterahsanyt_ShotESP.TemplateFontObject end)
+            if g_hamse_ESPValid(g_hamse_ShotESP.TemplateFontObject) then
+                pcall(function() f.FontObject = g_hamse_ShotESP.TemplateFontObject end)
             end
-            if g_masterahsanyt_ShotESP.TemplateTypeface then
-                pcall(function() f.TypefaceFontName = g_masterahsanyt_ShotESP.TemplateTypeface end)
+            if g_hamse_ShotESP.TemplateTypeface then
+                pcall(function() f.TypefaceFontName = g_hamse_ShotESP.TemplateTypeface end)
             end
             pcall(function() f.Size = size end)
             if f.OutlineSettings then
@@ -3431,7 +3433,7 @@ local function g_masterahsanyt_ESPSetFont(textWidget, size)
             pcall(function() textWidget.Font = f end)
         end
         if textWidget.SetShadowOffset then
-            pcall(function() textWidget:SetShadowOffset(g_masterahsanyt_ESPV2(0.0,0.0)) end)
+            pcall(function() textWidget:SetShadowOffset(g_hamse_ESPV2(0.0,0.0)) end)
         end
         if textWidget.SetShadowColorAndOpacity then
             pcall(function() textWidget:SetShadowColorAndOpacity(ESP_TEXT_CLEAR) end)
@@ -3439,12 +3441,12 @@ local function g_masterahsanyt_ESPSetFont(textWidget, size)
     end)
 end
 
--- ESP text color made by @Masterpiece2025
-local function g_masterahsanyt_ESPSetTextColor(textWidget, color)
-    if not g_masterahsanyt_ESPValid(textWidget) or not color then return end
+-- ESP text color made by @@hamsecheatsvip
+local function g_hamse_ESPSetTextColor(textWidget, color)
+    if not g_hamse_ESPValid(textWidget) or not color then return end
     local applied = false
     pcall(function()
-        local sc = textWidget.ColorAndOpacity or g_masterahsanyt_ShotESP.TemplateColorAndOpacity or (SlateColor and SlateColor())
+        local sc = textWidget.ColorAndOpacity or g_hamse_ShotESP.TemplateColorAndOpacity or (SlateColor and SlateColor())
         if sc then
             sc.SpecifiedColor = color
             pcall(function() sc.ColorUseRule = 0 end)
@@ -3463,16 +3465,16 @@ local function g_masterahsanyt_ESPSetTextColor(textWidget, color)
     pcall(function() if textWidget.SetRenderOpacity then textWidget:SetRenderOpacity(1.0) end end)
 end
 
--- ESP line widget made by @Masterpiece2025
-local function g_masterahsanyt_ESPCreateLine(color,parent)
-    local canvas = parent or g_masterahsanyt_ESPGetCanvas()
-    if not g_masterahsanyt_ESPValid(canvas) then return nil end
-    local budget = g_masterahsanyt_ShotESP.BuildRemaining
+-- ESP line widget made by @@hamsecheatsvip
+local function g_hamse_ESPCreateLine(color,parent)
+    local canvas = parent or g_hamse_ESPGetCanvas()
+    if not g_hamse_ESPValid(canvas) then return nil end
+    local budget = g_hamse_ShotESP.BuildRemaining
     if budget ~= nil then
         if budget <= 0 then return nil end
-        g_masterahsanyt_ShotESP.BuildRemaining = budget - 1
+        g_hamse_ShotESP.BuildRemaining = budget - 1
     end
-    local pooled=canvas==g_masterahsanyt_ShotESP.Canvas and ESPWidgetPool.Take(ESPWidgetPool.V2,"Line",canvas)
+    local pooled=canvas==g_hamse_ShotESP.Canvas and ESPWidgetPool.Take(ESPWidgetPool.V2,"Line",canvas)
     if pooled then
         local ok=pcall(function() pooled.Widget:SetBrushColor(color) end)
         if ok then pooled.Visible=false;return pooled end
@@ -3480,23 +3482,23 @@ local function g_masterahsanyt_ESPCreateLine(color,parent)
     end
     local border = nil
     pcall(function() border = CGame:NewObjectFromPath("/Script/UMG.Border", canvas) end)
-    if not g_masterahsanyt_ESPValid(border) then return nil end
+    if not g_hamse_ESPValid(border) then return nil end
     pcall(function()
         border:SetBrushColor(color)
         border:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
-        border:SetRenderTransformPivot(g_masterahsanyt_ESPV2(0.0, 0.5))
+        border:SetRenderTransformPivot(g_hamse_ESPV2(0.0, 0.5))
     end)
     local slot = nil
     pcall(function() slot = canvas:AddChildToCanvas(border) end)
-    if not slot then g_masterahsanyt_ESPDestroyWidgetData({Widget=border}) return nil end
+    if not slot then g_hamse_ESPDestroyWidgetData({Widget=border}) return nil end
     pcall(function() slot:SetAutoSize(false) slot:SetZOrder(30) end)
     local data={Widget=border, Slot=slot}
-    if canvas==g_masterahsanyt_ShotESP.Canvas then ESPWidgetPool.Tag(ESPWidgetPool.V2,"Line",canvas,data) end
+    if canvas==g_hamse_ShotESP.Canvas then ESPWidgetPool.Tag(ESPWidgetPool.V2,"Line",canvas,data) end
     return data
 end
 
--- ESP line made by @Masterpiece2025
-local function g_masterahsanyt_ESPDrawLine(data, x1, y1, x2, y2, thickness)
+-- ESP line made by @@hamsecheatsvip
+local function g_hamse_ESPDrawLine(data, x1, y1, x2, y2, thickness)
     if not data or not data.Widget or not data.Slot then return false end
     local dx, dy = x2-x1, y2-y1
     local len = math.sqrt(dx*dx + dy*dy)
@@ -3517,11 +3519,11 @@ local function g_masterahsanyt_ESPDrawLine(data, x1, y1, x2, y2, thickness)
     -- that reject mutable structs fall back once to the original setter path.
     local setterOK=pcall(function()
         if data.VectorReuseDisabled then
-            data.Slot:SetPosition(g_masterahsanyt_ESPV2(x1, y1 - thickness*0.5))
-            data.Slot:SetSize(g_masterahsanyt_ESPV2(len, thickness))
+            data.Slot:SetPosition(g_hamse_ESPV2(x1, y1 - thickness*0.5))
+            data.Slot:SetSize(g_hamse_ESPV2(len, thickness))
         else
-            data.PosVec=data.PosVec or g_masterahsanyt_ESPV2(x1, y1 - thickness*0.5)
-            data.SizeVec=data.SizeVec or g_masterahsanyt_ESPV2(len, thickness)
+            data.PosVec=data.PosVec or g_hamse_ESPV2(x1, y1 - thickness*0.5)
+            data.SizeVec=data.SizeVec or g_hamse_ESPV2(len, thickness)
             data.PosVec.X=x1;data.PosVec.Y=y1-thickness*0.5
             data.SizeVec.X=len;data.SizeVec.Y=thickness
             data.Slot:SetPosition(data.PosVec)
@@ -3533,8 +3535,8 @@ local function g_masterahsanyt_ESPDrawLine(data, x1, y1, x2, y2, thickness)
     if not setterOK and not data.VectorReuseDisabled then
         data.VectorReuseDisabled=true;data.PosVec=nil;data.SizeVec=nil
         setterOK=pcall(function()
-            data.Slot:SetPosition(g_masterahsanyt_ESPV2(x1, y1 - thickness*0.5))
-            data.Slot:SetSize(g_masterahsanyt_ESPV2(len, thickness))
+            data.Slot:SetPosition(g_hamse_ESPV2(x1, y1 - thickness*0.5))
+            data.Slot:SetSize(g_hamse_ESPV2(len, thickness))
             data.Widget:SetRenderAngle(angle)
             if not data.Visible then data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible) end
         end)
@@ -3546,8 +3548,8 @@ local function g_masterahsanyt_ESPDrawLine(data, x1, y1, x2, y2, thickness)
     return true
 end
 
--- ESP widget hide made by @Masterpiece2025
-local function g_masterahsanyt_ESPHide(data)
+-- ESP widget hide made by @@hamsecheatsvip
+local function g_hamse_ESPHide(data)
     if data and data.Visible~=false and data.Widget then
         local ok=pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end)
         if not ok then data.Broken=true end
@@ -3555,48 +3557,48 @@ local function g_masterahsanyt_ESPHide(data)
     end
 end
 
-local function g_masterahsanyt_ESPDestroyGroup(group)
+local function g_hamse_ESPDestroyGroup(group)
     if not group then return end
-    for _, data in ipairs(group) do g_masterahsanyt_ESPDestroyWidgetData(data) end
+    for _, data in ipairs(group) do g_hamse_ESPDestroyWidgetData(data) end
 end
 
 -- Check native widget validity at discovery cadence; failed setters mark a
 -- piece broken immediately. This avoids an IsValid bridge call per piece/frame.
-local function g_masterahsanyt_ESPGroupHealthy(group)
+local function g_hamse_ESPGroupHealthy(group)
     if not group then return false end
-    local now = g_masterahsanyt_ShotESP.Now
+    local now = g_hamse_ShotESP.Now
     local validate = not group.ValidatedAt or now < group.ValidatedAt or now-group.ValidatedAt >= 0.35
     for _, data in ipairs(group) do
-        if data.Broken or (validate and not g_masterahsanyt_ESPValid(data.Widget)) then return false end
+        if data.Broken or (validate and not g_hamse_ESPValid(data.Widget)) then return false end
     end
     if validate then group.ValidatedAt = now end
     return true
 end
 
 -- Keep partial groups across ticks; budgeted creation prevents first-visibility spikes.
-local function g_masterahsanyt_ESPLineGroup(registry, key, count, color, parent)
+local function g_hamse_ESPLineGroup(registry, key, count, color, parent)
     local group = registry[key]
-    if group and not g_masterahsanyt_ESPGroupHealthy(group) then
-        g_masterahsanyt_ESPDestroyGroup(group)
+    if group and not g_hamse_ESPGroupHealthy(group) then
+        g_hamse_ESPDestroyGroup(group)
         group = nil
     end
     if not group or #group > count then
-        g_masterahsanyt_ESPDestroyGroup(group)
+        g_hamse_ESPDestroyGroup(group)
         group = {}
         registry[key] = group
     end
     while #group < count do
-        local data = g_masterahsanyt_ESPCreateLine(color, parent)
+        local data = g_hamse_ESPCreateLine(color, parent)
         if not data then return nil end
         group[#group + 1] = data
-        g_masterahsanyt_ESPHide(data)
+        g_hamse_ESPHide(data)
     end
     return group
 end
 
 -- Existing geometry and widgets are reused. Stable identity performs no native
 -- color setters; failed brush assignments remain eligible for retry.
-local function g_masterahsanyt_ESPApplyGroupTheme(group,theme,kind)
+local function g_hamse_ESPApplyGroupTheme(group,theme,kind)
     if not group or group.ThemeKey==theme.Key then return end
     local ok=pcall(function()
         for i,piece in ipairs(group) do
@@ -3619,43 +3621,43 @@ local function g_masterahsanyt_ESPApplyGroupTheme(group,theme,kind)
     if ok then group.ThemeKey=theme.Key end
 end
 
-local function g_masterahsanyt_ESPHideGroup(group)
+local function g_hamse_ESPHideGroup(group)
     if not group then return end
-    for _, data in ipairs(group) do g_masterahsanyt_ESPHide(data) end
+    for _, data in ipairs(group) do g_hamse_ESPHide(data) end
 end
 
-local function g_masterahsanyt_ESPHideDetailedEnemy(key)
-    g_masterahsanyt_ESPHide(g_masterahsanyt_ShotESP.Lines[key])
-    g_masterahsanyt_ESPHideGroup(g_masterahsanyt_ShotESP.Boxes[key])
-    g_masterahsanyt_ESPHideGroup(g_masterahsanyt_ShotESP.HealthBars[key])
-    g_masterahsanyt_ESPHideGroup(g_masterahsanyt_ShotESP.Skeletons[key])
-    g_masterahsanyt_ESPHideGroup(g_masterahsanyt_ShotESP.Headers[key])
-    local decor=g_masterahsanyt_ShotESP.Decorations[key]
+local function g_hamse_ESPHideDetailedEnemy(key)
+    g_hamse_ESPHide(g_hamse_ShotESP.Lines[key])
+    g_hamse_ESPHideGroup(g_hamse_ShotESP.Boxes[key])
+    g_hamse_ESPHideGroup(g_hamse_ShotESP.HealthBars[key])
+    g_hamse_ESPHideGroup(g_hamse_ShotESP.Skeletons[key])
+    g_hamse_ESPHideGroup(g_hamse_ShotESP.Headers[key])
+    local decor=g_hamse_ShotESP.Decorations[key]
     if decor and decor.Visible~=false then pcall(function() decor.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end) decor.Visible=false end
 end
 
-local g_masterahsanyt_ESPHealthRatio
+local g_hamse_ESPHealthRatio
 
-local function g_masterahsanyt_ESPSetGroupVisible(group,visible)
+local function g_hamse_ESPSetGroupVisible(group,visible)
     if not group or group.GroupVisible==visible then return end
     for _,data in ipairs(group) do
         if visible then
             pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible) end)
             data.Visible=true
-        else g_masterahsanyt_ESPHide(data) end
+        else g_hamse_ESPHide(data) end
     end
     group.GroupVisible=visible
 end
 
-local function g_masterahsanyt_ESPCreateDecorationRoot(poolKind)
-    local canvas=g_masterahsanyt_ESPGetCanvas()
-    if not g_masterahsanyt_ESPValid(canvas) then return nil end
+local function g_hamse_ESPCreateDecorationRoot(poolKind)
+    local canvas=g_hamse_ESPGetCanvas()
+    if not g_hamse_ESPValid(canvas) then return nil end
     poolKind=poolKind or "Decor"
     local pooled=ESPWidgetPool.Take(ESPWidgetPool.V2,poolKind,canvas)
     if pooled then
         local ok=pcall(function()
             pooled.Slot:SetZOrder(poolKind=="Header" and 30 or 29)
-            pooled.Widget:SetRenderScale(g_masterahsanyt_ESPV2(1.0,1.0))
+            pooled.Widget:SetRenderScale(g_hamse_ESPV2(1.0,1.0))
             pooled.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
         end)
         if ok then pooled.Visible=true;return pooled end
@@ -3663,27 +3665,27 @@ local function g_masterahsanyt_ESPCreateDecorationRoot(poolKind)
     end
     local root=nil
     pcall(function() root=CGame:NewObjectFromPath("/Script/UMG.CanvasPanel",canvas) end)
-    if not g_masterahsanyt_ESPValid(root) then return nil end
+    if not g_hamse_ESPValid(root) then return nil end
     local slot=nil
     pcall(function() slot=canvas:AddChildToCanvas(root) end)
-    if not slot then g_masterahsanyt_ESPDestroyWidgetData({Widget=root}) return nil end
+    if not slot then g_hamse_ESPDestroyWidgetData({Widget=root}) return nil end
     pcall(function()
         slot:SetAutoSize(false)
-        slot:SetSize(g_masterahsanyt_ESPV2(1000.0,1400.0))
+        slot:SetSize(g_hamse_ESPV2(1000.0,1400.0))
         slot:SetZOrder(29)
-        root:SetRenderTransformPivot(g_masterahsanyt_ESPV2(0.0,0.0))
+        root:SetRenderTransformPivot(g_hamse_ESPV2(0.0,0.0))
         root:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
     end)
     return ESPWidgetPool.Tag(ESPWidgetPool.V2,poolKind,canvas,{Widget=root,Slot=slot,Groups={},Visible=true})
 end
 
-local function g_masterahsanyt_ESPDecorGroup(data,name,count,color)
-    return g_masterahsanyt_ESPLineGroup(data.Groups,name,count,color,data.Widget)
+local function g_hamse_ESPDecorGroup(data,name,count,color)
+    return g_hamse_ESPLineGroup(data.Groups,name,count,color,data.Widget)
 end
 
 
-local function g_masterahsanyt_ESPBuildArcs(data)
-    local group=g_masterahsanyt_ESPDecorGroup(data,"Arcs",26,ESP_REAL)
+local function g_hamse_ESPBuildArcs(data)
+    local group=g_hamse_ESPDecorGroup(data,"Arcs",26,ESP_REAL)
     if not group then return nil end
     if group.Built then return group end
     local cx,cy,half,ry=500.0,385.0,268.0,180.0
@@ -3698,7 +3700,7 @@ local function g_masterahsanyt_ESPBuildArcs(data)
             local angle=(-70+step*28)*math.pi/180
             local p={X=cx+side*half*math.cos(angle),Y=cy+ry*math.sin(angle)}
             if previous then
-                g_masterahsanyt_ESPDrawLine(group[index],previous.X,previous.Y,p.X,p.Y,redThickness[step])
+                g_hamse_ESPDrawLine(group[index],previous.X,previous.Y,p.X,p.Y,redThickness[step])
                 index=index+1
             end
             previous=p
@@ -3708,7 +3710,7 @@ local function g_masterahsanyt_ESPBuildArcs(data)
     for _,side in ipairs({-1,1}) do
         local x=cx+side*half*1.02
         for _,oy in ipairs({-24.0,0.0,24.0}) do
-            g_masterahsanyt_ESPDrawLine(group[tickIndex],x-side*5.0,cy+oy,x+side*2.0,cy+oy,2.2)
+            g_hamse_ESPDrawLine(group[tickIndex],x-side*5.0,cy+oy,x+side*2.0,cy+oy,2.2)
             tickIndex=tickIndex+1
         end
     end
@@ -3720,7 +3722,7 @@ local function g_masterahsanyt_ESPBuildArcs(data)
             local p={X=cx+side*ih*math.cos(angle),Y=cy+ir*math.sin(angle)}
             if previous then
                 pcall(function() group[index].Widget:SetBrushColor(ESP_WHITE) end)
-                g_masterahsanyt_ESPDrawLine(group[index],previous.X,previous.Y,p.X,p.Y,whiteThickness[step])
+                g_hamse_ESPDrawLine(group[index],previous.X,previous.Y,p.X,p.Y,whiteThickness[step])
                 index=index+1
             end
             previous=p
@@ -3730,8 +3732,8 @@ local function g_masterahsanyt_ESPBuildArcs(data)
     return group
 end
 
-local function g_masterahsanyt_ESPBuildHealth(data)
-    local group=g_masterahsanyt_ESPDecorGroup(data,"Health",11,ESP_REAL)
+local function g_hamse_ESPBuildHealth(data)
+    local group=g_hamse_ESPDecorGroup(data,"Health",11,ESP_REAL)
     if not group then return nil end
     if group.Built then return group end
     -- Twice the original footprint so distant health remains readable.
@@ -3739,41 +3741,41 @@ local function g_masterahsanyt_ESPBuildHealth(data)
     pcall(function()
         for i=1,11 do group[i].Widget:SetBrushColor(ESP_REAL) end
     end)
-    g_masterahsanyt_ESPDrawLine(group[1],x,barTop,x,barBottom,barW)
+    g_hamse_ESPDrawLine(group[1],x,barTop,x,barBottom,barW)
     local sh=(barBottom-barTop)/8
     for i=1,8 do
         local y1=barBottom-(i-1)*sh-2
         local y2=barBottom-i*sh+2
-        g_masterahsanyt_ESPDrawLine(group[i+1],x,y1,x,y2,barW*.64)
+        g_hamse_ESPDrawLine(group[i+1],x,y1,x,y2,barW*.64)
     end
-    g_masterahsanyt_ESPDrawLine(group[10],x-barW*.5,barTop,x+barW*.5,barTop,2.0)
-    g_masterahsanyt_ESPDrawLine(group[11],x-barW*.5,barBottom,x+barW*.5,barBottom,2.0)
+    g_hamse_ESPDrawLine(group[10],x-barW*.5,barTop,x+barW*.5,barTop,2.0)
+    g_hamse_ESPDrawLine(group[11],x-barW*.5,barBottom,x+barW*.5,barBottom,2.0)
     group.Built=true group.GroupVisible=true group.Filled=-1
     return group
 end
 
-local function g_masterahsanyt_ESPBuildFooter(data)
-    local group=g_masterahsanyt_ESPDecorGroup(data,"Footer",6,ESP_WHITE)
+local function g_hamse_ESPBuildFooter(data)
+    local group=g_hamse_ESPDecorGroup(data,"Footer",6,ESP_WHITE)
     if not group then return nil end
     if group.Built then return group end
     local cx,y,w=500.0,1243.0,394.0
     local s={{cx-w*.5,y,cx-w*.29,y},{cx-w*.5,y,cx-w*.58,y-7},{cx+w*.29,y,cx+w*.5,y},{cx+w*.5,y,cx+w*.58,y-7},{cx-w*.23,y,cx-w*.19,y},{cx+w*.19,y,cx+w*.23,y}}
-    for i,v in ipairs(s) do pcall(function() group[i].Widget:SetBrushColor(i>=5 and ESP_REAL or ESP_WHITE) end) g_masterahsanyt_ESPDrawLine(group[i],v[1],v[2],v[3],v[4],i>=5 and 2.2 or 1.6) end
+    for i,v in ipairs(s) do pcall(function() group[i].Widget:SetBrushColor(i>=5 and ESP_REAL or ESP_WHITE) end) g_hamse_ESPDrawLine(group[i],v[1],v[2],v[3],v[4],i>=5 and 2.2 or 1.6) end
     group.Built=true group.GroupVisible=true
     return group
 end
 
-local function g_masterahsanyt_ESPUpdateDecoration(key,character,head,feet,opt,stage,isBot)
+local function g_hamse_ESPUpdateDecoration(key,character,head,feet,opt,stage,isBot)
     local enabled=opt.Name or opt.Box or opt.Health or opt.Distance
-    local data=g_masterahsanyt_ShotESP.Decorations[key]
+    local data=g_hamse_ShotESP.Decorations[key]
     if not enabled or not head or not feet then
         if data and data.Visible~=false then pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end) data.Visible=false end
         return
     end
-    if not data or not g_masterahsanyt_ESPValid(data.Widget) then
-        g_masterahsanyt_ESPDestroyWidgetData(data)
-        data=g_masterahsanyt_ESPCreateDecorationRoot()
-        g_masterahsanyt_ShotESP.Decorations[key]=data
+    if not data or not g_hamse_ESPValid(data.Widget) then
+        g_hamse_ESPDestroyWidgetData(data)
+        data=g_hamse_ESPCreateDecorationRoot()
+        g_hamse_ShotESP.Decorations[key]=data
     end
     if not data then return end
     local h=math.abs(feet.Y-head.Y)
@@ -3783,11 +3785,11 @@ local function g_masterahsanyt_ESPUpdateDecoration(key,character,head,feet,opt,s
     local moved=not data.X or math.abs(data.X-x)>=.25 or math.abs(data.Y-y)>=.25
     local scaled=not data.Scale or math.abs(data.Scale-scale)>=.001
     if moved then
-        local ok=pcall(function() data.Slot:SetPosition(g_masterahsanyt_ESPV2(x,y)) end)
+        local ok=pcall(function() data.Slot:SetPosition(g_hamse_ESPV2(x,y)) end)
         if ok then data.X,data.Y=x,y end
     end
     if scaled then
-        local ok=pcall(function() data.Widget:SetRenderScale(g_masterahsanyt_ESPV2(scale,scale)) end)
+        local ok=pcall(function() data.Widget:SetRenderScale(g_hamse_ESPV2(scale,scale)) end)
         if ok then data.Scale=scale else data.Scale=nil end
     end
     if data.Visible~=true then
@@ -3795,38 +3797,38 @@ local function g_masterahsanyt_ESPUpdateDecoration(key,character,head,feet,opt,s
         if ok then data.Visible=true end
     end
     -- Header: handled by ESPUpdateHeaderFrame (screen-space, dynamic width) — hide DecorationRoot version
-    if data.Groups.Header then g_masterahsanyt_ESPSetGroupVisible(data.Groups.Header, false) end
-    local theme=g_masterahsanyt_ESPTheme(isBot)
+    if data.Groups.Header then g_hamse_ESPSetGroupVisible(data.Groups.Header, false) end
+    local theme=g_hamse_ESPTheme(isBot)
     local arcs=data.Groups.Arcs
-    if opt.Box then arcs=g_masterahsanyt_ESPBuildArcs(data) end
-    if arcs then g_masterahsanyt_ESPApplyGroupTheme(arcs,theme,"Arcs") end
-    g_masterahsanyt_ESPSetGroupVisible(arcs,opt.Box==true)
+    if opt.Box then arcs=g_hamse_ESPBuildArcs(data) end
+    if arcs then g_hamse_ESPApplyGroupTheme(arcs,theme,"Arcs") end
+    g_hamse_ESPSetGroupVisible(arcs,opt.Box==true)
     local health=data.Groups.Health
-    if opt.Health then health=g_masterahsanyt_ESPBuildHealth(data) end
+    if opt.Health then health=g_hamse_ESPBuildHealth(data) end
     local healthTypeChanged=health and health.ThemeKey~=theme.Key
-    if health then g_masterahsanyt_ESPApplyGroupTheme(health,theme,"Health") end
-    g_masterahsanyt_ESPSetGroupVisible(health,opt.Health==true)
+    if health then g_hamse_ESPApplyGroupTheme(health,theme,"Health") end
+    g_hamse_ESPSetGroupVisible(health,opt.Health==true)
     if health and opt.Health then
-        local filled=math.ceil(g_masterahsanyt_ESPHealthRatio(character)*8-.001)
+        local filled=math.ceil(g_hamse_ESPHealthRatio(character)*8-.001)
         if health.Filled~=filled or healthTypeChanged then
             local ok=pcall(function() for i=1,8 do health[i+1].Widget:SetBrushColor(i<=filled and theme.Main or theme.Empty) end end)
             if ok then health.Filled=filled end
         end
     end
     local footer=data.Groups.Footer
-    if opt.Distance then footer=g_masterahsanyt_ESPBuildFooter(data) end
-    if footer then g_masterahsanyt_ESPApplyGroupTheme(footer,theme,"Footer") end
-    g_masterahsanyt_ESPSetGroupVisible(footer,opt.Distance==true)
+    if opt.Distance then footer=g_hamse_ESPBuildFooter(data) end
+    if footer then g_hamse_ESPApplyGroupTheme(footer,theme,"Footer") end
+    g_hamse_ESPSetGroupVisible(footer,opt.Distance==true)
 end
 
-local function g_masterahsanyt_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
-    local group=g_masterahsanyt_ShotESP.Headers[key]
-    if not enabled or not head or not feet then g_masterahsanyt_ESPHideGroup(group) return end
+local function g_hamse_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
+    local group=g_hamse_ShotESP.Headers[key]
+    if not enabled or not head or not feet then g_hamse_ESPHideGroup(group) return end
     local h=math.abs(feet.Y-head.Y)
     -- Compact distance scaling.  The bottom edge stays above the head and all
     -- height growth happens upward, so zooming never pushes the plate onto the body.
     local w=math.max(68.0,math.min(232.0,h*0.315))
-    local cached=g_masterahsanyt_ShotESP.Names[key] and g_masterahsanyt_ShotESP.Names[key].CachedName or ""
+    local cached=g_hamse_ShotESP.Names[key] and g_hamse_ShotESP.Names[key].CachedName or ""
     w=math.max(w,math.min(232.0,28.0+#tostring(cached)*6.0))
     local hh=math.max(18.0,math.min(48.0,h*0.070))
     local headGap=math.max(4.0,math.min(10.0,h*0.025))
@@ -3839,18 +3841,18 @@ local function g_masterahsanyt_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
     -- 25 frame/background widgets + 8 horizontal fill bands per corner.
     -- The bands approximate true triangles without using rotated rectangles,
     -- which were the source of the original black corner leakage.
-    local root = g_masterahsanyt_ShotESP.HeaderRoots[key]
-    if not root or not g_masterahsanyt_ESPValid(root.Widget) then
-        g_masterahsanyt_ESPDestroyGroup(group)
-        g_masterahsanyt_ShotESP.Headers[key] = nil
+    local root = g_hamse_ShotESP.HeaderRoots[key]
+    if not root or not g_hamse_ESPValid(root.Widget) then
+        g_hamse_ESPDestroyGroup(group)
+        g_hamse_ShotESP.Headers[key] = nil
         group = nil
-        g_masterahsanyt_ESPDestroyWidgetData(root)
-        root = g_masterahsanyt_ESPCreateDecorationRoot("Header")
-        g_masterahsanyt_ShotESP.HeaderRoots[key] = root
+        g_hamse_ESPDestroyWidgetData(root)
+        root = g_hamse_ESPCreateDecorationRoot("Header")
+        g_hamse_ShotESP.HeaderRoots[key] = root
         if not root then return end
         group=root.Groups.__Header
         root.Groups.__Header=nil
-        g_masterahsanyt_ShotESP.Headers[key]=group
+        g_hamse_ShotESP.Headers[key]=group
         pcall(function() root.Slot:SetZOrder(30) end)
     end
     -- Move 57 header pieces with one parent slot. Width/height changes still
@@ -3858,14 +3860,14 @@ local function g_masterahsanyt_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
     local rootY = b
     local moved = not root.X or math.abs(root.X-cx) >= 0.25 or math.abs(root.Y-rootY) >= 0.25
     if moved then
-        local ok = pcall(function() root.Slot:SetPosition(g_masterahsanyt_ESPV2(cx,rootY)) end)
+        local ok = pcall(function() root.Slot:SetPosition(g_hamse_ESPV2(cx,rootY)) end)
         if ok then root.X,root.Y = cx,rootY end
     end
-    local theme=g_masterahsanyt_ESPTheme(isBot)
+    local theme=g_hamse_ESPTheme(isBot)
     local ready = group and #group == 57
-    if ready then g_masterahsanyt_ESPApplyGroupTheme(group,theme,"Header") end
+    if ready then g_hamse_ESPApplyGroupTheme(group,theme,"Header") end
     if ready and group.Width and math.abs(group.Width-w) < 0.25 and math.abs(group.Height-hh) < 0.25 then
-        local healthy = g_masterahsanyt_ESPGroupHealthy(group)
+        local healthy = g_hamse_ESPGroupHealthy(group)
         if healthy then
             for _, piece in ipairs(group) do
                 if piece.Drawn then
@@ -3873,12 +3875,12 @@ local function g_masterahsanyt_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
                         local ok = pcall(function() piece.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible) end)
                         if ok then piece.Visible = true end
                     end
-                else g_masterahsanyt_ESPHide(piece) end
+                else g_hamse_ESPHide(piece) end
             end
             return
         end
     end
-    group=g_masterahsanyt_ESPLineGroup(g_masterahsanyt_ShotESP.Headers,key,57,ESP_REAL,root.Widget)
+    group=g_hamse_ESPLineGroup(g_hamse_ShotESP.Headers,key,57,ESP_REAL,root.Widget)
     if not group then return end
     cx, b, t, cy = 0.0, 0.0, -hh, -hh*0.5
     l, r = -w*0.5, w*0.5
@@ -3887,31 +3889,31 @@ local function g_masterahsanyt_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
         local ok=pcall(function() for i=23,57 do group[i].Slot:SetZOrder(0) end end)
         if ok then group.HeaderStyled=true end
     end
-    g_masterahsanyt_ESPApplyGroupTheme(group,theme,"Header")
+    g_hamse_ESPApplyGroupTheme(group,theme,"Header")
     -- octagon border
-    for i,s in ipairs(seg) do g_masterahsanyt_ESPDrawLine(group[i],s[1],s[2],s[3],s[4],2.0) end
+    for i,s in ipairs(seg) do g_hamse_ESPDrawLine(group[i],s[1],s[2],s[3],s[4],2.0) end
     -- white inner accent lines on top/bottom edges
-    g_masterahsanyt_ESPDrawLine(group[9],l+cut*1.05,t,l+w*0.16,t,1.25)
-    g_masterahsanyt_ESPDrawLine(group[10],r-w*0.16,t,r-cut*1.05,t,1.25)
-    g_masterahsanyt_ESPDrawLine(group[11],l+cut*1.05,b,l+w*0.16,b,1.25)
-    g_masterahsanyt_ESPDrawLine(group[12],r-w*0.16,b,r-cut*1.05,b,1.25)
+    g_hamse_ESPDrawLine(group[9],l+cut*1.05,t,l+w*0.16,t,1.25)
+    g_hamse_ESPDrawLine(group[10],r-w*0.16,t,r-cut*1.05,t,1.25)
+    g_hamse_ESPDrawLine(group[11],l+cut*1.05,b,l+w*0.16,b,1.25)
+    g_hamse_ESPDrawLine(group[12],r-w*0.16,b,r-cut*1.05,b,1.25)
     -- bottom spike
-    g_masterahsanyt_ESPDrawLine(group[13],cx-cut*0.7,b,cx,b+cut,2.0)
-    g_masterahsanyt_ESPDrawLine(group[14],cx,b+cut,cx+cut*0.7,b,2.0)
+    g_hamse_ESPDrawLine(group[13],cx-cut*0.7,b,cx,b+cut,2.0)
+    g_hamse_ESPDrawLine(group[14],cx,b+cut,cx+cut*0.7,b,2.0)
     -- chevrons (side arrows)
     local co=cut*0.70
-    g_masterahsanyt_ESPDrawLine(group[15],l-co*1.9,cy,l-co*1.25,cy-co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[16],l-co*1.9,cy,l-co*1.25,cy+co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[17],r+co*1.9,cy,r+co*1.25,cy-co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[18],r+co*1.9,cy,r+co*1.25,cy+co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[19],l-co*2.8,cy,l-co*2.15,cy-co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[20],l-co*2.8,cy,l-co*2.15,cy+co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[21],r+co*2.8,cy,r+co*2.15,cy-co,2.2)
-    g_masterahsanyt_ESPDrawLine(group[22],r+co*2.8,cy,r+co*2.15,cy+co,2.2)
+    g_hamse_ESPDrawLine(group[15],l-co*1.9,cy,l-co*1.25,cy-co,2.2)
+    g_hamse_ESPDrawLine(group[16],l-co*1.9,cy,l-co*1.25,cy+co,2.2)
+    g_hamse_ESPDrawLine(group[17],r+co*1.9,cy,r+co*1.25,cy-co,2.2)
+    g_hamse_ESPDrawLine(group[18],r+co*1.9,cy,r+co*1.25,cy+co,2.2)
+    g_hamse_ESPDrawLine(group[19],l-co*2.8,cy,l-co*2.15,cy-co,2.2)
+    g_hamse_ESPDrawLine(group[20],l-co*2.8,cy,l-co*2.15,cy+co,2.2)
+    g_hamse_ESPDrawLine(group[21],r+co*2.8,cy,r+co*2.15,cy-co,2.2)
+    g_hamse_ESPDrawLine(group[22],r+co*2.8,cy,r+co*2.15,cy+co,2.2)
     -- background: center + left strip + right strip (3-part fill of octagon interior)
-    g_masterahsanyt_ESPDrawLine(group[23],l+cut,cy,r-cut,cy,hh)
-    g_masterahsanyt_ESPDrawLine(group[24],l,cy,l+cut,cy,hh-2*cut)
-    g_masterahsanyt_ESPDrawLine(group[25],r-cut,cy,r,cy,hh-2*cut)
+    g_hamse_ESPDrawLine(group[23],l+cut,cy,r-cut,cy,hh)
+    g_hamse_ESPDrawLine(group[24],l,cy,l+cut,cy,hh-2*cut)
+    g_hamse_ESPDrawLine(group[25],r-cut,cy,r,cy,hh-2*cut)
     -- Fill each missing corner triangle with horizontal stepped bands.  Every
     -- band starts inside the diagonal, so black cannot cross the red border.
     local cornerSteps=8
@@ -3924,15 +3926,15 @@ local function g_masterahsanyt_ESPUpdateHeaderFrame(key,head,feet,enabled,isBot)
         local rightEnd=r-cut+inset
 
         if inset>0.5 then
-            g_masterahsanyt_ESPDrawLine(group[25+i],leftStart,topY,l+cut+0.5,topY,bandH)
-            g_masterahsanyt_ESPDrawLine(group[33+i],r-cut-0.5,topY,rightEnd,topY,bandH)
-            g_masterahsanyt_ESPDrawLine(group[41+i],leftStart,bottomY,l+cut+0.5,bottomY,bandH)
-            g_masterahsanyt_ESPDrawLine(group[49+i],r-cut-0.5,bottomY,rightEnd,bottomY,bandH)
+            g_hamse_ESPDrawLine(group[25+i],leftStart,topY,l+cut+0.5,topY,bandH)
+            g_hamse_ESPDrawLine(group[33+i],r-cut-0.5,topY,rightEnd,topY,bandH)
+            g_hamse_ESPDrawLine(group[41+i],leftStart,bottomY,l+cut+0.5,bottomY,bandH)
+            g_hamse_ESPDrawLine(group[49+i],r-cut-0.5,bottomY,rightEnd,bottomY,bandH)
         else
-            g_masterahsanyt_ESPHide(group[25+i])
-            g_masterahsanyt_ESPHide(group[33+i])
-            g_masterahsanyt_ESPHide(group[41+i])
-            g_masterahsanyt_ESPHide(group[49+i])
+            g_hamse_ESPHide(group[25+i])
+            g_hamse_ESPHide(group[33+i])
+            g_hamse_ESPHide(group[41+i])
+            g_hamse_ESPHide(group[49+i])
         end
     end
     group.Width, group.Height = w, hh
@@ -3941,7 +3943,7 @@ end
 
 
 
-g_masterahsanyt_ESPHealthRatio = function(character)
+g_hamse_ESPHealthRatio = function(character)
     local hp, maxHp = nil, nil
     pcall(function()
         hp = character.Health or character.HP or character.CurrentHealth
@@ -3957,24 +3959,24 @@ end
 
 
 
-local g_masterahsanyt_ESPBones = {
+local g_hamse_ESPBones = {
     head={"Head","head","head_01"}, neck={"neck_01","Neck","neck"}, pelvis={"pelvis","Pelvis"},
     ls={"upperarm_l","UpperArm_L","clavicle_l"}, le={"lowerarm_l","LowerArm_L"}, lw={"hand_l","Hand_L"},
     rs={"upperarm_r","UpperArm_R","clavicle_r"}, re={"lowerarm_r","LowerArm_R"}, rw={"hand_r","Hand_R"},
     lh={"thigh_l","Thigh_L","hip_l"}, lk={"calf_l","Calf_L","knee_l"}, la={"foot_l","Foot_L"},
     rh={"thigh_r","Thigh_R","hip_r"}, rk={"calf_r","Calf_R","knee_r"}, ra={"foot_r","Foot_R"}
 }
-local g_masterahsanyt_ESPBoneLinks={{"head","neck"},{"neck","ls"},{"ls","le"},{"le","lw"},{"neck","rs"},{"rs","re"},{"re","rw"},{"neck","pelvis"},{"pelvis","lh"},{"lh","lk"},{"lk","la"},{"pelvis","rh"},{"rh","rk"},{"rk","ra"}}
+local g_hamse_ESPBoneLinks={{"head","neck"},{"neck","ls"},{"ls","le"},{"le","lw"},{"neck","rs"},{"rs","re"},{"re","rw"},{"neck","pelvis"},{"pelvis","lh"},{"lh","lk"},{"lk","la"},{"pelvis","rh"},{"rh","rk"},{"rk","ra"}}
 
 -- Cache only the bone-name lookup; world positions and camera projections remain fresh.
-local function g_masterahsanyt_ESPBoneScreen(pc, mesh, id, names, cache)
+local function g_hamse_ESPBoneScreen(pc, mesh, id, names, cache)
     local cached = cache[id]
     if cached then
         local ok, loc = pcall(function()
             if mesh.GetSocketLocation then return mesh:GetSocketLocation(cached)
             elseif mesh.GetBoneLocation then return mesh:GetBoneLocation(cached) end
         end)
-        if ok and loc and tonumber(loc.X) then return g_masterahsanyt_ESPProject(pc,loc) end
+        if ok and loc and tonumber(loc.X) then return g_hamse_ESPProject(pc,loc) end
         cache[id] = nil
     end
     for _, name in ipairs(names) do
@@ -3989,63 +3991,63 @@ local function g_masterahsanyt_ESPBoneScreen(pc, mesh, id, names, cache)
         end)
         if ok and loc and tonumber(loc.X) then
             cache[id] = name
-            return g_masterahsanyt_ESPProject(pc,loc)
+            return g_hamse_ESPProject(pc,loc)
         end
     end
     return nil
 end
 
-local function g_masterahsanyt_ESPUpdateSkeleton(key, character, pc, enabled, isBot)
-    local group = g_masterahsanyt_ShotESP.Skeletons[key]
-    if not enabled then g_masterahsanyt_ESPHideGroup(group) return end
+local function g_hamse_ESPUpdateSkeleton(key, character, pc, enabled, isBot)
+    local group = g_hamse_ShotESP.Skeletons[key]
+    if not enabled then g_hamse_ESPHideGroup(group) return end
     local mesh = nil
     pcall(function() mesh=character.Mesh or (character.GetMesh and character:GetMesh()) end)
-    if not g_masterahsanyt_ESPValid(mesh) then g_masterahsanyt_ESPHideGroup(group) return end
-    if g_masterahsanyt_ShotESP.BoneMeshes[key] ~= mesh then
-        g_masterahsanyt_ShotESP.BoneMeshes[key] = mesh
-        g_masterahsanyt_ShotESP.BoneNameCache[key] = {}
-        g_masterahsanyt_ShotESP.BonePoints[key] = {}
+    if not g_hamse_ESPValid(mesh) then g_hamse_ESPHideGroup(group) return end
+    if g_hamse_ShotESP.BoneMeshes[key] ~= mesh then
+        g_hamse_ShotESP.BoneMeshes[key] = mesh
+        g_hamse_ShotESP.BoneNameCache[key] = {}
+        g_hamse_ShotESP.BonePoints[key] = {}
     end
-    local points = g_masterahsanyt_ShotESP.BonePoints[key]
-    local cache = g_masterahsanyt_ShotESP.BoneNameCache[key]
-    local theme=g_masterahsanyt_ESPTheme(isBot)
-    group = g_masterahsanyt_ESPLineGroup(g_masterahsanyt_ShotESP.Skeletons,key,#g_masterahsanyt_ESPBoneLinks,theme.Main)
+    local points = g_hamse_ShotESP.BonePoints[key]
+    local cache = g_hamse_ShotESP.BoneNameCache[key]
+    local theme=g_hamse_ESPTheme(isBot)
+    group = g_hamse_ESPLineGroup(g_hamse_ShotESP.Skeletons,key,#g_hamse_ESPBoneLinks,theme.Main)
     if not group then return end
-    g_masterahsanyt_ESPApplyGroupTheme(group,theme,"Skeleton")
-    for id, names in pairs(g_masterahsanyt_ESPBones) do
-        points[id] = g_masterahsanyt_ESPBoneScreen(pc,mesh,id,names,cache)
+    g_hamse_ESPApplyGroupTheme(group,theme,"Skeleton")
+    for id, names in pairs(g_hamse_ESPBones) do
+        points[id] = g_hamse_ESPBoneScreen(pc,mesh,id,names,cache)
     end
     local ankle = points.la or points.ra
     local skeletonH = (points.head and ankle) and math.abs(ankle.Y-points.head.Y) or 360.0
     local thickness = math.max(1.0,math.min(2.8,skeletonH*0.0028))
-    for i, link in ipairs(g_masterahsanyt_ESPBoneLinks) do
+    for i, link in ipairs(g_hamse_ESPBoneLinks) do
         local a, b = points[link[1]], points[link[2]]
-        if a and b then g_masterahsanyt_ESPDrawLine(group[i],a.X,a.Y,b.X,b.Y,thickness)
-        else g_masterahsanyt_ESPHide(group[i]) end
+        if a and b then g_hamse_ESPDrawLine(group[i],a.X,a.Y,b.X,b.Y,thickness)
+        else g_hamse_ESPHide(group[i]) end
     end
 end
 
--- ESP enemy name widget made by @Masterpiece2025
-local function g_masterahsanyt_ESPCreateNameTag(isBot)
-    local canvas = g_masterahsanyt_ESPGetCanvas()
-    if not g_masterahsanyt_ESPValid(canvas) then return nil end
+-- ESP enemy name widget made by @@hamsecheatsvip
+local function g_hamse_ESPCreateNameTag(isBot)
+    local canvas = g_hamse_ESPGetCanvas()
+    if not g_hamse_ESPValid(canvas) then return nil end
     local pooled=ESPWidgetPool.Take(ESPWidgetPool.V2,"NameV2",canvas)
     if pooled then
-        local theme=g_masterahsanyt_ESPTheme(isBot)
-        g_masterahsanyt_ESPSetTextColor(pooled.Text,theme.Text)
-        g_masterahsanyt_ESPSetTextColor(pooled.DistanceText,theme.Text)
-        g_masterahsanyt_ESPSetFont(pooled.Text,tonumber(_G.g_masterahsanyt_MasterShotESP.NameFontSize) or 16,0)
-        g_masterahsanyt_ESPSetFont(pooled.DistanceText,tonumber(_G.g_masterahsanyt_MasterShotESP.DistanceFontSize) or 20,0)
+        local theme=g_hamse_ESPTheme(isBot)
+        g_hamse_ESPSetTextColor(pooled.Text,theme.Text)
+        g_hamse_ESPSetTextColor(pooled.DistanceText,theme.Text)
+        g_hamse_ESPSetFont(pooled.Text,tonumber(_G.g_hamse_HamseShotESP.NameFontSize) or 16,0)
+        g_hamse_ESPSetFont(pooled.DistanceText,tonumber(_G.g_hamse_HamseShotESP.DistanceFontSize) or 20,0)
         pooled.IsBot=isBot;pooled.ContainerVisible=false
         if pooled then return pooled end
     end
 
     local container, nameText, distanceText = nil, nil, nil
     pcall(function() container = CGame:NewObjectFromPath("/Script/UMG.CanvasPanel", canvas) end)
-    if not g_masterahsanyt_ESPValid(container) then return nil end
+    if not g_hamse_ESPValid(container) then return nil end
     pcall(function() nameText = CGame:NewObjectFromPath("/Script/UMG.TextBlock", container) end)
     pcall(function() distanceText = CGame:NewObjectFromPath("/Script/UMG.TextBlock", container) end)
-    if not g_masterahsanyt_ESPValid(nameText) or not g_masterahsanyt_ESPValid(distanceText) then
+    if not g_hamse_ESPValid(nameText) or not g_hamse_ESPValid(distanceText) then
         pcall(function() container:RemoveFromParent() end)
         return nil
     end
@@ -4056,17 +4058,17 @@ local function g_masterahsanyt_ESPCreateNameTag(isBot)
         nameText:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
         distanceText:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
         if nameText.SetJustification then nameText:SetJustification(1) end
-        if nameText.SetRenderTransformPivot then nameText:SetRenderTransformPivot(g_masterahsanyt_ESPV2(.5,.5)) end
+        if nameText.SetRenderTransformPivot then nameText:SetRenderTransformPivot(g_hamse_ESPV2(.5,.5)) end
         if distanceText.SetJustification then distanceText:SetJustification(1) end
-        if distanceText.SetRenderTransformPivot then distanceText:SetRenderTransformPivot(g_masterahsanyt_ESPV2(.5,.5)) end
+        if distanceText.SetRenderTransformPivot then distanceText:SetRenderTransformPivot(g_hamse_ESPV2(.5,.5)) end
     end)
 
-    local theme=g_masterahsanyt_ESPTheme(isBot)
-    g_masterahsanyt_ESPSetTextColor(nameText, theme.Text)
-    g_masterahsanyt_ESPSetTextColor(distanceText, theme.Text)
-    g_masterahsanyt_ESPSetFont(nameText, tonumber(_G.g_masterahsanyt_MasterShotESP.NameFontSize) or 16, 0)
+    local theme=g_hamse_ESPTheme(isBot)
+    g_hamse_ESPSetTextColor(nameText, theme.Text)
+    g_hamse_ESPSetTextColor(distanceText, theme.Text)
+    g_hamse_ESPSetFont(nameText, tonumber(_G.g_hamse_HamseShotESP.NameFontSize) or 16, 0)
     -- Distance labels are intentionally borderless; the larger glyphs provide clarity.
-    g_masterahsanyt_ESPSetFont(distanceText, tonumber(_G.g_masterahsanyt_MasterShotESP.DistanceFontSize) or 20, 0)
+    g_hamse_ESPSetFont(distanceText, tonumber(_G.g_hamse_HamseShotESP.DistanceFontSize) or 20, 0)
     local nameSlot, distanceSlot, mainSlot = nil, nil, nil
     pcall(function() nameSlot = container:AddChildToCanvas(nameText) end)
     pcall(function() distanceSlot = container:AddChildToCanvas(distanceText) end)
@@ -4082,13 +4084,13 @@ local function g_masterahsanyt_ESPCreateNameTag(isBot)
 
     pcall(function()
         mainSlot:SetAutoSize(false)
-        mainSlot:SetAlignment(g_masterahsanyt_ESPV2(0.0, 0.0))
+        mainSlot:SetAlignment(g_hamse_ESPV2(0.0, 0.0))
         mainSlot:SetZOrder(65)
         nameSlot:SetAutoSize(true)
-        nameSlot:SetAlignment(g_masterahsanyt_ESPV2(0.5, 0.5))
+        nameSlot:SetAlignment(g_hamse_ESPV2(0.5, 0.5))
         nameSlot:SetZOrder(1)
         distanceSlot:SetAutoSize(true)
-        distanceSlot:SetAlignment(g_masterahsanyt_ESPV2(0.5, 0.5))
+        distanceSlot:SetAlignment(g_hamse_ESPV2(0.5, 0.5))
         distanceSlot:SetZOrder(1)
     end)
 
@@ -4104,15 +4106,15 @@ local function g_masterahsanyt_ESPCreateNameTag(isBot)
     return ESPWidgetPool.Tag(ESPWidgetPool.V2,"NameV2",canvas,data)
 end
 
--- ESP enemy name and distance made by @Masterpiece2025
-local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, footScreen, isBot, distance, forceName, forceDistance)
-    local showName = _G.g_masterahsanyt_ESPOptions.Name == true
-    local showDistance = _G.g_masterahsanyt_ESPOptions.Distance == true
+-- ESP enemy name and distance made by @@hamsecheatsvip
+local function g_hamse_ESPUpdateNameTag(key, character, headScreen, footScreen, isBot, distance, forceName, forceDistance)
+    local showName = _G.g_hamse_ESPOptions.Name == true
+    local showDistance = _G.g_hamse_ESPOptions.Distance == true
     if forceName~=nil then showName=forceName==true end
     if forceDistance~=nil then showDistance=forceDistance==true end
-    local data = g_masterahsanyt_ShotESP.Names[key]
+    local data = g_hamse_ShotESP.Names[key]
     if not showName and not showDistance then
-        if data and data.ContainerVisible~=false and g_masterahsanyt_ESPValid(data.Widget) then pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end) data.ContainerVisible=false end
+        if data and data.ContainerVisible~=false and g_hamse_ESPValid(data.Widget) then pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end) data.ContainerVisible=false end
         return
     end
     -- Fix: only cache non-empty resolved names; "" is truthy in Lua so never cache it
@@ -4122,7 +4124,7 @@ local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, foot
         if type(cached) == "string" and #cached > 0 then
             name = cached
         else
-            name = g_masterahsanyt_ESPResolvePlayerName(character)
+            name = g_hamse_ESPResolvePlayerName(character)
             if data and type(name) == "string" and #name > 0 then
                 data.CachedName = name
             end
@@ -4135,17 +4137,17 @@ local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, foot
         name = ""
     end
     if not headScreen then
-        if data and g_masterahsanyt_ESPValid(data.Widget) then
+        if data and g_hamse_ESPValid(data.Widget) then
             pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end)
             data.ContainerVisible=false
         end
         return
     end
 
-    if not data or not g_masterahsanyt_ESPValid(data.Widget) then
-        g_masterahsanyt_ESPDestroyWidgetData(data)
-        data = g_masterahsanyt_ESPCreateNameTag(isBot)
-        g_masterahsanyt_ShotESP.Names[key] = data
+    if not data or not g_hamse_ESPValid(data.Widget) then
+        g_hamse_ESPDestroyWidgetData(data)
+        data = g_hamse_ESPCreateNameTag(isBot)
+        g_hamse_ShotESP.Names[key] = data
         -- Only cache real resolved names on creation, not fallback labels
         if data and type(name)=="string" and #name>0 and name~="BOT" and name~="PLAYER" then
             data.CachedName = name
@@ -4153,9 +4155,9 @@ local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, foot
     end
     if not data then return end
     if data.IsBot~=isBot then
-        local theme=g_masterahsanyt_ESPTheme(isBot)
-        g_masterahsanyt_ESPSetTextColor(data.Text,theme.Text)
-        g_masterahsanyt_ESPSetTextColor(data.DistanceText,theme.Text)
+        local theme=g_hamse_ESPTheme(isBot)
+        g_hamse_ESPSetTextColor(data.Text,theme.Text)
+        g_hamse_ESPSetTextColor(data.DistanceText,theme.Text)
         data.IsBot=isBot
     end
 
@@ -4198,8 +4200,8 @@ local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, foot
             data.Text:SetText(shownName)
             data.LastName = shownName
         end
-        if data.NameScale~=nameScale then data.Text:SetRenderScale(g_masterahsanyt_ESPV2(nameScale,nameScale)) end
-        if data.DistanceScale~=distanceScale then data.DistanceText:SetRenderScale(g_masterahsanyt_ESPV2(distanceScale,distanceScale)) end
+        if data.NameScale~=nameScale then data.Text:SetRenderScale(g_hamse_ESPV2(nameScale,nameScale)) end
+        if data.DistanceScale~=distanceScale then data.DistanceText:SetRenderScale(g_hamse_ESPV2(distanceScale,distanceScale)) end
         if data.LastDistance ~= shownDistance then
             data.DistanceText:SetText(shownDistance)
             data.LastDistance = shownDistance
@@ -4213,19 +4215,19 @@ local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, foot
 
         -- Move the container to match the header octagon exactly
         if layoutChanged then
-            data.Slot:SetPosition(g_masterahsanyt_ESPV2(x, y))
-            data.Slot:SetSize(g_masterahsanyt_ESPV2(w, hh))
+            data.Slot:SetPosition(g_hamse_ESPV2(x, y))
+            data.Slot:SetSize(g_hamse_ESPV2(w, hh))
         end
 
         -- Name text centered inside container (matches header box center)
         if data.LayoutW~=w or data.LayoutH~=hh then
-            data.TextSlot:SetPosition(g_masterahsanyt_ESPV2(w*0.5, hh*0.5))
+            data.TextSlot:SetPosition(g_hamse_ESPV2(w*0.5, hh*0.5))
         end
 
         -- Distance text below the header box
         local distChanged = not data.DistX or math.abs(data.DistX-distX)>=0.25 or math.abs((data.DistY or 0)-distY)>=0.25
         if distChanged then
-            data.DistanceSlot:SetPosition(g_masterahsanyt_ESPV2(distX, distY))
+            data.DistanceSlot:SetPosition(g_hamse_ESPV2(distX, distY))
         end
 
         if data.ContainerVisible~=true then
@@ -4241,14 +4243,14 @@ local function g_masterahsanyt_ESPUpdateNameTag(key, character, headScreen, foot
     data.ContainerVisible=true
 end
 
--- ESP enemy and bot counter HUD made by @Masterpiece2025
-local function g_masterahsanyt_ESPCreateCounter()
-    local canvas = g_masterahsanyt_ESPGetCanvas()
-    if not g_masterahsanyt_ESPValid(canvas) then return nil end
+-- ESP enemy and bot counter HUD made by @@hamsecheatsvip
+local function g_hamse_ESPCreateCounter()
+    local canvas = g_hamse_ESPGetCanvas()
+    if not g_hamse_ESPValid(canvas) then return nil end
     local container=nil
     pcall(function() container=CGame:NewObjectFromPath("/Script/UMG.CanvasPanel",canvas) end)
-    if not g_masterahsanyt_ESPValid(container) then return nil end
-    local currentV1=_G.LunarFeatures and _G.LunarFeatures.V1 and _G.LunarFeatures.V1.Counter
+    if not g_hamse_ESPValid(container) then return nil end
+    local currentV1=_G.HAMSE CHEATSFeatures and _G.HAMSE CHEATSFeatures.V1 and _G.HAMSE CHEATSFeatures.V1.Counter
     local displayW=currentV1 and tonumber(currentV1.Width) or 218.4
     local displayH=currentV1 and tonumber(currentV1.Height) or 33.6
     local fontSize=currentV1 and tonumber(currentV1.FontSize) or 13
@@ -4262,15 +4264,15 @@ local function g_masterahsanyt_ESPCreateCounter()
     local function addRect(x,y,w,h,color,z)
         local widget=nil
         pcall(function() widget=CGame:NewObjectFromPath("/Script/UMG.Border",container) end)
-        if not g_masterahsanyt_ESPValid(widget) then return nil end
+        if not g_hamse_ESPValid(widget) then return nil end
         local slot=nil
         pcall(function()
             widget:SetBrushColor(color)
             widget:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
             slot=container:AddChildToCanvas(widget)
             slot:SetAutoSize(false)
-            slot:SetPosition(g_masterahsanyt_ESPV2(x*sx,y*sy))
-            slot:SetSize(g_masterahsanyt_ESPV2(math.max(1.0,w*sx),math.max(1.0,h*sy)))
+            slot:SetPosition(g_hamse_ESPV2(x*sx,y*sy))
+            slot:SetSize(g_hamse_ESPV2(math.max(1.0,w*sx),math.max(1.0,h*sy)))
             slot:SetZOrder(z or 1)
         end)
         if not slot then return nil end
@@ -4279,10 +4281,10 @@ local function g_masterahsanyt_ESPCreateCounter()
     end
 
     local function addLine(x1,y1,x2,y2,thickness,color,z)
-        local line=g_masterahsanyt_ESPCreateLine(color,container)
+        local line=g_hamse_ESPCreateLine(color,container)
         if not line then return nil end
         pcall(function() line.Slot:SetZOrder(z or 8) end)
-        g_masterahsanyt_ESPDrawLine(line,x1*sx,y1*sy,x2*sx,y2*sy,thickness*strokeScale)
+        g_hamse_ESPDrawLine(line,x1*sx,y1*sy,x2*sx,y2*sy,thickness*strokeScale)
         pieces[#pieces+1]=line
         return line
     end
@@ -4297,8 +4299,8 @@ local function g_masterahsanyt_ESPCreateCounter()
         local innerInset=34.0-t*24.0
         local leftRight=half-innerInset
         local rightLeft=half+innerInset
-        local red=g_masterahsanyt_ESPScaleColor(ESP_COUNTER_RED_DARK,0.82+t*0.28,1.0)
-        local blue=g_masterahsanyt_ESPScaleColor(ESP_COUNTER_BLUE_DARK,0.92+t*0.42,1.0)
+        local red=g_hamse_ESPScaleColor(ESP_COUNTER_RED_DARK,0.82+t*0.28,1.0)
+        local blue=g_hamse_ESPScaleColor(ESP_COUNTER_BLUE_DARK,0.92+t*0.42,1.0)
         addRect(outerInset,y,leftRight-outerInset,bandH+0.15,red,1)
         addRect(rightLeft,y,width-outerInset-rightLeft,bandH+0.15,blue,1)
     end
@@ -4334,7 +4336,7 @@ local function g_masterahsanyt_ESPCreateCounter()
     local function addText(initial,x,color)
         local text=nil
         pcall(function() text=CGame:NewObjectFromPath("/Script/UMG.TextBlock",container) end)
-        if not g_masterahsanyt_ESPValid(text) then return nil,nil end
+        if not g_hamse_ESPValid(text) then return nil,nil end
         local slot=nil
         pcall(function()
             text:SetText(initial)
@@ -4342,34 +4344,34 @@ local function g_masterahsanyt_ESPCreateCounter()
             if text.SetJustification then text:SetJustification(1) end
             slot=container:AddChildToCanvas(text)
             slot:SetAutoSize(true)
-            slot:SetAlignment(g_masterahsanyt_ESPV2(0.5,0.5))
-            slot:SetPosition(g_masterahsanyt_ESPV2(x*sx,displayH*0.5))
+            slot:SetAlignment(g_hamse_ESPV2(0.5,0.5))
+            slot:SetPosition(g_hamse_ESPV2(x*sx,displayH*0.5))
             slot:SetZOrder(12)
         end)
-        g_masterahsanyt_ESPSetTextColor(text,color)
-        g_masterahsanyt_ESPSetFont(text,fontSize,0)
+        g_hamse_ESPSetTextColor(text,color)
+        g_hamse_ESPSetFont(text,fontSize,0)
         pcall(function()
-            text:SetRenderTransformPivot(g_masterahsanyt_ESPV2(0.5,0.5))
-            text:SetRenderScale(g_masterahsanyt_ESPV2(fontScale,fontScale))
+            text:SetRenderTransformPivot(g_hamse_ESPV2(0.5,0.5))
+            text:SetRenderScale(g_hamse_ESPV2(fontScale,fontScale))
         end)
         return text,slot
     end
 
-    local realText=addText("REAL: 0",half*0.5,g_masterahsanyt_ESPTheme(false).Text)
-    local botText=addText("BOT: 0",half+half*0.5,g_masterahsanyt_ESPTheme(true).Text)
+    local realText=addText("REAL: 0",half*0.5,g_hamse_ESPTheme(false).Text)
+    local botText=addText("BOT: 0",half+half*0.5,g_hamse_ESPTheme(true).Text)
     if not realText or not botText then
-        g_masterahsanyt_ESPDestroyWidgetData({Widget=container})
+        g_hamse_ESPDestroyWidgetData({Widget=container})
         return nil
     end
 
     local mainSlot=nil
     pcall(function() mainSlot=canvas:AddChildToCanvas(container) end)
-    if not mainSlot then g_masterahsanyt_ESPDestroyWidgetData({Widget=container}) return nil end
+    if not mainSlot then g_hamse_ESPDestroyWidgetData({Widget=container}) return nil end
 
     local anchored=false
     pcall(function()
         mainSlot:SetAutoSize(false)
-        mainSlot:SetSize(g_masterahsanyt_ESPV2(displayW,displayH))
+        mainSlot:SetSize(g_hamse_ESPV2(displayW,displayH))
         mainSlot:SetZOrder(60)
         -- Viewport-independent top-center anchor: survives aspect ratio, DPI,
         -- notch and safe-zone variations without drifting toward a corner.
@@ -4377,16 +4379,16 @@ local function g_masterahsanyt_ESPCreateCounter()
             local anchors=nil
             pcall(function()
                 anchors=Anchors(
-                    g_masterahsanyt_ESPV2(0.5,0.0),
-                    g_masterahsanyt_ESPV2(0.5,0.0)
+                    g_hamse_ESPV2(0.5,0.0),
+                    g_hamse_ESPV2(0.5,0.0)
                 )
             end)
             if not anchors then pcall(function() anchors=Anchors() end) end
             if anchors then
-                pcall(function() anchors.Minimum=g_masterahsanyt_ESPV2(0.5,0.0) end)
-                pcall(function() anchors.Maximum=g_masterahsanyt_ESPV2(0.5,0.0) end)
+                pcall(function() anchors.Minimum=g_hamse_ESPV2(0.5,0.0) end)
+                pcall(function() anchors.Maximum=g_hamse_ESPV2(0.5,0.0) end)
                 mainSlot:SetAnchors(anchors)
-                mainSlot:SetAlignment(g_masterahsanyt_ESPV2(0.5,0.0))
+                mainSlot:SetAlignment(g_hamse_ESPV2(0.5,0.0))
                 anchored=true
             end
         end
@@ -4396,37 +4398,37 @@ local function g_masterahsanyt_ESPCreateCounter()
         Width=displayW,Height=displayH,FontSize=fontSize,FontScale=fontScale,DiamondSize=0,Pieces=pieces,ViewportAnchored=anchored}
 end
 
--- ESP counter position and tracer origin made by @Masterpiece2025
-local function g_masterahsanyt_ESPUpdateCounter(realCount, botCount, pc)
+-- ESP counter position and tracer origin made by @@hamsecheatsvip
+local function g_hamse_ESPUpdateCounter(realCount, botCount, pc)
 
-    local data = g_masterahsanyt_ShotESP.Counter
-    if not data or not g_masterahsanyt_ESPValid(data.Widget) then
+    local data = g_hamse_ShotESP.Counter
+    if not data or not g_hamse_ESPValid(data.Widget) then
         -- The static counter is built atomically; the budget applies to enemy
         -- line groups that would otherwise all spawn together.
-        local budget = g_masterahsanyt_ShotESP.BuildRemaining
-        g_masterahsanyt_ShotESP.BuildRemaining = nil
-        data = g_masterahsanyt_ESPCreateCounter()
-        g_masterahsanyt_ShotESP.BuildRemaining = budget
-        g_masterahsanyt_ShotESP.Counter = data
+        local budget = g_hamse_ShotESP.BuildRemaining
+        g_hamse_ShotESP.BuildRemaining = nil
+        data = g_hamse_ESPCreateCounter()
+        g_hamse_ShotESP.BuildRemaining = budget
+        g_hamse_ShotESP.Counter = data
     end
     if not data then return nil end
 
-    local cw = g_masterahsanyt_ShotESP.ViewportW
+    local cw = g_hamse_ShotESP.ViewportW
     local centerX = nil
 
     if tonumber(cw) and cw > 1 then
         centerX = cw * 0.5
     else
 
-        local vw = g_masterahsanyt_ESPViewport(pc)
+        local vw = g_hamse_ESPViewport(pc)
         centerX =
-            (vw * 0.5) * (g_masterahsanyt_ShotESP.CanvasScaleX or 1.0)
-            + (g_masterahsanyt_ShotESP.CanvasOffsetX or 0.0)
+            (vw * 0.5) * (g_hamse_ShotESP.CanvasScaleX or 1.0)
+            + (g_hamse_ShotESP.CanvasOffsetX or 0.0)
     end
 
     if not centerX then return nil end
 
-    local counterY = tonumber(_G.g_masterahsanyt_MasterShotESP.CounterY) or 36.0
+    local counterY = tonumber(_G.g_hamse_HamseShotESP.CounterY) or 36.0
 
     if data.LastReal ~= realCount then
         local ok=pcall(function() data.RealText:SetText(string.format("REAL: %d", realCount or 0)) end)
@@ -4441,10 +4443,10 @@ local function g_masterahsanyt_ESPUpdateCounter(realCount, botCount, pc)
     local visibleChanged = data.Visible ~= true
     local applied = pcall(function()
         if positionChanged and data.ViewportAnchored then
-            data.Slot:SetPosition(g_masterahsanyt_ESPV2(0.0,counterY))
+            data.Slot:SetPosition(g_hamse_ESPV2(0.0,counterY))
         elseif positionChanged then
-            data.Slot:SetAlignment(g_masterahsanyt_ESPV2(0.0,0.0))
-            data.Slot:SetPosition(g_masterahsanyt_ESPV2(centerX-data.Width*0.5,counterY))
+            data.Slot:SetAlignment(g_hamse_ESPV2(0.0,0.0))
+            data.Slot:SetPosition(g_hamse_ESPV2(centerX-data.Width*0.5,counterY))
         end
         if visibleChanged then data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible) end
     end)
@@ -4457,27 +4459,27 @@ local function g_masterahsanyt_ESPUpdateCounter(realCount, botCount, pc)
     data.AnchorX = anchorX
     data.AnchorY = anchorY
 
-    g_masterahsanyt_ShotESP.TracerOrigin = g_masterahsanyt_ESPV2(anchorX, anchorY)
-    return g_masterahsanyt_ShotESP.TracerOrigin
+    g_hamse_ShotESP.TracerOrigin = g_hamse_ESPV2(anchorX, anchorY)
+    return g_hamse_ShotESP.TracerOrigin
 end
 
--- ESP enemy scan made by @Masterpiece2025
-local function g_masterahsanyt_ESPScanEnemies()
-    local pc = g_masterahsanyt_ESPGetController()
-    local me = g_masterahsanyt_ESPGetLocalCharacter()
-    if not pc or not me then g_masterahsanyt_ShotESP.Enemies = {} return nil, 0, 0 end
+-- ESP enemy scan made by @@hamsecheatsvip
+local function g_hamse_ESPScanEnemies()
+    local pc = g_hamse_ESPGetController()
+    local me = g_hamse_ESPGetLocalCharacter()
+    if not pc or not me then g_hamse_ShotESP.Enemies = {} return nil, 0, 0 end
     local myLoc = ESPShared.GetFrameRecord(me).Location
-    if not myLoc then g_masterahsanyt_ShotESP.Enemies = {} return pc, 0, 0 end
-    local myTeam = g_masterahsanyt_ESPGetTeamID(me)
+    if not myLoc then g_hamse_ShotESP.Enemies = {} return pc, 0, 0 end
+    local myTeam = g_hamse_ESPGetTeamID(me)
 
     local list = {}
     local realCount, botCount = 0, 0
     local pawns=ESPShared.GetFramePawns()
-    pawns = pawns or _G.g_masterahsanyt_TrackedCharacters
+    pawns = pawns or _G.g_hamse_TrackedCharacters
     if pawns then
         for _, character in pairs(pawns) do
             if character~=me and ESPShared.GetFrameRecord(character).Alive and ESPShared.Events.Counted(character) then
-                local team = g_masterahsanyt_ESPGetTeamID(character)
+                local team = g_hamse_ESPGetTeamID(character)
                 -- Fix: only skip as same-team when both IDs are non-zero and equal
                 local sameTeam = false
                 if myTeam ~= nil and team ~= nil then
@@ -4487,9 +4489,9 @@ local function g_masterahsanyt_ESPScanEnemies()
                 if not sameTeam then
                     local loc = ESPShared.GetFrameRecord(character).Location
                     local dist = ESPShared.DistanceMetersFrom(ESPShared.GetFrameRecord(character),myLoc)
-                    if dist <= (tonumber(_G.g_masterahsanyt_MasterShotESP.MaxRangeMeters) or 400.0) then
-                        local key = g_masterahsanyt_ESPGetPlayerKey(character)
-                        local isBot = g_masterahsanyt_ESPIsBot(character,key)
+                    if dist <= (tonumber(_G.g_hamse_HamseShotESP.MaxRangeMeters) or 400.0) then
+                        local key = g_hamse_ESPGetPlayerKey(character)
+                        local isBot = g_hamse_ESPIsBot(character,key)
                         if isBot then botCount = botCount + 1 else realCount = realCount + 1 end
                         list[#list+1] = {Character=character, Key=key, IsBot=isBot, Distance=dist}
                     end
@@ -4501,129 +4503,129 @@ local function g_masterahsanyt_ESPScanEnemies()
         if a.Distance == b.Distance then return a.Key < b.Key end
         return (a.Distance or 99999) < (b.Distance or 99999)
     end)
-    g_masterahsanyt_ShotESP.Enemies = list
+    g_hamse_ShotESP.Enemies = list
     return pc, realCount, botCount
 end
 
--- ESP stale widget cleanup made by @Masterpiece2025
-local function g_masterahsanyt_ESPPrune(active,alive)
+-- ESP stale widget cleanup made by @@hamsecheatsvip
+local function g_hamse_ESPPrune(active,alive)
     -- Visual caches follow the displayed set. Counting metadata follows alive.
     -- Move header children into their actor-free parent bundle before pruning
     -- either registry; no detached child can follow a different enemy.
-    for key,root in pairs(g_masterahsanyt_ShotESP.HeaderRoots) do
+    for key,root in pairs(g_hamse_ShotESP.HeaderRoots) do
         if not active[key] and root.PoolOwner and root.Groups then
-            root.Groups.__Header=g_masterahsanyt_ShotESP.Headers[key]
-            g_masterahsanyt_ShotESP.Headers[key]=nil
+            root.Groups.__Header=g_hamse_ShotESP.Headers[key]
+            g_hamse_ShotESP.Headers[key]=nil
         end
     end
-    for _,registry in ipairs({g_masterahsanyt_ShotESP.Lines,g_masterahsanyt_ShotESP.Names,
-        g_masterahsanyt_ShotESP.Decorations,g_masterahsanyt_ShotESP.HeaderRoots}) do
+    for _,registry in ipairs({g_hamse_ShotESP.Lines,g_hamse_ShotESP.Names,
+        g_hamse_ShotESP.Decorations,g_hamse_ShotESP.HeaderRoots}) do
         for key,data in pairs(registry) do
-            if not active[key] then g_masterahsanyt_ESPDestroyWidgetData(data);registry[key]=nil end
+            if not active[key] then g_hamse_ESPDestroyWidgetData(data);registry[key]=nil end
         end
     end
-    for _,registry in ipairs({g_masterahsanyt_ShotESP.Boxes,g_masterahsanyt_ShotESP.HealthBars,
-        g_masterahsanyt_ShotESP.Skeletons,g_masterahsanyt_ShotESP.Headers,g_masterahsanyt_ShotESP.Footers}) do
+    for _,registry in ipairs({g_hamse_ShotESP.Boxes,g_hamse_ShotESP.HealthBars,
+        g_hamse_ShotESP.Skeletons,g_hamse_ShotESP.Headers,g_hamse_ShotESP.Footers}) do
         for key,group in pairs(registry) do
-            if not active[key] then g_masterahsanyt_ESPDestroyGroup(group);registry[key]=nil end
+            if not active[key] then g_hamse_ESPDestroyGroup(group);registry[key]=nil end
         end
     end
-    for _,registry in ipairs({g_masterahsanyt_ShotESP.BuildStage,g_masterahsanyt_ShotESP.BoneNameCache,
-        g_masterahsanyt_ShotESP.BoneMeshes,g_masterahsanyt_ShotESP.BonePoints}) do
+    for _,registry in ipairs({g_hamse_ShotESP.BuildStage,g_hamse_ShotESP.BoneNameCache,
+        g_hamse_ShotESP.BoneMeshes,g_hamse_ShotESP.BonePoints}) do
         for key in pairs(registry) do if not active[key] then registry[key]=nil end end
     end
-    for key in pairs(g_masterahsanyt_ShotESP._BotCache) do if not alive[key] then g_masterahsanyt_ShotESP._BotCache[key]=nil end end
+    for key in pairs(g_hamse_ShotESP._BotCache) do if not alive[key] then g_hamse_ShotESP._BotCache[key]=nil end end
 end
 
 ESPShared.Events.Clearers[#ESPShared.Events.Clearers+1]=function(actor)
-    ESPShared.Events.ClearIn(g_masterahsanyt_ShotESP,g_masterahsanyt_ESPPrune,actor)
+    ESPShared.Events.ClearIn(g_hamse_ShotESP,g_hamse_ESPPrune,actor)
 end
 
--- ESP main HUD update made by @Masterpiece2025
-local function g_masterahsanyt_ESPUpdate()
-    local opt = _G.g_masterahsanyt_ESPOptions
+-- ESP main HUD update made by @@hamsecheatsvip
+local function g_hamse_ESPUpdate()
+    local opt = _G.g_hamse_ESPOptions
     local anyEnabled = opt and (opt.Name or opt.Line or opt.Box or opt.Health or opt.Distance or opt.Skeleton or opt.Counter)
-    if not (_G.LunarLoginRuntime and _G.LunarLoginRuntime.Authorized) or not _G.g_masterahsanyt_MasterShotESP.Enabled or not anyEnabled then
-        if not g_masterahsanyt_ShotESP.Disabled then g_masterahsanyt_ESPResetWidgets() end
-        g_masterahsanyt_ShotESP.Disabled = true
+    if not (_G.HAMSE CHEATSLoginRuntime and _G.HAMSE CHEATSLoginRuntime.Authorized) or not _G.g_hamse_HamseShotESP.Enabled or not anyEnabled then
+        if not g_hamse_ShotESP.Disabled then g_hamse_ESPResetWidgets() end
+        g_hamse_ShotESP.Disabled = true
         return
     end
-    g_masterahsanyt_ShotESP.Disabled = false
-    local buildBudget = tonumber(_G.g_masterahsanyt_MasterShotESP.WidgetBuildBudget) or 96
+    g_hamse_ShotESP.Disabled = false
+    local buildBudget = tonumber(_G.g_hamse_HamseShotESP.WidgetBuildBudget) or 96
     if buildBudget ~= buildBudget or buildBudget == math.huge then buildBudget = 96 end
-    g_masterahsanyt_ShotESP.BuildRemaining = math.max(1, math.floor(buildBudget))
+    g_hamse_ShotESP.BuildRemaining = math.max(1, math.floor(buildBudget))
 
-    local world = g_masterahsanyt_ESPWorld()
+    local world = g_hamse_ESPWorld()
     ESPShared.Events.WorldChanged(world)
-    if world ~= g_masterahsanyt_ShotESP.LastWorld then
-        g_masterahsanyt_ESPResetWidgets()
-        g_masterahsanyt_ShotESP.LastWorld = world
-        g_masterahsanyt_ShotESP.LastScanClock = -999.0
-        g_masterahsanyt_ShotESP.LastTransformClock = -999.0
-        g_masterahsanyt_ShotESP.TracerOrigin = nil
+    if world ~= g_hamse_ShotESP.LastWorld then
+        g_hamse_ESPResetWidgets()
+        g_hamse_ShotESP.LastWorld = world
+        g_hamse_ShotESP.LastScanClock = -999.0
+        g_hamse_ShotESP.LastTransformClock = -999.0
+        g_hamse_ShotESP.TracerOrigin = nil
     end
 
-    if g_masterahsanyt_ShotESP.Canvas and not g_masterahsanyt_ESPValid(g_masterahsanyt_ShotESP.Canvas) then
-        g_masterahsanyt_ESPResetWidgets()
+    if g_hamse_ShotESP.Canvas and not g_hamse_ESPValid(g_hamse_ShotESP.Canvas) then
+        g_hamse_ESPResetWidgets()
     end
-    local canvas = g_masterahsanyt_ESPGetCanvas()
+    local canvas = g_hamse_ESPGetCanvas()
     if not canvas then return end
-    local now = g_masterahsanyt_ESPNow()
-    g_masterahsanyt_ShotESP.Now = now
-    if now < g_masterahsanyt_ShotESP.LastScanClock then
-        g_masterahsanyt_ShotESP.LastScanClock = -999.0
-        g_masterahsanyt_ShotESP.LastTransformClock = -999.0
+    local now = g_hamse_ESPNow()
+    g_hamse_ShotESP.Now = now
+    if now < g_hamse_ShotESP.LastScanClock then
+        g_hamse_ShotESP.LastScanClock = -999.0
+        g_hamse_ShotESP.LastTransformClock = -999.0
     end
-    local pc = g_masterahsanyt_ESPGetController()
-    local me = g_masterahsanyt_ESPGetLocalCharacter()
-    if pc ~= g_masterahsanyt_ShotESP.LastController or me ~= g_masterahsanyt_ShotESP.LastPawn then
-        g_masterahsanyt_ESPResetWidgets()
-        g_masterahsanyt_ShotESP.LastController, g_masterahsanyt_ShotESP.LastPawn = pc,me
-        canvas = g_masterahsanyt_ESPGetCanvas()
+    local pc = g_hamse_ESPGetController()
+    local me = g_hamse_ESPGetLocalCharacter()
+    if pc ~= g_hamse_ShotESP.LastController or me ~= g_hamse_ShotESP.LastPawn then
+        g_hamse_ESPResetWidgets()
+        g_hamse_ShotESP.LastController, g_hamse_ShotESP.LastPawn = pc,me
+        canvas = g_hamse_ESPGetCanvas()
         if not canvas then return end
     end
     if not pc or not me then return end
     local myLoc = ESPShared.GetFrameRecord(me).Location
     local realCount, botCount = nil, nil
-    if (now - g_masterahsanyt_ShotESP.LastScanClock) >= (tonumber(_G.g_masterahsanyt_MasterShotESP.ScanInterval) or 0.30) then
-        pc, realCount, botCount = g_masterahsanyt_ESPScanEnemies()
-        g_masterahsanyt_ShotESP.LastScanClock = now
-        g_masterahsanyt_ShotESP.RealCount, g_masterahsanyt_ShotESP.BotCount = realCount, botCount
+    if (now - g_hamse_ShotESP.LastScanClock) >= (tonumber(_G.g_hamse_HamseShotESP.ScanInterval) or 0.30) then
+        pc, realCount, botCount = g_hamse_ESPScanEnemies()
+        g_hamse_ShotESP.LastScanClock = now
+        g_hamse_ShotESP.RealCount, g_hamse_ShotESP.BotCount = realCount, botCount
     end
-    pc = pc or g_masterahsanyt_ESPGetController()
+    pc = pc or g_hamse_ESPGetController()
     if not pc then return end
 
-    if (now - (g_masterahsanyt_ShotESP.LastTransformClock or -999.0))
-        >= (tonumber(_G.g_masterahsanyt_MasterShotESP.TransformInterval) or 0.50) then
-        g_masterahsanyt_ESPUpdateCanvasTransform(pc)
-        local cw,ch=g_masterahsanyt_ESPGetCanvasLocalSize()
-        if cw and ch then g_masterahsanyt_ShotESP.ViewportW,g_masterahsanyt_ShotESP.ViewportH=cw,ch end
-        local rw,rh=g_masterahsanyt_ESPViewport(pc)
-        g_masterahsanyt_ShotESP.RawViewportW,g_masterahsanyt_ShotESP.RawViewportH=rw,rh
-        g_masterahsanyt_ShotESP.LastTransformClock = now
+    if (now - (g_hamse_ShotESP.LastTransformClock or -999.0))
+        >= (tonumber(_G.g_hamse_HamseShotESP.TransformInterval) or 0.50) then
+        g_hamse_ESPUpdateCanvasTransform(pc)
+        local cw,ch=g_hamse_ESPGetCanvasLocalSize()
+        if cw and ch then g_hamse_ShotESP.ViewportW,g_hamse_ShotESP.ViewportH=cw,ch end
+        local rw,rh=g_hamse_ESPViewport(pc)
+        g_hamse_ShotESP.RawViewportW,g_hamse_ShotESP.RawViewportH=rw,rh
+        g_hamse_ShotESP.LastTransformClock = now
     end
 
     local rawW,rawH=ESPShared.ViewSize(pc)
     -- The tracer uses the physical viewport midpoint in canvas coordinates.
-    local canvasScaleX=ESPShared.SafeNumber(g_masterahsanyt_ShotESP.CanvasScaleX,1.0,0.00001,100)
-    local canvasScaleY=ESPShared.SafeNumber(g_masterahsanyt_ShotESP.CanvasScaleY,1.0,0.00001,100)
-    local canvasOffsetX=ESPShared.SafeNumber(g_masterahsanyt_ShotESP.CanvasOffsetX,0.0,-1e7,1e7)
-    local canvasOffsetY=ESPShared.SafeNumber(g_masterahsanyt_ShotESP.CanvasOffsetY,0.0,-1e7,1e7)
-    local originCenter = g_masterahsanyt_ESPV2(
+    local canvasScaleX=ESPShared.SafeNumber(g_hamse_ShotESP.CanvasScaleX,1.0,0.00001,100)
+    local canvasScaleY=ESPShared.SafeNumber(g_hamse_ShotESP.CanvasScaleY,1.0,0.00001,100)
+    local canvasOffsetX=ESPShared.SafeNumber(g_hamse_ShotESP.CanvasOffsetX,0.0,-1e7,1e7)
+    local canvasOffsetY=ESPShared.SafeNumber(g_hamse_ShotESP.CanvasOffsetY,0.0,-1e7,1e7)
+    local originCenter = g_hamse_ESPV2(
         (rawW*0.5)*canvasScaleX+canvasOffsetX,
         4.0*canvasScaleY+canvasOffsetY
     )
-    local active,alive=g_masterahsanyt_ShotESP.Active,g_masterahsanyt_ShotESP.Alive
-    g_masterahsanyt_ShotESP.RealCount,g_masterahsanyt_ShotESP.BotCount=g_masterahsanyt_ESPFilterEnemies(
-        g_masterahsanyt_ShotESP.Enemies,myLoc,_G.g_masterahsanyt_MasterShotESP.MaxRangeMeters,alive)
+    local active,alive=g_hamse_ShotESP.Active,g_hamse_ShotESP.Alive
+    g_hamse_ShotESP.RealCount,g_hamse_ShotESP.BotCount=g_hamse_ESPFilterEnemies(
+        g_hamse_ShotESP.Enemies,myLoc,_G.g_hamse_HamseShotESP.MaxRangeMeters,alive)
     if opt.Counter then
-        g_masterahsanyt_ESPUpdateCounter(
-            g_masterahsanyt_ShotESP.RealCount or 0,
-            g_masterahsanyt_ShotESP.BotCount or 0,
+        g_hamse_ESPUpdateCounter(
+            g_hamse_ShotESP.RealCount or 0,
+            g_hamse_ShotESP.BotCount or 0,
             pc
         )
-    elseif g_masterahsanyt_ShotESP.Counter then
-        g_masterahsanyt_ESPHide(g_masterahsanyt_ShotESP.Counter)
+    elseif g_hamse_ShotESP.Counter then
+        g_hamse_ESPHide(g_hamse_ShotESP.Counter)
     end
 
     -- Counter-only mode stops here after validating cached scan candidates, avoiding
@@ -4631,33 +4633,33 @@ local function g_masterahsanyt_ESPUpdate()
     local detailedEnabled=opt.Name or opt.Line or opt.Box or opt.Health or opt.Distance or opt.Skeleton
     if not detailedEnabled then
         for key in pairs(active) do active[key]=nil end
-        g_masterahsanyt_ESPPrune(active,alive)
+        g_hamse_ESPPrune(active,alive)
         return
     end
 
     for key in pairs(active) do active[key]=nil end
-    local configuredMax=math.floor(ESPShared.SafeNumber(_G.g_masterahsanyt_MasterShotESP.MaxRendered,8,1,64))
+    local configuredMax=math.floor(ESPShared.SafeNumber(_G.g_hamse_HamseShotESP.MaxRendered,8,1,64))
     local maxRendered = configuredMax
     local renderedCount=0
     -- Keep the nearest-candidate budget; counting still validates every actor.
-    for index,item in ipairs(g_masterahsanyt_ShotESP.Enemies) do
+    for index,item in ipairs(g_hamse_ShotESP.Enemies) do
         if index>maxRendered then break end
         local c,key=item.Character,item.Key
-        local headScreen,footScreen,onScreen=ESPShared.Events.Project(pc,c,g_masterahsanyt_ShotESP)
+        local headScreen,footScreen,onScreen=ESPShared.Events.Project(pc,c,g_hamse_ShotESP)
         if onScreen then
             if renderedCount<maxRendered then
                 renderedCount=renderedCount+1
                 active[key] = true
-                local buildStage=g_masterahsanyt_ShotESP.BuildStage[key] or 1
+                local buildStage=g_hamse_ShotESP.BuildStage[key] or 1
                 local color = item.IsBot and ESP_BOT or ESP_REAL
-                local line = g_masterahsanyt_ShotESP.Lines[key]
+                local line = g_hamse_ShotESP.Lines[key]
 
                 local colorKey = item.IsBot and "BOT" or "REAL"
-                if opt.Line and (not line or not g_masterahsanyt_ESPValid(line.Widget)) then
-                    g_masterahsanyt_ESPDestroyWidgetData(line)
-                    line = g_masterahsanyt_ESPCreateLine(color)
+                if opt.Line and (not line or not g_hamse_ESPValid(line.Widget)) then
+                    g_hamse_ESPDestroyWidgetData(line)
+                    line = g_hamse_ESPCreateLine(color)
                     if line then line.ColorKey = colorKey end
-                    g_masterahsanyt_ShotESP.Lines[key] = line
+                    g_hamse_ShotESP.Lines[key] = line
                 elseif opt.Line and line and line.ColorKey ~= colorKey then
                     pcall(function() line.Widget:SetBrushColor(color) end)
                     line.ColorKey = colorKey
@@ -4666,141 +4668,141 @@ local function g_masterahsanyt_ESPUpdate()
                 if opt.Line and line then
                     local tracerTarget = headScreen or footScreen
                     if tracerTarget then
-                        g_masterahsanyt_ESPDrawLine(
+                        g_hamse_ESPDrawLine(
                             line,
                             originCenter.X, originCenter.Y,
                             tracerTarget.X, tracerTarget.Y,
-                            tonumber(_G.g_masterahsanyt_MasterShotESP.TracerThickness) or 1.80
+                            tonumber(_G.g_hamse_HamseShotESP.TracerThickness) or 1.80
                         )
                     end
-                elseif line then g_masterahsanyt_ESPHide(line) end
+                elseif line then g_hamse_ESPHide(line) end
 
-                g_masterahsanyt_ESPUpdateDecoration(key,c,headScreen,footScreen,opt,buildStage,item.IsBot)
-                g_masterahsanyt_ESPUpdateNameTag(key,c,headScreen,footScreen,item.IsBot,item.Distance)
+                g_hamse_ESPUpdateDecoration(key,c,headScreen,footScreen,opt,buildStage,item.IsBot)
+                g_hamse_ESPUpdateNameTag(key,c,headScreen,footScreen,item.IsBot,item.Distance)
                 -- Header frame: dynamic per-frame update (fills, corner fills, scale with name)
-                g_masterahsanyt_ESPUpdateHeaderFrame(key,headScreen,footScreen,opt.Name==true,item.IsBot)
+                g_hamse_ESPUpdateHeaderFrame(key,headScreen,footScreen,opt.Name==true,item.IsBot)
 
                 -- All visible skeletons refresh with the current camera; no round-robin delay.
-                g_masterahsanyt_ESPUpdateSkeleton(key, c, pc, opt.Skeleton == true, item.IsBot)
-                g_masterahsanyt_ShotESP.BuildStage[key]=math.min(5,buildStage+1)
+                g_hamse_ESPUpdateSkeleton(key, c, pc, opt.Skeleton == true, item.IsBot)
+                g_hamse_ShotESP.BuildStage[key]=math.min(5,buildStage+1)
 
             end
         end
     end
-    g_masterahsanyt_ESPPrune(active,alive)
+    g_hamse_ESPPrune(active,alive)
 end
 
 -- One pending render chain. Menu refreshes invalidate/wake it rather than
 -- drawing synchronously multiple times in the same frame.
-local g_masterahsanyt_ESPRunnerToken={}
-if type(_G.__MasterShotESPCleanup) == "function" then pcall(_G.__MasterShotESPCleanup) end
-_G.__MasterShotESPRunner=g_masterahsanyt_ESPRunnerToken
-_G.__MasterShotESPCleanup=g_masterahsanyt_ESPResetWidgets
-local g_masterahsanyt_ESPDiagnostics={Updates=0,Errors=0,LastError=nil}
-_G.g_masterahsanyt_ESPDiagnostics=g_masterahsanyt_ESPDiagnostics
-local g_masterahsanyt_ESPTicker=nil
-pcall(function() g_masterahsanyt_ESPTicker=require("common.time_ticker") end)
-local g_masterahsanyt_ESPTick
-local function g_masterahsanyt_ESPSchedule(delay)
+local g_hamse_ESPRunnerToken={}
+if type(_G.__HamseShotESPCleanup) == "function" then pcall(_G.__HamseShotESPCleanup) end
+_G.__HamseShotESPRunner=g_hamse_ESPRunnerToken
+_G.__HamseShotESPCleanup=g_hamse_ESPResetWidgets
+local g_hamse_ESPDiagnostics={Updates=0,Errors=0,LastError=nil}
+_G.g_hamse_ESPDiagnostics=g_hamse_ESPDiagnostics
+local g_hamse_ESPTicker=nil
+pcall(function() g_hamse_ESPTicker=require("common.time_ticker") end)
+local g_hamse_ESPTick
+local function g_hamse_ESPSchedule(delay)
     delay=ESPShared.SafeNumber(delay,0.50,0.001,0.50)
-    if _G.__MasterShotESPRunner~=g_masterahsanyt_ESPRunnerToken then return end
-    if not g_masterahsanyt_ESPTicker or not g_masterahsanyt_ESPTicker.AddTimerOnce then
-        g_masterahsanyt_ESPDiagnostics.LastError="common.time_ticker.AddTimerOnce unavailable"
+    if _G.__HamseShotESPRunner~=g_hamse_ESPRunnerToken then return end
+    if not g_hamse_ESPTicker or not g_hamse_ESPTicker.AddTimerOnce then
+        g_hamse_ESPDiagnostics.LastError="common.time_ticker.AddTimerOnce unavailable"
         return
     end
-    local serial=(g_masterahsanyt_ESPRunnerToken.Serial or 0)+1
-    g_masterahsanyt_ESPRunnerToken.Serial=serial
-    g_masterahsanyt_ESPRunnerToken.Due=g_masterahsanyt_ESPNow()+delay
-    local ok, err=pcall(g_masterahsanyt_ESPTicker.AddTimerOnce,delay,function()
-        if _G.__MasterShotESPRunner~=g_masterahsanyt_ESPRunnerToken
-            or g_masterahsanyt_ESPRunnerToken.Serial~=serial then return end
-        g_masterahsanyt_ESPRunnerToken.Due=nil
-        g_masterahsanyt_ShotESP.TimerClock=g_masterahsanyt_ShotESP.TimerClock+delay
-        g_masterahsanyt_ESPTick()
+    local serial=(g_hamse_ESPRunnerToken.Serial or 0)+1
+    g_hamse_ESPRunnerToken.Serial=serial
+    g_hamse_ESPRunnerToken.Due=g_hamse_ESPNow()+delay
+    local ok, err=pcall(g_hamse_ESPTicker.AddTimerOnce,delay,function()
+        if _G.__HamseShotESPRunner~=g_hamse_ESPRunnerToken
+            or g_hamse_ESPRunnerToken.Serial~=serial then return end
+        g_hamse_ESPRunnerToken.Due=nil
+        g_hamse_ShotESP.TimerClock=g_hamse_ShotESP.TimerClock+delay
+        g_hamse_ESPTick()
     end)
     if not ok or err==false then
-        g_masterahsanyt_ESPRunnerToken.Due=nil
-        g_masterahsanyt_ESPDiagnostics.Errors=g_masterahsanyt_ESPDiagnostics.Errors+1
-        g_masterahsanyt_ESPDiagnostics.LastError=tostring(err)
+        g_hamse_ESPRunnerToken.Due=nil
+        g_hamse_ESPDiagnostics.Errors=g_hamse_ESPDiagnostics.Errors+1
+        g_hamse_ESPDiagnostics.LastError=tostring(err)
     end
 end
-g_masterahsanyt_ESPTick=function()
-    local token=g_masterahsanyt_ESPRunnerToken
-    if _G.__MasterShotESPRunner~=token then return end
-    local now=g_masterahsanyt_ESPNow()
-    local profiling=_G.g_masterahsanyt_MasterShotESP.Profile and os and type(os.clock)=="function"
+g_hamse_ESPTick=function()
+    local token=g_hamse_ESPRunnerToken
+    if _G.__HamseShotESPRunner~=token then return end
+    local now=g_hamse_ESPNow()
+    local profiling=_G.g_hamse_HamseShotESP.Profile and os and type(os.clock)=="function"
     local callbackStarted=profiling and os.clock() or nil
     ESPShared.Frame.Begin(now)
-    local F=_G.LunarFeatures
-    if F then F.TimerClock=g_masterahsanyt_ShotESP.TimerClock end
+    local F=_G.HAMSE CHEATSFeatures
+    if F then F.TimerClock=g_hamse_ShotESP.TimerClock end
     if not token.RenderDue or now>=token.RenderDue-0.000001 or (token.LastRenderClock and now<token.LastRenderClock) then
-        local previous=g_masterahsanyt_ESPDiagnostics.LastTickSeconds
-        if previous and now>previous then g_masterahsanyt_ESPDiagnostics.UpdateHz=1/(now-previous) end
-        g_masterahsanyt_ESPDiagnostics.LastTickSeconds=now
+        local previous=g_hamse_ESPDiagnostics.LastTickSeconds
+        if previous and now>previous then g_hamse_ESPDiagnostics.UpdateHz=1/(now-previous) end
+        g_hamse_ESPDiagnostics.LastTickSeconds=now
         local started=profiling and os.clock() or nil
-        local ok,err=pcall(g_masterahsanyt_ESPUpdate)
-        g_masterahsanyt_ESPDiagnostics.LastUpdateOK=ok
-        g_masterahsanyt_ESPDiagnostics.Updates=g_masterahsanyt_ESPDiagnostics.Updates+1
+        local ok,err=pcall(g_hamse_ESPUpdate)
+        g_hamse_ESPDiagnostics.LastUpdateOK=ok
+        g_hamse_ESPDiagnostics.Updates=g_hamse_ESPDiagnostics.Updates+1
         if not ok then
-            g_masterahsanyt_ESPDiagnostics.Errors=g_masterahsanyt_ESPDiagnostics.Errors+1
-            g_masterahsanyt_ESPDiagnostics.LastError=tostring(err)
+            g_hamse_ESPDiagnostics.Errors=g_hamse_ESPDiagnostics.Errors+1
+            g_hamse_ESPDiagnostics.LastError=tostring(err)
         end
         if started then
             local elapsed=os.clock()-started
-            g_masterahsanyt_ESPDiagnostics.LastUpdateCPUSeconds=elapsed
-            g_masterahsanyt_ESPDiagnostics.MaxUpdateCPUSeconds=math.max(elapsed,g_masterahsanyt_ESPDiagnostics.MaxUpdateCPUSeconds or 0)
+            g_hamse_ESPDiagnostics.LastUpdateCPUSeconds=elapsed
+            g_hamse_ESPDiagnostics.MaxUpdateCPUSeconds=math.max(elapsed,g_hamse_ESPDiagnostics.MaxUpdateCPUSeconds or 0)
         end
-        local o=_G.g_masterahsanyt_ESPOptions or {}
-        local enabled=_G.g_masterahsanyt_MasterShotESP.Enabled and _G.LunarLoginRuntime and _G.LunarLoginRuntime.Authorized
+        local o=_G.g_hamse_ESPOptions or {}
+        local enabled=_G.g_hamse_HamseShotESP.Enabled and _G.HAMSE CHEATSLoginRuntime and _G.HAMSE CHEATSLoginRuntime.Authorized
         local detailed=enabled and (o.Name or o.Line or o.Box or o.Health or o.Distance or o.Skeleton)
-        local interval=tonumber(_G.g_masterahsanyt_MasterShotESP.UpdateInterval) or 1/60
-        if not detailed then interval=enabled and o.Counter and math.max(0.05,tonumber(_G.g_masterahsanyt_MasterShotESP.ScanInterval) or 0.35) or 0.50 end
+        local interval=tonumber(_G.g_hamse_HamseShotESP.UpdateInterval) or 1/60
+        if not detailed then interval=enabled and o.Counter and math.max(0.05,tonumber(_G.g_hamse_HamseShotESP.ScanInterval) or 0.35) or 0.50 end
         if interval~=interval or math.abs(interval)==math.huge or interval<=0 then interval=1/60 end
         token.LastRenderClock=now
         token.RenderDue=now+math.max(0.001,interval)
     end
-    if profiling then g_masterahsanyt_ESPDiagnostics.LastPumpCPUSeconds=0 end
+    if profiling then g_hamse_ESPDiagnostics.LastPumpCPUSeconds=0 end
     if F and F.Pump and not F.Token.Stopped then
         local pumpStarted=profiling and os.clock() or nil
         local ok,err=pcall(F.Pump,now)
         if not ok then F.Error("Scheduler",err) end
         if pumpStarted then
             local elapsed=os.clock()-pumpStarted
-            g_masterahsanyt_ESPDiagnostics.LastPumpCPUSeconds=elapsed
-            g_masterahsanyt_ESPDiagnostics.MaxPumpCPUSeconds=math.max(elapsed,g_masterahsanyt_ESPDiagnostics.MaxPumpCPUSeconds or 0)
+            g_hamse_ESPDiagnostics.LastPumpCPUSeconds=elapsed
+            g_hamse_ESPDiagnostics.MaxPumpCPUSeconds=math.max(elapsed,g_hamse_ESPDiagnostics.MaxPumpCPUSeconds or 0)
         end
     end
     ESPShared.Frame.Finish()
-    local after=g_masterahsanyt_ESPNow()
+    local after=g_hamse_ESPNow()
     local interval=math.max(0.001,token.RenderDue-after)
     if F and F.NextInterval and not F.Token.Stopped then interval=math.min(interval,F.NextInterval(after)) end
-    g_masterahsanyt_ESPSchedule(interval)
+    g_hamse_ESPSchedule(interval)
     if callbackStarted then
         local elapsed=os.clock()-callbackStarted
-        g_masterahsanyt_ESPDiagnostics.LastCallbackCPUSeconds=elapsed
-        g_masterahsanyt_ESPDiagnostics.MaxCallbackCPUSeconds=math.max(elapsed,g_masterahsanyt_ESPDiagnostics.MaxCallbackCPUSeconds or 0)
-        g_masterahsanyt_ESPDiagnostics.TotalCallbackCPUSeconds=(g_masterahsanyt_ESPDiagnostics.TotalCallbackCPUSeconds or 0)+elapsed
-        g_masterahsanyt_ESPDiagnostics.CallbackSamples=(g_masterahsanyt_ESPDiagnostics.CallbackSamples or 0)+1
+        g_hamse_ESPDiagnostics.LastCallbackCPUSeconds=elapsed
+        g_hamse_ESPDiagnostics.MaxCallbackCPUSeconds=math.max(elapsed,g_hamse_ESPDiagnostics.MaxCallbackCPUSeconds or 0)
+        g_hamse_ESPDiagnostics.TotalCallbackCPUSeconds=(g_hamse_ESPDiagnostics.TotalCallbackCPUSeconds or 0)+elapsed
+        g_hamse_ESPDiagnostics.CallbackSamples=(g_hamse_ESPDiagnostics.CallbackSamples or 0)+1
     end
 end
 
 
-_G.g_masterahsanyt_MasterShotESPForceRefresh = function()
-    if _G.__MasterShotESPRunner~=g_masterahsanyt_ESPRunnerToken then return end
-    g_masterahsanyt_ESPRunnerToken.RenderDue=nil
-    g_masterahsanyt_ShotESP.LastScanClock = -999.0
-    g_masterahsanyt_ShotESP.LastTransformClock = -999.0
-    local due=g_masterahsanyt_ESPRunnerToken.Due
-    if not due or due-g_masterahsanyt_ESPNow()>0.002 then g_masterahsanyt_ESPSchedule(0.001) end
+_G.g_hamse_HamseShotESPForceRefresh = function()
+    if _G.__HamseShotESPRunner~=g_hamse_ESPRunnerToken then return end
+    g_hamse_ESPRunnerToken.RenderDue=nil
+    g_hamse_ShotESP.LastScanClock = -999.0
+    g_hamse_ShotESP.LastTransformClock = -999.0
+    local due=g_hamse_ESPRunnerToken.Due
+    if not due or due-g_hamse_ESPNow()>0.002 then g_hamse_ESPSchedule(0.001) end
 end
 
 -- Managed feature state. Source settings are data, never loaded as executable Lua.
 do
-    if type(_G.__LunarFeaturesCleanup) == "function" then pcall(_G.__LunarFeaturesCleanup) end
+    if type(_G.__HAMSE CHEATSFeaturesCleanup) == "function" then pcall(_G.__HAMSE CHEATSFeaturesCleanup) end
     local F = {Token={}, Diagnostics={Errors=0}, TimerClock=0, LastWorld=nil}
-    _G.LunarFeatures=F
-    local settings = _G.LunarFeatureSettings or {}
-    _G.LunarFeatureSettings=settings
+    _G.HAMSE CHEATSFeatures=F
+    local settings = _G.HAMSE CHEATSFeatureSettings or {}
+    _G.HAMSE CHEATSFeatureSettings=settings
     F.Settings=settings
     local function number(value,lo,hi,fallback)
         local v=tonumber(value)
@@ -4808,7 +4810,7 @@ do
         return math.floor(math.max(lo,math.min(hi,v))+0.5)
     end
     F.Clamp=number
-    settings.IpadFOV=number(settings.IpadFOV or _G.LexusState.CustomTextData.IpadViewFOV,90,120,120)
+    settings.IpadFOV=number(settings.IpadFOV or _G.HAMSE CHEATSState.CustomTextData.IpadViewFOV,90,120,120)
     settings.AimSpeed=number(settings.AimSpeed,100,120,100)
     settings.AimTarget=number(settings.AimTarget,1,3,1)
     settings.AimEnabled=settings.AimEnabled==true
@@ -4817,12 +4819,12 @@ do
     settings.WallOccluded=number(settings.WallOccluded,1,7,2)
     settings.Aim2Enabled=settings.Aim2Enabled==true
     settings.MortarEnabled=settings.MortarEnabled==true
-    _G.g_Botmater_ESPOptions=_G.g_Botmater_ESPOptions or {}
+    _G.g_HAMSE CHEATS_ESPOptions=_G.g_HAMSE CHEATS_ESPOptions or {}
     for _,key in ipairs({"Name","Line","Health","Distance","EnemyCounter"}) do
-        if _G.g_Botmater_ESPOptions[key]==nil then _G.g_Botmater_ESPOptions[key]=false end
+        if _G.g_HAMSE CHEATS_ESPOptions[key]==nil then _G.g_HAMSE CHEATS_ESPOptions[key]=false end
     end
-    local paths=g_masterahsanyt_ESPSettingsPaths()
-    for i,path in ipairs(paths) do paths[i]=path:gsub("MASTERPIECE_UMG_ESP_settings.lua$","MASTERAHSAN_FEATURES_V3_settings.lua") end
+    local paths=g_hamse_ESPSettingsPaths()
+    for i,path in ipairs(paths) do paths[i]=path:gsub("HAMSE CHEATS_UMG_ESP_settings.lua$","MASTERAHSAN_FEATURES_V3_settings.lua") end
     if io and io.open then
         for _,path in ipairs(paths) do
             local ok,file=pcall(io.open,path,"r")
@@ -4834,7 +4836,7 @@ do
                     for _,key in ipairs({"AimEnabled","WallEnabled","IpadEnabled","Aim2Enabled","MortarEnabled"}) do
                         local val=payload:match("%f[%w_]"..key.."%s*=%s*(%a+)")
                         if val=="true" or val=="false" then
-                            if key=="IpadEnabled" then _G.LexusConfig.IpadView=val=="true" else settings[key]=val=="true" end
+                            if key=="IpadEnabled" then _G.HAMSE CHEATSConfig.IpadView=val=="true" else settings[key]=val=="true" end
                         end
                     end
                     for _,key in ipairs({"IpadFOV","AimSpeed","AimTarget"}) do
@@ -4847,41 +4849,41 @@ do
                     end
                     for _,key in ipairs({"Name","Line","Health","Distance","EnemyCounter"}) do
                         local val=payload:match("%f[%w_]V1_"..key.."%s*=%s*(%a+)")
-                        if val=="true" or val=="false" then _G.g_Botmater_ESPOptions[key]=val=="true" end
+                        if val=="true" or val=="false" then _G.g_HAMSE CHEATS_ESPOptions[key]=val=="true" end
                     end
                     for _,key in ipairs({"Name","Line","Box","Health","Distance","Skeleton","Counter"}) do
                         local val=payload:match("%f[%w_]V2_"..key.."%s*=%s*(%a+)")
-                        if val=="true" or val=="false" then _G.g_masterahsanyt_ESPOptions[key]=val=="true" end
+                        if val=="true" or val=="false" then _G.g_hamse_ESPOptions[key]=val=="true" end
                     end
                     break
                 end
             end
         end
     end
-    if not F.SettingsReadPath and g_masterahsanyt_ESPLoadedSettingsPath then
-        F.SettingsReadPath=g_masterahsanyt_ESPLoadedSettingsPath:gsub("MASTERPIECE_UMG_ESP_settings%.lua$","MASTERAHSAN_FEATURES_V3_settings.lua")
+    if not F.SettingsReadPath and g_hamse_ESPLoadedSettingsPath then
+        F.SettingsReadPath=g_hamse_ESPLoadedSettingsPath:gsub("HAMSE CHEATS_UMG_ESP_settings%.lua$","MASTERAHSAN_FEATURES_V3_settings.lua")
     end
     if settings.Aim2Enabled then settings.AimEnabled=false end
-    _G.LexusState.CustomTextData.IpadViewFOV=settings.IpadFOV
+    _G.HAMSE CHEATSState.CustomTextData.IpadViewFOV=settings.IpadFOV
     F.Now=function()
         local now=nil
         pcall(function()
-            local world=g_masterahsanyt_ESPWorld()
+            local world=g_hamse_ESPWorld()
             if world and GameplayStaticsESP and GameplayStaticsESP.GetRealTimeSeconds then now=GameplayStaticsESP.GetRealTimeSeconds(world) end
         end)
         return tonumber(now) or F.TimerClock
     end
     F.Save=function(force)
         if not F.Dirty or not io or not io.open then return end
-        local lines={"return {", "  IpadEnabled = "..tostring(_G.LexusConfig.IpadView==true)..","}
+        local lines={"return {", "  IpadEnabled = "..tostring(_G.HAMSE CHEATSConfig.IpadView==true)..","}
         for _,key in ipairs({"AimEnabled","WallEnabled","Aim2Enabled","MortarEnabled","IpadFOV","AimSpeed","AimTarget","WallVisible","WallOccluded"}) do lines[#lines+1]="  "..key.." = "..tostring(settings[key]).."," end
-        for _,key in ipairs({"Name","Line","Health","Distance","EnemyCounter"}) do lines[#lines+1]="  V1_"..key.." = "..tostring(_G.g_Botmater_ESPOptions[key]==true).."," end
-        for _,key in ipairs({"Name","Line","Box","Health","Distance","Skeleton","Counter"}) do lines[#lines+1]="  V2_"..key.." = "..tostring(_G.g_masterahsanyt_ESPOptions[key]==true).."," end
+        for _,key in ipairs({"Name","Line","Health","Distance","EnemyCounter"}) do lines[#lines+1]="  V1_"..key.." = "..tostring(_G.g_HAMSE CHEATS_ESPOptions[key]==true).."," end
+        for _,key in ipairs({"Name","Line","Box","Health","Distance","Skeleton","Counter"}) do lines[#lines+1]="  V2_"..key.." = "..tostring(_G.g_hamse_ESPOptions[key]==true).."," end
         lines[#lines+1]="}"
         local payload=table.concat(lines,"\n")
         local savePaths=F.SettingsReadPath and {F.SettingsReadPath} or paths
         for _,path in ipairs(savePaths) do
-            local wrote,reason,atomic=g_masterahsanyt_ESPWriteSettings(path,payload)
+            local wrote,reason,atomic=g_hamse_ESPWriteSettings(path,payload)
             if wrote then
                 F.SettingsReadPath=path;F.Dirty=false;F.Diagnostics.LastSaveOK=true;F.Diagnostics.LastSavePath=path;F.Diagnostics.AtomicSave=atomic
                 return true
@@ -4893,15 +4895,15 @@ do
     end
     F.MarkDirty=function(immediate) F.Dirty=true;if immediate then F.Save(true) end end
     F.SetIpad=function(enabled)
-        _G.LexusConfig.IpadView=enabled==true or enabled==1
-        _G.LexusState.CustomTextData.IpadViewFOV=settings.IpadFOV
-        pcall(g_masterahsanyt_ApplyiPadView)
+        _G.HAMSE CHEATSConfig.IpadView=enabled==true or enabled==1
+        _G.HAMSE CHEATSState.CustomTextData.IpadViewFOV=settings.IpadFOV
+        pcall(g_hamse_ApplyiPadView)
         F.MarkDirty(true)
     end
     F.SetIpadFOV=function(value)
         settings.IpadFOV=number(value,90,120,120)
-        _G.LexusState.CustomTextData.IpadViewFOV=settings.IpadFOV
-        pcall(g_masterahsanyt_ApplyiPadView)
+        _G.HAMSE CHEATSState.CustomTextData.IpadViewFOV=settings.IpadFOV
+        pcall(g_hamse_ApplyiPadView)
         F.MarkDirty()
     end
     F.SetAimSpeed=function(value)
@@ -4992,8 +4994,8 @@ do
     F.ESPSettingsEventID=2
     local function applyESP(version,key,on)
         local first,second=false,false
-        local own=version==1 and _G.g_Botmater_ESPOptions or _G.g_masterahsanyt_ESPOptions
-        local other=version==1 and _G.g_masterahsanyt_ESPOptions or _G.g_Botmater_ESPOptions
+        local own=version==1 and _G.g_HAMSE CHEATS_ESPOptions or _G.g_hamse_ESPOptions
+        local other=version==1 and _G.g_hamse_ESPOptions or _G.g_HAMSE CHEATS_ESPOptions
         local mapped=(version==1 and v1ToV2 or v2ToV1)[key]
         if (own[key]==true)~=on then own[key]=on;first=true end
         if on and mapped and other[mapped]==true then other[mapped]=false;second=true end
@@ -5008,10 +5010,10 @@ do
         if changedV1 and F.V1 then F.V1.Refresh();F.V1Due=0 end
         F.MarkDirty(true)
         if changedV2 then
-            _G.g_masterahsanyt_MasterShotESPForceRefresh()
+            _G.g_hamse_HamseShotESPForceRefresh()
         else
-            local due=g_masterahsanyt_ESPRunnerToken.Due
-            if not due or due-g_masterahsanyt_ESPNow()>0.002 then g_masterahsanyt_ESPSchedule(0.001) end
+            local due=g_hamse_ESPRunnerToken.Due
+            if not due or due-g_hamse_ESPNow()>0.002 then g_hamse_ESPSchedule(0.001) end
         end
         if EventSystem and type(EventSystem.postEvent)=="function" then
             local ok,err=pcall(EventSystem.postEvent,EventSystem,F.ESPSettingsEventType,F.ESPSettingsEventID)
@@ -5027,7 +5029,7 @@ do
     end
     F.GetESPAll=function(version)
         if version~=1 and version~=2 then return false end
-        local own=version==1 and _G.g_Botmater_ESPOptions or _G.g_masterahsanyt_ESPOptions
+        local own=version==1 and _G.g_HAMSE CHEATS_ESPOptions or _G.g_hamse_ESPOptions
         for _,key in ipairs(version==1 and v1Keys or v2Keys) do if own[key]~=true then return false end end
         return true
     end
@@ -5045,16 +5047,16 @@ do
     -- rows receive the additional click callback; every other native row is untouched.
     F.InstallNativeBulkSwitch=function(class)
         if type(class)~="table" or type(class.OnSelected)~="function" then return false end
-        if class.__LunarBulkSwitchV7 then return true end
+        if class.__HAMSE CHEATSBulkSwitchV7 then return true end
         local original=class.OnSelected
         class.OnSelected=function(self,index)
             local data=self.Data
-            local repeatBulk=data and data.LunarBulk and self.UIRoot.Selector:GetSelectedIndex()==index
+            local repeatBulk=data and data.HAMSE CHEATSBulk and self.UIRoot.Selector:GetSelectedIndex()==index
             local result=original(self,index)
             if repeatBulk then return data.SetFunc(data.Key,self:_IndexToValue(index)) end
             return result
         end
-        class.__LunarBulkSwitchV7=true
+        class.__HAMSE CHEATSBulkSwitchV7=true
         return true
     end
     F.SetV1=function(key,value) return F.SetESP(1,key,value) end
@@ -5062,8 +5064,8 @@ do
     -- Old versions allowed both copies on. Resolve old conflicts once at load,
     -- giving V1 priority; persist the merged state through the existing save pump.
     for key,mapped in pairs(v1ToV2) do
-        if _G.g_Botmater_ESPOptions[key]==true and _G.g_masterahsanyt_ESPOptions[mapped]==true then
-            _G.g_masterahsanyt_ESPOptions[mapped]=false
+        if _G.g_HAMSE CHEATS_ESPOptions[key]==true and _G.g_hamse_ESPOptions[mapped]==true then
+            _G.g_hamse_ESPOptions[mapped]=false
             F.MarkDirty()
         end
     end
@@ -5071,7 +5073,7 @@ do
         F.Diagnostics.Errors=F.Diagnostics.Errors+1
         F.Diagnostics.LastError=area..": "..tostring(err)
     end
-    _G.__LunarFeaturesCleanup=function()
+    _G.__HAMSE CHEATSFeaturesCleanup=function()
         F.Token.Stopped=true
         if ESPShared.Events.UnbindAll then ESPShared.Events.UnbindAll() end
         if F.V1 then F.V1.Reset() end
@@ -5091,7 +5093,7 @@ _G.XthrlenConfig = _G.XthrlenConfig or {}
 _G.XthrlenState = _G.XthrlenState or {}
 _G.XthrlenState.CustomTextData = _G.XthrlenState.CustomTextData or {}
 
-_G.XthrlenConfig.AimTouchEnable        = _G.LunarFeatures.Settings.AimEnabled
+_G.XthrlenConfig.AimTouchEnable        = _G.HAMSE CHEATSFeatures.Settings.AimEnabled
 _G.XthrlenConfig.AimTouchHipfire       = true
 _G.XthrlenConfig.AimTouchScopeAll      = true
 _G.XthrlenConfig.AimTouchHipVisCheck   = true
@@ -5110,14 +5112,14 @@ _G.XthrlenConfig.EspFovCircle          = false
 _G.XthrlenState.CustomTextData.AimTouchHipPrio    = 1
 _G.XthrlenState.CustomTextData.AimTouchHipBone    = 1
 _G.XthrlenState.CustomTextData.AimTouchHipCond    = 1
-_G.XthrlenState.CustomTextData.AimTouchHipSpeed   = _G.LunarFeatures.Settings.AimSpeed
+_G.XthrlenState.CustomTextData.AimTouchHipSpeed   = _G.HAMSE CHEATSFeatures.Settings.AimSpeed
 _G.XthrlenState.CustomTextData.AimTouchHipDist    = 120
 _G.XthrlenState.CustomTextData.AimTouchHipFOV     = 30
 
 _G.XthrlenState.CustomTextData.AimTouchScopePrio   = 1
 _G.XthrlenState.CustomTextData.AimTouchScopeBone   = 1
 _G.XthrlenState.CustomTextData.AimTouchScopeCond   = 1
-_G.XthrlenState.CustomTextData.AimTouchScopeSpeed  = _G.LunarFeatures.Settings.AimSpeed
+_G.XthrlenState.CustomTextData.AimTouchScopeSpeed  = _G.HAMSE CHEATSFeatures.Settings.AimSpeed
 _G.XthrlenState.CustomTextData.AimTouchScopeDist   = 120
 _G.XthrlenState.CustomTextData.AimTouchScopeFOV    = 30
 _G.XthrlenState.CustomTextData.AimTouchScopePred   = 0
@@ -5188,7 +5190,7 @@ _G.AimTouch = function()
             weapon = player:GetCurrentShootWeapon()
         end
         
-        if _G.LunarFeatures.Settings.MortarEnabled and weapon and weapon.MortarState==2 then return end
+        if _G.HAMSE CHEATSFeatures.Settings.MortarEnabled and weapon and weapon.MortarState==2 then return end
         local isShotgun = false
         local isSniper = false
         local isMortar = false
@@ -5342,7 +5344,7 @@ _G.AimTouch = function()
         local bestTarget = nil
         local bestScore = 99999999 
         
-        local selected=_G.LunarFeatures.Settings.AimTarget
+        local selected=_G.HAMSE CHEATSFeatures.Settings.AimTarget
         boneIdx=selected==2 and 2 or (selected==3 and 5 or 1)
         local selBoneName=selected==2 and "spine_03" or (selected==3 and "calf_l" or "head")
 
@@ -5367,7 +5369,7 @@ _G.AimTouch = function()
             end
             
             if useVisCheck then
-                local curTime = _G.LunarFeatures.Now()
+                local curTime = _G.HAMSE CHEATSFeatures.Now()
                 local tId = type(target.GetUniqueID) == "function" and target:GetUniqueID() or tostring(target)
                 _G.AimTouchVisCache = _G.AimTouchVisCache or {}
                 if not _G.AimTouchVisCache[tId] or curTime < _G.AimTouchVisCache[tId].time or (curTime - _G.AimTouchVisCache[tId].time) > 0.2 then
@@ -5427,10 +5429,10 @@ _G.AimTouch = function()
         end
         
         local cache=_G.AimTouchVisCache
-        local clock=_G.LunarFeatures.Now()
-        if cache and (not _G.LunarFeatures.AimPruneDue or clock>=_G.LunarFeatures.AimPruneDue) then
+        local clock=_G.HAMSE CHEATSFeatures.Now()
+        if cache and (not _G.HAMSE CHEATSFeatures.AimPruneDue or clock>=_G.HAMSE CHEATSFeatures.AimPruneDue) then
             for key,entry in pairs(cache) do if clock<entry.time or clock-entry.time>1 then cache[key]=nil end end
-            _G.LunarFeatures.AimPruneDue=clock+0.5
+            _G.HAMSE CHEATSFeatures.AimPruneDue=clock+0.5
         end
         if not slua.isValid(bestTarget) then return end
         
@@ -5507,11 +5509,11 @@ _G.AimTouch = function()
 
         -- Displayed settings remain 100..120. The requested maximum applies
         -- at most half the previous full correction; low settings are gentler.
-        local now=_G.LunarFeatures.Now()
-        local previous=_G.LunarFeatures.AimLastClock
+        local now=_G.HAMSE CHEATSFeatures.Now()
+        local previous=_G.HAMSE CHEATSFeatures.AimLastClock
         local dt=previous and math.max(0.001,math.min(0.05,now-previous)) or 0.011
-        _G.LunarFeatures.AimLastClock=now
-        local normalized=(_G.LunarFeatures.Clamp(speedVal,100,120,100)-100)/20.0
+        _G.HAMSE CHEATSFeatures.AimLastClock=now
+        local normalized=(_G.HAMSE CHEATSFeatures.Clamp(speedVal,100,120,100)-100)/20.0
         local strength=0.02+0.48*normalized*normalized
         local alpha=math.min(0.5,1.0-(1.0-strength)^(dt/0.011))
         local maxTurnRate=10.0+35.0*normalized
@@ -5535,19 +5537,19 @@ _G.AimTouch = function()
         out = clampAngles(out)
         pc:SetControlRotation(out, "AimTouch")
     end)
-    if not ok then _G.LunarFeatures.Error("Aim",err) end
+    if not ok then _G.HAMSE CHEATSFeatures.Error("Aim",err) end
 end
 
 
 
-_G.LunarFeatures.Aim={Tick=_G.AimTouch}
+_G.HAMSE CHEATSFeatures.Aim={Tick=_G.AimTouch}
 end
 
 -- Preserve the reference's DrawDyeing/Highlight/IdeaOutline settings and cadence.
 -- Deduplicate mesh identities; do not assume the game leaves material flags alone.
 do
-    local F=_G.LunarFeatures
-    local valid=g_masterahsanyt_ESPValid
+    local F=_G.HAMSE CHEATSFeatures
+    local valid=g_hamse_ESPValid
     local classes={}
     for _,name in ipairs({"SkeletalMeshComponent","StaticMeshComponent"}) do
         local ok,value=pcall(import,name)
@@ -5578,8 +5580,8 @@ do
     W.UpdateColors=function()
         local a=palette[F.Settings.WallVisible] or palette[1]
         local b=palette[F.Settings.WallOccluded] or palette[2]
-        local vis=g_masterahsanyt_ESPColor(a[1],a[2],a[3],100)
-        local occ=g_masterahsanyt_ESPColor(b[1],b[2],b[3],100)
+        local vis=g_hamse_ESPColor(a[1],a[2],a[3],100)
+        local occ=g_hamse_ESPColor(b[1],b[2],b[3],100)
         colorCalls=calls(vis,occ)
         W.LastTick=-999
     end
@@ -5644,10 +5646,10 @@ do
     W.Tick=function(now,me,pc)
         if not F.Settings.WallEnabled then return end
         now=now or F.Now()
-        me=me or g_masterahsanyt_ESPGetLocalCharacter()
-        pc=pc or g_masterahsanyt_ESPGetController()
+        me=me or g_hamse_ESPGetLocalCharacter()
+        pc=pc or g_hamse_ESPGetController()
         if not valid(me) or not valid(pc) then W.Stop() return end
-        local maxRange=tonumber(_G.g_masterahsanyt_MasterShotESP.MaxRangeMeters) or 450.0
+        local maxRange=tonumber(_G.g_hamse_HamseShotESP.MaxRangeMeters) or 450.0
         if maxRange~=maxRange or maxRange<=0 or maxRange==math.huge then maxRange=450.0 end
         local myLocation=ESPShared.GetFrameRecord(me).Location
         if now<W.LastCleanup or now-W.LastCleanup>=W.CleanupInterval-0.000001 then
@@ -5655,7 +5657,7 @@ do
         end
         if now>=W.LastTick and now-W.LastTick<0.30-0.000001 then return end
         W.LastTick=now
-        local world=g_masterahsanyt_ESPWorld()
+        local world=g_hamse_ESPWorld()
         if world~=W.ConsoleWorld then
             local ok=pcall(function()
                 if not world or not UKismetSystemLibrary.ExecuteConsoleCommand then return end
@@ -5706,7 +5708,7 @@ do
 end
 
 do
-_G.g_Botmater_ESPOptions = _G.g_Botmater_ESPOptions or {
+_G.g_HAMSE CHEATS_ESPOptions = _G.g_HAMSE CHEATS_ESPOptions or {
     Name = false,
     Line = false,
     Health = false,
@@ -5714,7 +5716,7 @@ _G.g_Botmater_ESPOptions = _G.g_Botmater_ESPOptions or {
     EnemyCounter = false,
 }
 
-_G.g_Botmater_MasterShotESP = _G.g_Botmater_MasterShotESP or {
+_G.g_HAMSE CHEATS_HamseShotESP = _G.g_HAMSE CHEATS_HamseShotESP or {
     Enabled = true,
     MaxRangeMeters = 300.0,
     ScanInterval = 0.05,
@@ -5727,9 +5729,9 @@ _G.g_Botmater_MasterShotESP = _G.g_Botmater_MasterShotESP or {
     DistanceFontSize = 10,
     DistanceBelowFeet = 14,
 }
--- ESP V1 settings remain independent from _G.MasterShotESP (ESP V2).
+-- ESP V1 settings remain independent from _G.HamseShotESP (ESP V2).
 
-local g_Botmater_ShotESP = {
+local g_HAMSE CHEATS_ShotESP = {
     Canvas = nil,
     Enemies = {},
     Lines = {},
@@ -5759,44 +5761,44 @@ pcall(function() SlateBlueprintLibrary = import("SlateBlueprintLibrary") end)
 local WidgetLayoutLibrary = nil
 pcall(function() WidgetLayoutLibrary = import("WidgetLayoutLibrary") end)
 
-local function g_Botmater_ESPV2(x, y)
+local function g_HAMSE CHEATS_ESPV2(x, y)
     if V2 then return V2(x, y) end
     return {X = x, Y = y}
 end
 
-local function g_Botmater_ESPColor(r, g, b, a)
+local function g_HAMSE CHEATS_ESPColor(r, g, b, a)
     if LinearColor then return LinearColor(r, g, b, a or 1.0) end
     return {R=r, G=g, B=b, A=a or 1.0}
 end
 
-local COLOR_REAL_VIS_RED          = g_Botmater_ESPColor(1.00, 0.00, 0.00, 1.00)
-local COLOR_BOT_VIS_CYAN          = g_Botmater_ESPColor(0.10, 1.00, 1.00, 1.00)
+local COLOR_REAL_VIS_RED          = g_HAMSE CHEATS_ESPColor(1.00, 0.00, 0.00, 1.00)
+local COLOR_BOT_VIS_CYAN          = g_HAMSE CHEATS_ESPColor(0.10, 1.00, 1.00, 1.00)
 
-local COLOR_TEXT_WHITE            = g_Botmater_ESPColor(1.00, 1.00, 1.00, 1.00)
-local COLOR_TEXT_BLACK            = g_Botmater_ESPColor(0.00, 0.00, 0.00, 1.00)
+local COLOR_TEXT_WHITE            = g_HAMSE CHEATS_ESPColor(1.00, 1.00, 1.00, 1.00)
+local COLOR_TEXT_BLACK            = g_HAMSE CHEATS_ESPColor(0.00, 0.00, 0.00, 1.00)
 
 
-local CACHE_COUNTER_PLAYER_BG   = g_Botmater_ESPColor(0.07, 0.008, 0.008, 1.0)
-local CACHE_COUNTER_BOT_BG      = g_Botmater_ESPColor(0.008, 0.07, 0.07, 1.0)
-local CACHE_COUNTER_PLAYER_TEXT = g_Botmater_ESPColor(1.0,0.86,0.84,1.0)
-local CACHE_COUNTER_BOT_TEXT    = g_Botmater_ESPColor(0.82,1.0,1.0,1.0)
+local CACHE_COUNTER_PLAYER_BG   = g_HAMSE CHEATS_ESPColor(0.07, 0.008, 0.008, 1.0)
+local CACHE_COUNTER_BOT_BG      = g_HAMSE CHEATS_ESPColor(0.008, 0.07, 0.07, 1.0)
+local CACHE_COUNTER_PLAYER_TEXT = g_HAMSE CHEATS_ESPColor(1.0,0.86,0.84,1.0)
+local CACHE_COUNTER_BOT_TEXT    = g_HAMSE CHEATS_ESPColor(0.82,1.0,1.0,1.0)
 
 
 local COLOR_HP = {
-    RealText=g_Botmater_ESPColor(1.0,0.86,0.84,1.0),
-    BotText=g_Botmater_ESPColor(0.82,1.0,1.0,1.0),
-    RealMid=g_Botmater_ESPColor(0.78,0.0,0.0,1.0),
-    RealLow=g_Botmater_ESPColor(0.55,0.0,0.0,1.0),
-    BotMid=g_Botmater_ESPColor(0.075,0.75,0.75,1.0),
-    BotLow=g_Botmater_ESPColor(0.055,0.55,0.55,1.0),
-    RealBG=g_Botmater_ESPColor(0.06,0.005,0.005,0.75),
-    BotBG=g_Botmater_ESPColor(0.005,0.06,0.06,0.75)}
+    RealText=g_HAMSE CHEATS_ESPColor(1.0,0.86,0.84,1.0),
+    BotText=g_HAMSE CHEATS_ESPColor(0.82,1.0,1.0,1.0),
+    RealMid=g_HAMSE CHEATS_ESPColor(0.78,0.0,0.0,1.0),
+    RealLow=g_HAMSE CHEATS_ESPColor(0.55,0.0,0.0,1.0),
+    BotMid=g_HAMSE CHEATS_ESPColor(0.075,0.75,0.75,1.0),
+    BotLow=g_HAMSE CHEATS_ESPColor(0.055,0.55,0.55,1.0),
+    RealBG=g_HAMSE CHEATS_ESPColor(0.06,0.005,0.005,0.75),
+    BotBG=g_HAMSE CHEATS_ESPColor(0.005,0.06,0.06,0.75)}
 
 -- Ensure old in-memory options do not retain the tiny shipped label fonts.
-_G.g_Botmater_MasterShotESP.NameFontSize=math.max(12,tonumber(_G.g_Botmater_MasterShotESP.NameFontSize) or 12)
-_G.g_Botmater_MasterShotESP.DistanceFontSize=math.max(12,tonumber(_G.g_Botmater_MasterShotESP.DistanceFontSize) or 12)
+_G.g_HAMSE CHEATS_HamseShotESP.NameFontSize=math.max(12,tonumber(_G.g_HAMSE CHEATS_HamseShotESP.NameFontSize) or 12)
+_G.g_HAMSE CHEATS_HamseShotESP.DistanceFontSize=math.max(12,tonumber(_G.g_HAMSE CHEATS_HamseShotESP.DistanceFontSize) or 12)
 
-local function g_Botmater_ESPGetColors(isBot)
+local function g_HAMSE CHEATS_ESPGetColors(isBot)
     if isBot then
         return COLOR_BOT_VIS_CYAN, COLOR_HP.BotText
     else
@@ -5804,39 +5806,39 @@ local function g_Botmater_ESPGetColors(isBot)
     end
 end
 
-local function g_Botmater_ESPValid(obj)
+local function g_HAMSE CHEATS_ESPValid(obj)
     if not obj then return false end
     local ok, valid = pcall(function() return slua.isValid(obj) end)
     return ok and valid == true
 end
 
-local function g_Botmater_ESPNow() return _G.LunarFeatures.Now() end
+local function g_HAMSE CHEATS_ESPNow() return _G.HAMSE CHEATSFeatures.Now() end
 
-local function g_Botmater_ESPWorld()
+local function g_HAMSE CHEATS_ESPWorld()
     local w = nil
     pcall(function() if slua and slua.getWorld then w = slua.getWorld() end end)
     return w
 end
 
-local function g_Botmater_ESPGetController() return g_masterahsanyt_ESPGetController() end
-local function g_Botmater_ESPGetLocalCharacter() return g_masterahsanyt_ESPGetLocalCharacter() end
+local function g_HAMSE CHEATS_ESPGetController() return g_hamse_ESPGetController() end
+local function g_HAMSE CHEATS_ESPGetLocalCharacter() return g_hamse_ESPGetLocalCharacter() end
 
-local function g_Botmater_ESPGetPlayerState(character)
-    if not g_Botmater_ESPValid(character) then return nil end
+local function g_HAMSE CHEATS_ESPGetPlayerState(character)
+    if not g_HAMSE CHEATS_ESPValid(character) then return nil end
     local ps = nil
     pcall(function()
         if character.GetPlayerStateSafety then ps = character:GetPlayerStateSafety() end
     end)
-    if not g_Botmater_ESPValid(ps) then
+    if not g_HAMSE CHEATS_ESPValid(ps) then
         pcall(function() if character.GetPlayerState then ps = character:GetPlayerState() end end)
     end
-    if not g_Botmater_ESPValid(ps) then
+    if not g_HAMSE CHEATS_ESPValid(ps) then
         pcall(function() ps = character.PlayerState end)
     end
-    return g_Botmater_ESPValid(ps) and ps or nil
+    return g_HAMSE CHEATS_ESPValid(ps) and ps or nil
 end
 
-local function g_Botmater_ESPNormalizeName(value)
+local function g_HAMSE CHEATS_ESPNormalizeName(value)
     if value == nil or value == false then return nil end
     local ok, text = pcall(tostring, value)
     if not ok or not text then return nil end
@@ -5845,18 +5847,18 @@ local function g_Botmater_ESPNormalizeName(value)
     return text
 end
 
-local function g_Botmater_ESPResolvePlayerName(character)
-    if not g_Botmater_ESPValid(character) then return nil end
+local function g_HAMSE CHEATS_ESPResolvePlayerName(character)
+    if not g_HAMSE CHEATS_ESPValid(character) then return nil end
     local name = nil
     local function take(value)
-        if not name then name = g_Botmater_ESPNormalizeName(value) end
+        if not name then name = g_HAMSE CHEATS_ESPNormalizeName(value) end
     end
     pcall(function() if character.GetPlayerNameSafety then take(character:GetPlayerNameSafety()) end end)
     pcall(function() if not name and character.GetPlayerName then take(character:GetPlayerName()) end end)
     pcall(function() if not name then take(character.PlayerName) end end)
     pcall(function() if not name then take(character.NickName) end end)
     if not name then
-        local ps = g_Botmater_ESPGetPlayerState(character)
+        local ps = g_HAMSE CHEATS_ESPGetPlayerState(character)
         if ps then
             pcall(function() if ps.GetPlayerName then take(ps:GetPlayerName()) end end)
             pcall(function() if not name then take(ps.PlayerName) end end)
@@ -5867,15 +5869,15 @@ local function g_Botmater_ESPResolvePlayerName(character)
     return name
 end
 
-local function g_Botmater_ESPGetPlayerKey(c) return g_masterahsanyt_ESPGetPlayerKey(c) end
+local function g_HAMSE CHEATS_ESPGetPlayerKey(c) return g_hamse_ESPGetPlayerKey(c) end
 
-local function g_Botmater_ESPGetTeamID(character)
-    if not g_Botmater_ESPValid(character) then return nil end
+local function g_HAMSE CHEATS_ESPGetTeamID(character)
+    if not g_HAMSE CHEATS_ESPValid(character) then return nil end
     local id = nil
     pcall(function() if character.GetTeamID then id = character:GetTeamID() end end)
     if id == nil then pcall(function() id = character.TeamID end) end
     if id == nil then
-        local ps = g_Botmater_ESPGetPlayerState(character)
+        local ps = g_HAMSE CHEATS_ESPGetPlayerState(character)
         if ps then
             pcall(function() if ps.GetTeamID then id = ps:GetTeamID() end end)
             if id == nil then pcall(function() id = ps.TeamID end) end
@@ -5884,8 +5886,8 @@ local function g_Botmater_ESPGetTeamID(character)
     return id
 end
 
-local function g_Botmater_ESPGetHealthPct(character)
-    if not g_Botmater_ESPValid(character) then return 1.0 end
+local function g_HAMSE CHEATS_ESPGetHealthPct(character)
+    if not g_HAMSE CHEATS_ESPValid(character) then return 1.0 end
     local hp, maxHp = nil, nil
     pcall(function() hp = character.Health end)
     if type(hp) ~= "number" then pcall(function() hp = character.HP end) end
@@ -5899,23 +5901,23 @@ local function g_Botmater_ESPGetHealthPct(character)
     return pct
 end
 
-local function g_Botmater_ESPGetHealthColor(pct,isBot)
+local function g_HAMSE CHEATS_ESPGetHealthColor(pct,isBot)
     pct = tonumber(pct) or 1.0
     if pct >= 0.75 then return isBot and COLOR_BOT_VIS_CYAN or COLOR_REAL_VIS_RED
     elseif pct >= 0.50 then return isBot and COLOR_HP.BotMid or COLOR_HP.RealMid
     else return isBot and COLOR_HP.BotLow or COLOR_HP.RealLow end
 end
 
-local function g_Botmater_ESPIsBot(c)
-    g_Botmater_ShotESP._BotCache=g_Botmater_ShotESP._BotCache or {}
-    return g_masterahsanyt_ESPIsBot(c,g_masterahsanyt_ESPGetPlayerKey(c),g_Botmater_ShotESP._BotCache,_G.LunarFeatures.Now())
+local function g_HAMSE CHEATS_ESPIsBot(c)
+    g_HAMSE CHEATS_ShotESP._BotCache=g_HAMSE CHEATS_ShotESP._BotCache or {}
+    return g_hamse_ESPIsBot(c,g_hamse_ESPGetPlayerKey(c),g_HAMSE CHEATS_ShotESP._BotCache,_G.HAMSE CHEATSFeatures.Now())
 end
 
 -- Deferred cleanup owns widgets only, never an actor, key or player name.
 -- Admission is stopped well below the hard limit while native cleanup fails.
 local V1Cleanup={Items={},Members={},Count=0,Cursor=1,Due=0,Limit=512,AdmissionLimit=128}
 function V1Cleanup.Try(widget)
-    if not g_Botmater_ESPValid(widget) then return true end
+    if not g_HAMSE CHEATS_ESPValid(widget) then return true end
     local hidden,accepted=pcall(function() return widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end)
     if not hidden or accepted==false then pcall(function() widget:SetRenderOpacity(0) end) end
     local ok,result=pcall(function() return widget:RemoveFromParent() end)
@@ -5956,77 +5958,77 @@ function V1Cleanup.Pump(now)
 end
 ESPWidgetPool.V1.Remove=V1Cleanup.Retire
 
-local function g_Botmater_ESPDestroyWidgetData(data)
+local function g_HAMSE CHEATS_ESPDestroyWidgetData(data)
     if not data then return true end
     if ESPWidgetPool.Release(data) then return true end
     return V1Cleanup.Retire(data.Widget or data.Container)
 end
 
-local function g_Botmater_ESPResetWidgets()
+local function g_HAMSE CHEATS_ESPResetWidgets()
     ESPShared.Frame.V1CanvasChecked=false
     ESPWidgetPool.V1.Enabled=false
-    for _,registry in ipairs({g_Botmater_ShotESP.Lines,g_Botmater_ShotESP.Names}) do
+    for _,registry in ipairs({g_HAMSE CHEATS_ShotESP.Lines,g_HAMSE CHEATS_ShotESP.Names}) do
         for key,data in pairs(registry) do
-            if g_Botmater_ESPDestroyWidgetData(data) then registry[key]=nil end
+            if g_HAMSE CHEATS_ESPDestroyWidgetData(data) then registry[key]=nil end
         end
     end
-    g_Botmater_ShotESP.Canvas=nil
-    g_Botmater_ShotESP.RootUI=nil
-    g_Botmater_ShotESP.Enemies={}
-    g_Botmater_ShotESP._BotCache={}
-    g_Botmater_ShotESP.Active={}
-    g_Botmater_ShotESP.Alive={}
-    g_Botmater_ShotESP.LastProjected={}
-    g_Botmater_ShotESP.RealCount=0;g_Botmater_ShotESP.BotCount=0
-    g_Botmater_ShotESP.LastScanClock=-999
-    g_Botmater_ShotESP.LastTransformClock=-999
-    g_Botmater_ShotESP.LastPawn=nil;g_Botmater_ShotESP.LastController=nil
-    g_Botmater_ShotESP.CanvasScaleX=1;g_Botmater_ShotESP.CanvasScaleY=1
-    g_Botmater_ShotESP.CanvasOffsetX=0;g_Botmater_ShotESP.CanvasOffsetY=0
-    g_Botmater_ShotESP.TransformReady=false
-    g_Botmater_ShotESP.TransformW=nil;g_Botmater_ShotESP.TransformH=nil
+    g_HAMSE CHEATS_ShotESP.Canvas=nil
+    g_HAMSE CHEATS_ShotESP.RootUI=nil
+    g_HAMSE CHEATS_ShotESP.Enemies={}
+    g_HAMSE CHEATS_ShotESP._BotCache={}
+    g_HAMSE CHEATS_ShotESP.Active={}
+    g_HAMSE CHEATS_ShotESP.Alive={}
+    g_HAMSE CHEATS_ShotESP.LastProjected={}
+    g_HAMSE CHEATS_ShotESP.RealCount=0;g_HAMSE CHEATS_ShotESP.BotCount=0
+    g_HAMSE CHEATS_ShotESP.LastScanClock=-999
+    g_HAMSE CHEATS_ShotESP.LastTransformClock=-999
+    g_HAMSE CHEATS_ShotESP.LastPawn=nil;g_HAMSE CHEATS_ShotESP.LastController=nil
+    g_HAMSE CHEATS_ShotESP.CanvasScaleX=1;g_HAMSE CHEATS_ShotESP.CanvasScaleY=1
+    g_HAMSE CHEATS_ShotESP.CanvasOffsetX=0;g_HAMSE CHEATS_ShotESP.CanvasOffsetY=0
+    g_HAMSE CHEATS_ShotESP.TransformReady=false
+    g_HAMSE CHEATS_ShotESP.TransformW=nil;g_HAMSE CHEATS_ShotESP.TransformH=nil
     ESPWidgetPool.Flush(ESPWidgetPool.V1)
     ESPWidgetPool.V1.Enabled=true
 end
 
-local function g_Botmater_ESPGetCanvas()
+local function g_HAMSE CHEATS_ESPGetCanvas()
     -- Compare the current HUD identity; native validity alone does not mean
     -- that a retained canvas still belongs to the visible HUD.
     local frame=ESPShared.Frame
     if frame.Active and frame.V1CanvasChecked then
-        return g_Botmater_ESPValid(g_Botmater_ShotESP.Canvas) and g_Botmater_ShotESP.Canvas or nil
+        return g_HAMSE CHEATS_ESPValid(g_HAMSE CHEATS_ShotESP.Canvas) and g_HAMSE CHEATS_ShotESP.Canvas or nil
     end
     local root
     pcall(function()
         local ui=require("GameLua.Mod.BaseMod.Common.UI.InGameUITools")
         if ui and ui.GetMainControlBaseUI then root=ui.GetMainControlBaseUI() end
     end)
-    if not g_Botmater_ESPValid(root) then
-        if g_Botmater_ShotESP.Canvas then g_Botmater_ESPResetWidgets() end
+    if not g_HAMSE CHEATS_ESPValid(root) then
+        if g_HAMSE CHEATS_ShotESP.Canvas then g_HAMSE CHEATS_ESPResetWidgets() end
         return nil
     end
     local canvas
     pcall(function()
-        if g_Botmater_ESPValid(root.CanvasPanel_0) then canvas=root.CanvasPanel_0
-        elseif g_Botmater_ESPValid(root.CanvasPanel_42) then canvas=root.CanvasPanel_42 end
+        if g_HAMSE CHEATS_ESPValid(root.CanvasPanel_0) then canvas=root.CanvasPanel_0
+        elseif g_HAMSE CHEATS_ESPValid(root.CanvasPanel_42) then canvas=root.CanvasPanel_42 end
     end)
-    if not g_Botmater_ESPValid(canvas) then
-        if g_Botmater_ShotESP.Canvas then g_Botmater_ESPResetWidgets() end
+    if not g_HAMSE CHEATS_ESPValid(canvas) then
+        if g_HAMSE CHEATS_ShotESP.Canvas then g_HAMSE CHEATS_ESPResetWidgets() end
         return nil
     end
-    if g_Botmater_ShotESP.Canvas~=canvas or g_Botmater_ShotESP.RootUI~=root then
-        g_Botmater_ESPResetWidgets()
-        g_Botmater_ShotESP.Canvas=canvas;g_Botmater_ShotESP.RootUI=root
+    if g_HAMSE CHEATS_ShotESP.Canvas~=canvas or g_HAMSE CHEATS_ShotESP.RootUI~=root then
+        g_HAMSE CHEATS_ESPResetWidgets()
+        g_HAMSE CHEATS_ShotESP.Canvas=canvas;g_HAMSE CHEATS_ShotESP.RootUI=root
     end
     if frame.Active then frame.V1CanvasChecked=true end
     return canvas
 end
 
-local function g_Botmater_ESPViewport(pc) return g_masterahsanyt_ESPViewport(pc) end
+local function g_HAMSE CHEATS_ESPViewport(pc) return g_hamse_ESPViewport(pc) end
 
-local function g_Botmater_ESPGetCanvasLocalSize()
-    local canvas = g_Botmater_ESPGetCanvas()
-    if not g_Botmater_ESPValid(canvas) then return nil, nil end
+local function g_HAMSE CHEATS_ESPGetCanvasLocalSize()
+    local canvas = g_HAMSE CHEATS_ESPGetCanvas()
+    if not g_HAMSE CHEATS_ESPValid(canvas) then return nil, nil end
     local cw, ch = nil, nil
     pcall(function()
         local geo = canvas:GetCachedGeometry()
@@ -6041,18 +6043,18 @@ local function g_Botmater_ESPGetCanvasLocalSize()
     return cw, ch
 end
 
-local function g_Botmater_ESPUpdateCanvasTransform(pc)
-    local state=g_Botmater_ShotESP
-    local canvas=g_Botmater_ESPGetCanvas()
-    if not g_Botmater_ESPValid(canvas) then return false end
+local function g_HAMSE CHEATS_ESPUpdateCanvasTransform(pc)
+    local state=g_HAMSE CHEATS_ShotESP
+    local canvas=g_HAMSE CHEATS_ESPGetCanvas()
+    if not g_HAMSE CHEATS_ESPValid(canvas) then return false end
     local width,height=ESPShared.ViewSize(pc)
     local sameViewport=state.TransformW==width and state.TransformH==height
     local calibrated=false
     pcall(function()
         local geo=canvas:GetCachedGeometry()
         if SlateBlueprintLibrary and SlateBlueprintLibrary.AbsoluteToLocal and geo then
-            local p0=SlateBlueprintLibrary.AbsoluteToLocal(geo,g_Botmater_ESPV2(0,0))
-            local p1=SlateBlueprintLibrary.AbsoluteToLocal(geo,g_Botmater_ESPV2(100,100))
+            local p0=SlateBlueprintLibrary.AbsoluteToLocal(geo,g_HAMSE CHEATS_ESPV2(0,0))
+            local p1=SlateBlueprintLibrary.AbsoluteToLocal(geo,g_HAMSE CHEATS_ESPV2(100,100))
             if p0 and p1 and ESPShared.Finite(p0.X) and ESPShared.Finite(p0.Y)
                 and ESPShared.Finite(p1.X) and ESPShared.Finite(p1.Y)
                 and math.abs(p0.X)<1e7 and math.abs(p0.Y)<1e7
@@ -6082,13 +6084,13 @@ local function g_Botmater_ESPUpdateCanvasTransform(pc)
     return true
 end
 
-local function g_Botmater_ESPSetFont(widget,size) g_masterahsanyt_ESPSetFont(widget,size,0) end
-local function g_Botmater_ESPSetTextColor(widget,color) g_masterahsanyt_ESPSetTextColor(widget,color) end
+local function g_HAMSE CHEATS_ESPSetFont(widget,size) g_hamse_ESPSetFont(widget,size,0) end
+local function g_HAMSE CHEATS_ESPSetTextColor(widget,color) g_hamse_ESPSetTextColor(widget,color) end
 
-local function g_Botmater_ESPCreateLine(color)
+local function g_HAMSE CHEATS_ESPCreateLine(color)
     if V1Cleanup.Count>=V1Cleanup.AdmissionLimit then return nil end
-    local canvas = g_Botmater_ESPGetCanvas()
-    if not g_Botmater_ESPValid(canvas) then return nil end
+    local canvas = g_HAMSE CHEATS_ESPGetCanvas()
+    if not g_HAMSE CHEATS_ESPValid(canvas) then return nil end
     local pooled=true and ESPWidgetPool.Take(ESPWidgetPool.V1,"Line",canvas)
     if pooled then
         local ok=pcall(function() pooled.Widget:SetBrushColor(color) end)
@@ -6097,25 +6099,25 @@ local function g_Botmater_ESPCreateLine(color)
     end
     local border = nil
     pcall(function() border = CGame:NewObjectFromPath("/Script/UMG.Border", canvas) end)
-    if not g_Botmater_ESPValid(border) then return nil end
+    if not g_HAMSE CHEATS_ESPValid(border) then return nil end
     pcall(function()
         border:SetBrushColor(color)
         border:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
-        border:SetRenderTransformPivot(g_Botmater_ESPV2(0.0, 0.5))
+        border:SetRenderTransformPivot(g_HAMSE CHEATS_ESPV2(0.0, 0.5))
     end)
     local slot = nil
     pcall(function() slot = canvas:AddChildToCanvas(border) end)
-    if not slot then g_Botmater_ESPDestroyWidgetData({Widget=border}) return nil end
+    if not slot then g_HAMSE CHEATS_ESPDestroyWidgetData({Widget=border}) return nil end
     pcall(function() slot:SetAutoSize(false) slot:SetZOrder(30) end)
     local data={Widget=border, Slot=slot, Visible=true}
     if true then ESPWidgetPool.Tag(ESPWidgetPool.V1,"Line",canvas,data) end
     return data
 end
 
-local function g_Botmater_ESPDrawLine(...) return g_masterahsanyt_ESPDrawLine(...) end
+local function g_HAMSE CHEATS_ESPDrawLine(...) return g_hamse_ESPDrawLine(...) end
 
-local function g_Botmater_ESPHide(data)
-    if data and g_Botmater_ESPValid(data.Widget) then
+local function g_HAMSE CHEATS_ESPHide(data)
+    if data and g_HAMSE CHEATS_ESPValid(data.Widget) then
         if data.Visible ~= false then
             pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end)
             data.Visible = false
@@ -6123,13 +6125,13 @@ local function g_Botmater_ESPHide(data)
     end
 end
 
-local function g_Botmater_ESPCreateNameTag(isBot)
+local function g_HAMSE CHEATS_ESPCreateNameTag(isBot)
     if V1Cleanup.Count>=V1Cleanup.AdmissionLimit then return nil end
-    local canvas = g_Botmater_ESPGetCanvas()
-    if not g_Botmater_ESPValid(canvas) then return nil end
+    local canvas = g_HAMSE CHEATS_ESPGetCanvas()
+    if not g_HAMSE CHEATS_ESPValid(canvas) then return nil end
     local pooled=ESPWidgetPool.Take(ESPWidgetPool.V1,"NameV1",canvas)
     if pooled then
-        local mainColor,textColor=g_Botmater_ESPGetColors(isBot)
+        local mainColor,textColor=g_HAMSE CHEATS_ESPGetColors(isBot)
         local ok=pcall(function()
             pooled.BottomLine:SetBrushColor(mainColor)
             pooled.BottomLine:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed)
@@ -6138,10 +6140,10 @@ local function g_Botmater_ESPCreateNameTag(isBot)
         end)
         if not ok then V1Cleanup.Retire(pooled.Widget);pooled=nil end
         if pooled then
-            g_Botmater_ESPSetTextColor(pooled.Text,textColor)
-            g_Botmater_ESPSetTextColor(pooled.DistanceText,textColor)
-            g_Botmater_ESPSetFont(pooled.Text,tonumber(_G.g_Botmater_MasterShotESP.NameFontSize) or 9)
-            g_Botmater_ESPSetFont(pooled.DistanceText,tonumber(_G.g_Botmater_MasterShotESP.DistanceFontSize) or 10)
+            g_HAMSE CHEATS_ESPSetTextColor(pooled.Text,textColor)
+            g_HAMSE CHEATS_ESPSetTextColor(pooled.DistanceText,textColor)
+            g_HAMSE CHEATS_ESPSetFont(pooled.Text,tonumber(_G.g_HAMSE CHEATS_HamseShotESP.NameFontSize) or 9)
+            g_HAMSE CHEATS_ESPSetFont(pooled.DistanceText,tonumber(_G.g_HAMSE CHEATS_HamseShotESP.DistanceFontSize) or 10)
             pooled.IsBot=isBot;pooled.Visible=false;pooled.LastHealthPct=-1
         end
         if pooled then return pooled end
@@ -6149,7 +6151,7 @@ local function g_Botmater_ESPCreateNameTag(isBot)
 
     local container = nil
     pcall(function() container = CGame:NewObjectFromPath("/Script/UMG.CanvasPanel", canvas) end)
-    if not g_Botmater_ESPValid(container) then return nil end
+    if not g_HAMSE CHEATS_ESPValid(container) then return nil end
 
     local bottomLine = nil
     pcall(function() bottomLine = CGame:NewObjectFromPath("/Script/UMG.Border", container) end)
@@ -6163,16 +6165,16 @@ local function g_Botmater_ESPCreateNameTag(isBot)
     local healthBarFill = nil
     pcall(function() healthBarFill = CGame:NewObjectFromPath("/Script/UMG.Border", container) end)
 
-    if not g_Botmater_ESPValid(bottomLine)
-        or not g_Botmater_ESPValid(nameText)
-        or not g_Botmater_ESPValid(distanceText)
-        or not g_Botmater_ESPValid(healthBarBg)
-        or not g_Botmater_ESPValid(healthBarFill) then
-        g_Botmater_ESPDestroyWidgetData({Widget=container})
+    if not g_HAMSE CHEATS_ESPValid(bottomLine)
+        or not g_HAMSE CHEATS_ESPValid(nameText)
+        or not g_HAMSE CHEATS_ESPValid(distanceText)
+        or not g_HAMSE CHEATS_ESPValid(healthBarBg)
+        or not g_HAMSE CHEATS_ESPValid(healthBarFill) then
+        g_HAMSE CHEATS_ESPDestroyWidgetData({Widget=container})
         return nil
     end
 
-    local mainColor,textColor=g_Botmater_ESPGetColors(isBot)
+    local mainColor,textColor=g_HAMSE CHEATS_ESPGetColors(isBot)
     local background=isBot and COLOR_HP.BotBG or COLOR_HP.RealBG
 
     pcall(function()
@@ -6190,10 +6192,10 @@ local function g_Botmater_ESPCreateNameTag(isBot)
         healthBarFill:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
     end)
 
-    g_Botmater_ESPSetTextColor(nameText, textColor)
-    g_Botmater_ESPSetTextColor(distanceText, textColor)
-    g_Botmater_ESPSetFont(nameText, tonumber(_G.g_Botmater_MasterShotESP.NameFontSize) or 9)
-    g_Botmater_ESPSetFont(distanceText, tonumber(_G.g_Botmater_MasterShotESP.DistanceFontSize) or 10)
+    g_HAMSE CHEATS_ESPSetTextColor(nameText, textColor)
+    g_HAMSE CHEATS_ESPSetTextColor(distanceText, textColor)
+    g_HAMSE CHEATS_ESPSetFont(nameText, tonumber(_G.g_HAMSE CHEATS_HamseShotESP.NameFontSize) or 9)
+    g_HAMSE CHEATS_ESPSetFont(distanceText, tonumber(_G.g_HAMSE CHEATS_HamseShotESP.DistanceFontSize) or 10)
 
     local lineSlot, nameSlot, distanceSlot, mainSlot = nil, nil, nil, nil
     local healthBgSlot, healthFillSlot = nil, nil
@@ -6205,16 +6207,16 @@ local function g_Botmater_ESPCreateNameTag(isBot)
     pcall(function() mainSlot = canvas:AddChildToCanvas(container) end)
 
     if not lineSlot or not nameSlot or not distanceSlot or not mainSlot or not healthBgSlot or not healthFillSlot then
-        g_Botmater_ESPDestroyWidgetData({Widget=container})
+        g_HAMSE CHEATS_ESPDestroyWidgetData({Widget=container})
         return nil
     end
 
     pcall(function()
-        lineSlot:SetAutoSize(false) lineSlot:SetAlignment(g_Botmater_ESPV2(0.0, 0.0)) lineSlot:SetZOrder(1)
-        healthBgSlot:SetAutoSize(false) healthBgSlot:SetAlignment(g_Botmater_ESPV2(0.0, 0.0)) healthBgSlot:SetZOrder(1)
-        healthFillSlot:SetAutoSize(false) healthFillSlot:SetAlignment(g_Botmater_ESPV2(0.0, 0.0)) healthFillSlot:SetZOrder(2)
-        nameSlot:SetAutoSize(true) nameSlot:SetAlignment(g_Botmater_ESPV2(0.5, 0.5)) nameSlot:SetZOrder(3)
-        distanceSlot:SetAutoSize(true) distanceSlot:SetAlignment(g_Botmater_ESPV2(0.5, 0.5)) distanceSlot:SetZOrder(3)
+        lineSlot:SetAutoSize(false) lineSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.0, 0.0)) lineSlot:SetZOrder(1)
+        healthBgSlot:SetAutoSize(false) healthBgSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.0, 0.0)) healthBgSlot:SetZOrder(1)
+        healthFillSlot:SetAutoSize(false) healthFillSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.0, 0.0)) healthFillSlot:SetZOrder(2)
+        nameSlot:SetAutoSize(true) nameSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.5, 0.5)) nameSlot:SetZOrder(3)
+        distanceSlot:SetAutoSize(true) distanceSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.5, 0.5)) distanceSlot:SetZOrder(3)
         mainSlot:SetAutoSize(false) mainSlot:SetZOrder(35)
     end)
 
@@ -6240,14 +6242,14 @@ local function g_Botmater_ESPCreateNameTag(isBot)
     return ESPWidgetPool.Tag(ESPWidgetPool.V1,"NameV1",canvas,data)
 end
 
-local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScreen, isBot, distance, healthPct, pc)
-    local showName     = _G.g_Botmater_ESPOptions.Name == true
-    local showDistance = _G.g_Botmater_ESPOptions.Distance == true
-    local showHealth = _G.g_Botmater_ESPOptions.Health == true
+local function g_HAMSE CHEATS_ESPUpdateNameTag(key, character, headScreen, footScreen, isBot, distance, healthPct, pc)
+    local showName     = _G.g_HAMSE CHEATS_ESPOptions.Name == true
+    local showDistance = _G.g_HAMSE CHEATS_ESPOptions.Distance == true
+    local showHealth = _G.g_HAMSE CHEATS_ESPOptions.Health == true
 
-    local data = g_Botmater_ShotESP.Names[key]
+    local data = g_HAMSE CHEATS_ShotESP.Names[key]
     if not showName and not showDistance and not showHealth then
-        if data and g_Botmater_ESPValid(data.Widget) then
+        if data and g_HAMSE CHEATS_ESPValid(data.Widget) then
             if data.Visible ~= false then
                 pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end)
                 data.Visible = false
@@ -6265,7 +6267,7 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
     else
         name = data and data.CachedName or nil
         if not name then
-            name = g_Botmater_ESPResolvePlayerName(character)
+            name = g_HAMSE CHEATS_ESPResolvePlayerName(character)
             if data and name then data.CachedName = name end
         end
         if not name then name = showName and "UNKNOWN" or "" end
@@ -6273,7 +6275,7 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
 
     headScreen=headScreen or footScreen
     if not headScreen then
-        if data and g_Botmater_ESPValid(data.Widget) then
+        if data and g_HAMSE CHEATS_ESPValid(data.Widget) then
             if data.Visible ~= false then
                 pcall(function() data.Widget:SetWidgetVisibility(UEnums.ESlateVisibility.Collapsed) end)
                 data.Visible = false
@@ -6282,18 +6284,18 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
         return
     end
 
-    if not data or not g_Botmater_ESPValid(data.Widget) then
-        g_Botmater_ESPDestroyWidgetData(data)
-        data = g_Botmater_ESPCreateNameTag(isBot)
-        g_Botmater_ShotESP.Names[key] = data
+    if not data or not g_HAMSE CHEATS_ESPValid(data.Widget) then
+        g_HAMSE CHEATS_ESPDestroyWidgetData(data)
+        data = g_HAMSE CHEATS_ESPCreateNameTag(isBot)
+        g_HAMSE CHEATS_ShotESP.Names[key] = data
         if data then data.CachedName = name end
     end
     if not data then return end
 
     if data.IsBot ~= isBot then
-        local mainColor,textColor=g_Botmater_ESPGetColors(isBot)
-        g_Botmater_ESPSetTextColor(data.Text,textColor)
-        g_Botmater_ESPSetTextColor(data.DistanceText,textColor)
+        local mainColor,textColor=g_HAMSE CHEATS_ESPGetColors(isBot)
+        g_HAMSE CHEATS_ESPSetTextColor(data.Text,textColor)
+        g_HAMSE CHEATS_ESPSetTextColor(data.DistanceText,textColor)
         local ok=pcall(function()
             data.BottomLine:SetBrushColor(mainColor)
             data.HealthBg:SetBrushColor(isBot and COLOR_HP.BotBG or COLOR_HP.RealBG)
@@ -6316,22 +6318,22 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
     if hp > 1 then hp = 1 end
     local healthChanged=data.LastHealthPct~=hp
     if healthChanged then
-        local hpColor = g_Botmater_ESPGetHealthColor(hp,isBot)
+        local hpColor = g_HAMSE CHEATS_ESPGetHealthColor(hp,isBot)
         pcall(function()
-            if data.HealthFill and g_Botmater_ESPValid(data.HealthFill) then
+            if data.HealthFill and g_HAMSE CHEATS_ESPValid(data.HealthFill) then
                 data.HealthFill:SetBrushColor(hpColor)
             end
         end)
     end
 
     local bottomLineH = 4.32
-    local baseFontSize=ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.NameFontSize,12,1,96)
+    local baseFontSize=ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.NameFontSize,12,1,96)
     local baseBottomLineH = 3.6
     local fontSize = baseFontSize * (bottomLineH / baseBottomLineH)
     local paddingX    = 5.0
     local paddingY    = 2.0
     local nameHeight  = fontSize + paddingY * 2 + bottomLineH
-    local gap=ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.NameGap,2,0,128)
+    local gap=ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.NameGap,2,0,128)
 
     local nameChars = #name
     local textWidth = math.max(30.0, nameChars * (fontSize * 0.52))
@@ -6343,18 +6345,18 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
     local baseY = headScreen.Y - boxHeight - gap
     local containerY = baseY - LINE_UP_SHIFT
 
-    local minX,minY,maxX,maxY=ESPShared.CanvasBounds(pc,g_Botmater_ShotESP)
+    local minX,minY,maxX,maxY=ESPShared.CanvasBounds(pc,g_HAMSE CHEATS_ShotESP)
     boxWidth=math.min(boxWidth,math.max(1,maxX-minX-4))
     local x=ESPShared.SafeNumber(headScreen.X-boxWidth*0.5,minX,minX,maxX-boxWidth)
     containerY=ESPShared.SafeNumber(containerY,minY,minY,math.max(minY,maxY-boxHeight))
 
     -- The meter label remains inside the HUD, including when feet are clipped.
     local anchor=footScreen or headScreen
-    local df=ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.DistanceFontSize,12,1,96)
+    local df=ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.DistanceFontSize,12,1,96)
     local halfW=math.min(math.max(18,#distanceLabel*df*0.30),(maxX-minX)*0.49)
     local halfH=math.min(df*0.7+2,(maxY-minY)*0.49)
     local distAbsX=ESPShared.SafeNumber(anchor.X,headScreen.X,minX+halfW,maxX-halfW)
-    local distAbsY=ESPShared.SafeNumber(anchor.Y+ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.DistanceBelowFeet,14,0,128),
+    local distAbsY=ESPShared.SafeNumber(anchor.Y+ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.DistanceBelowFeet,14,0,128),
         minY+halfH,minY+halfH,maxY-halfH)
     containerY=math.min(containerY,distAbsY-halfH)
     local distanceY=distAbsY-containerY
@@ -6389,26 +6391,26 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
     if geometryChanged or healthChanged then
         local ok=pcall(function()
             if geometryChanged then
-                data.HealthBgSlot:SetPosition(g_Botmater_ESPV2(lineOffsetX,boxHeight-bottomLineH))
-                data.HealthBgSlot:SetSize(g_Botmater_ESPV2(lineWidth,bottomLineH))
-                data.HealthFillSlot:SetPosition(g_Botmater_ESPV2(lineOffsetX,boxHeight-bottomLineH))
-                data.TextSlot:SetPosition(g_Botmater_ESPV2(boxWidth*0.5,(boxHeight-bottomLineH)*0.5))
+                data.HealthBgSlot:SetPosition(g_HAMSE CHEATS_ESPV2(lineOffsetX,boxHeight-bottomLineH))
+                data.HealthBgSlot:SetSize(g_HAMSE CHEATS_ESPV2(lineWidth,bottomLineH))
+                data.HealthFillSlot:SetPosition(g_HAMSE CHEATS_ESPV2(lineOffsetX,boxHeight-bottomLineH))
+                data.TextSlot:SetPosition(g_HAMSE CHEATS_ESPV2(boxWidth*0.5,(boxHeight-bottomLineH)*0.5))
             end
-            data.HealthFillSlot:SetSize(g_Botmater_ESPV2(healthWidth,bottomLineH))
+            data.HealthFillSlot:SetSize(g_HAMSE CHEATS_ESPV2(healthWidth,bottomLineH))
         end)
         if ok then data.GeometryWidth=boxWidth;data.GeometryHeight=boxHeight;data.LastHealthPct=hp end
     end
     if needsPosUpdate then
-        local ok=pcall(function() data.Slot:SetPosition(g_Botmater_ESPV2(x,containerY)) end)
+        local ok=pcall(function() data.Slot:SetPosition(g_HAMSE CHEATS_ESPV2(x,containerY)) end)
         if ok then data.LastBoxX=x;data.LastBoxY=containerY;data.LastBoxW=boxWidth end
     end
     if data.LayoutW~=boxWidth or data.LayoutH~=totalHeight then
-        local ok=pcall(function() data.Slot:SetSize(g_Botmater_ESPV2(boxWidth,totalHeight)) end)
+        local ok=pcall(function() data.Slot:SetSize(g_HAMSE CHEATS_ESPV2(boxWidth,totalHeight)) end)
         if ok then data.LayoutW=boxWidth;data.LayoutH=totalHeight end
     end
     local distX=distAbsX-x
     if data.LastDistanceX~=distX or data.LastDistanceY~=distanceY then
-        local ok=pcall(function() data.DistanceSlot:SetPosition(g_Botmater_ESPV2(distX,distanceY)) end)
+        local ok=pcall(function() data.DistanceSlot:SetPosition(g_HAMSE CHEATS_ESPV2(distX,distanceY)) end)
         if ok then data.LastDistanceX=distX;data.LastDistanceY=distanceY end
     end
 
@@ -6443,23 +6445,23 @@ local function g_Botmater_ESPUpdateNameTag(key, character, headScreen, footScree
     data.LineEndY = containerY + (boxHeight - bottomLineH)
 end
 
-local function g_Botmater_ESPScanEnemies()
-    local pc = g_Botmater_ESPGetController()
-    local me = g_Botmater_ESPGetLocalCharacter()
+local function g_HAMSE CHEATS_ESPScanEnemies()
+    local pc = g_HAMSE CHEATS_ESPGetController()
+    local me = g_HAMSE CHEATS_ESPGetLocalCharacter()
     if not pc or not me then
-        g_Botmater_ShotESP.Enemies = {}
-        g_Botmater_ShotESP.RealCount = 0
-        g_Botmater_ShotESP.BotCount = 0
+        g_HAMSE CHEATS_ShotESP.Enemies = {}
+        g_HAMSE CHEATS_ShotESP.RealCount = 0
+        g_HAMSE CHEATS_ShotESP.BotCount = 0
         return nil
     end
     local myLoc = ESPShared.GetFrameRecord(me).Location
     if not myLoc then
-        g_Botmater_ShotESP.Enemies = {}
-        g_Botmater_ShotESP.RealCount = 0
-        g_Botmater_ShotESP.BotCount = 0
+        g_HAMSE CHEATS_ShotESP.Enemies = {}
+        g_HAMSE CHEATS_ShotESP.RealCount = 0
+        g_HAMSE CHEATS_ShotESP.BotCount = 0
         return pc
     end
-    local myTeam = g_Botmater_ESPGetTeamID(me)
+    local myTeam = g_HAMSE CHEATS_ESPGetTeamID(me)
 
     local list = {}
     local realCount = 0
@@ -6469,13 +6471,13 @@ local function g_Botmater_ESPScanEnemies()
     if pawns then
         for _, character in pairs(pawns) do
             if character~=me and ESPShared.GetFrameRecord(character).Alive and ESPShared.Events.Counted(character) then
-                local team = g_Botmater_ESPGetTeamID(character)
+                local team = g_HAMSE CHEATS_ESPGetTeamID(character)
                 if myTeam == nil or team == nil or tostring(team) ~= tostring(myTeam) then
                     local loc = ESPShared.GetFrameRecord(character).Location
                     local dist = ESPShared.DistanceMetersFrom(ESPShared.GetFrameRecord(character),myLoc)
-                    if dist <= (tonumber(_G.g_Botmater_MasterShotESP.MaxRangeMeters) or 300.0) then
-                        local isBot = g_Botmater_ESPIsBot(character)
-                        local k = g_Botmater_ESPGetPlayerKey(character)
+                    if dist <= (tonumber(_G.g_HAMSE CHEATS_HamseShotESP.MaxRangeMeters) or 300.0) then
+                        local isBot = g_HAMSE CHEATS_ESPIsBot(character)
+                        local k = g_HAMSE CHEATS_ESPGetPlayerKey(character)
                         if k then
                             list[#list+1] = {Character=character, Key=k, IsBot=isBot, Distance=dist}
                             if isBot then botCount = botCount + 1 else realCount = realCount + 1 end
@@ -6485,35 +6487,35 @@ local function g_Botmater_ESPScanEnemies()
             end
         end
     end
-    local maxRendered = math.floor(ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.MaxRendered,10,1,64))
+    local maxRendered = math.floor(ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.MaxRendered,10,1,64))
     if #list > maxRendered then
         table.sort(list,function(a,b)
             if a.Distance==b.Distance then return a.Key<b.Key end
             return a.Distance<b.Distance
         end)
     end
-    g_Botmater_ShotESP.Enemies = list
-    g_Botmater_ShotESP.RealCount = realCount
-    g_Botmater_ShotESP.BotCount = botCount
+    g_HAMSE CHEATS_ShotESP.Enemies = list
+    g_HAMSE CHEATS_ShotESP.RealCount = realCount
+    g_HAMSE CHEATS_ShotESP.BotCount = botCount
     return pc
 end
 
-local function g_Botmater_ESPPrune(active,alive)
+local function g_HAMSE CHEATS_ESPPrune(active,alive)
     alive=alive or active
-    for _,registry in ipairs({g_Botmater_ShotESP.Lines,g_Botmater_ShotESP.Names}) do
+    for _,registry in ipairs({g_HAMSE CHEATS_ShotESP.Lines,g_HAMSE CHEATS_ShotESP.Names}) do
         for key,data in pairs(registry) do
-            if not active[key] and g_Botmater_ESPDestroyWidgetData(data) then registry[key]=nil end
+            if not active[key] and g_HAMSE CHEATS_ESPDestroyWidgetData(data) then registry[key]=nil end
         end
     end
-    for key in pairs(g_Botmater_ShotESP._BotCache or {}) do if not alive[key] then g_Botmater_ShotESP._BotCache[key]=nil end end
-    for key in pairs(g_Botmater_ShotESP.LastProjected) do if not alive[key] then g_Botmater_ShotESP.LastProjected[key]=nil end end
+    for key in pairs(g_HAMSE CHEATS_ShotESP._BotCache or {}) do if not alive[key] then g_HAMSE CHEATS_ShotESP._BotCache[key]=nil end end
+    for key in pairs(g_HAMSE CHEATS_ShotESP.LastProjected) do if not alive[key] then g_HAMSE CHEATS_ShotESP.LastProjected[key]=nil end end
 end
 
 ESPShared.Events.Clearers[#ESPShared.Events.Clearers+1]=function(actor)
-    ESPShared.Events.ClearIn(g_Botmater_ShotESP,g_Botmater_ESPPrune,actor)
+    ESPShared.Events.ClearIn(g_HAMSE CHEATS_ShotESP,g_HAMSE CHEATS_ESPPrune,actor)
 end
 
-local g_Botmater_EnemyCounter = {
+local g_HAMSE CHEATS_EnemyCounter = {
     Container = nil,
     Slot = nil,
     PlayerBG = nil,
@@ -6534,19 +6536,19 @@ local g_Botmater_EnemyCounter = {
     CanvasCenterY = 0.0,
 }
 
-local function g_Botmater_CounterTextColor(widget,color)
-    g_masterahsanyt_ESPSetTextColor(widget,color)
+local function g_HAMSE CHEATS_CounterTextColor(widget,color)
+    g_hamse_ESPSetTextColor(widget,color)
 end
 
-local function g_Botmater_CounterCreate()
+local function g_HAMSE CHEATS_CounterCreate()
     if V1Cleanup.Count>=V1Cleanup.AdmissionLimit then return false end
-    if g_Botmater_EnemyCounter.Container and slua.isValid(g_Botmater_EnemyCounter.Container) then
+    if g_HAMSE CHEATS_EnemyCounter.Container and slua.isValid(g_HAMSE CHEATS_EnemyCounter.Container) then
         return true
     end
-    local canvas = g_Botmater_ESPGetCanvas()
-    if not canvas or not g_Botmater_ESPValid(canvas) then return false end
+    local canvas = g_HAMSE CHEATS_ESPGetCanvas()
+    if not canvas or not g_HAMSE CHEATS_ESPValid(canvas) then return false end
 
-    local W, H = g_Botmater_EnemyCounter.Width, g_Botmater_EnemyCounter.Height
+    local W, H = g_HAMSE CHEATS_EnemyCounter.Width, g_HAMSE CHEATS_EnemyCounter.Height
     local halfW = W * 0.5
 
     local Container, PlayerBG, BotBG, PlayerText, BotText = nil, nil, nil, nil, nil
@@ -6581,31 +6583,31 @@ local function g_Botmater_CounterCreate()
 
     pcall(function()
         pbgSlot:SetAutoSize(false)
-        pbgSlot:SetPosition(g_Botmater_ESPV2(0, 0))
-        pbgSlot:SetSize(g_Botmater_ESPV2(halfW, H))
+        pbgSlot:SetPosition(g_HAMSE CHEATS_ESPV2(0, 0))
+        pbgSlot:SetSize(g_HAMSE CHEATS_ESPV2(halfW, H))
         pbgSlot:SetZOrder(0)
         bbgSlot:SetAutoSize(false)
-        bbgSlot:SetPosition(g_Botmater_ESPV2(halfW, 0))
-        bbgSlot:SetSize(g_Botmater_ESPV2(halfW, H))
+        bbgSlot:SetPosition(g_HAMSE CHEATS_ESPV2(halfW, 0))
+        bbgSlot:SetSize(g_HAMSE CHEATS_ESPV2(halfW, H))
         bbgSlot:SetZOrder(0)
     end)
 
     pcall(function()
         PlayerText:SetText("REAL: 0")
         BotText:SetText("BOT: 0")
-        g_masterahsanyt_ESPSetFont(PlayerText,g_Botmater_EnemyCounter.FontSize,0)
-        g_masterahsanyt_ESPSetFont(BotText,g_Botmater_EnemyCounter.FontSize,0)
-        local scale=g_Botmater_EnemyCounter.FontScale
-        PlayerText:SetRenderTransformPivot(g_Botmater_ESPV2(0.5,0.5))
-        BotText:SetRenderTransformPivot(g_Botmater_ESPV2(0.5,0.5))
-        PlayerText:SetRenderScale(g_Botmater_ESPV2(scale,scale))
-        BotText:SetRenderScale(g_Botmater_ESPV2(scale,scale))
+        g_hamse_ESPSetFont(PlayerText,g_HAMSE CHEATS_EnemyCounter.FontSize,0)
+        g_hamse_ESPSetFont(BotText,g_HAMSE CHEATS_EnemyCounter.FontSize,0)
+        local scale=g_HAMSE CHEATS_EnemyCounter.FontScale
+        PlayerText:SetRenderTransformPivot(g_HAMSE CHEATS_ESPV2(0.5,0.5))
+        BotText:SetRenderTransformPivot(g_HAMSE CHEATS_ESPV2(0.5,0.5))
+        PlayerText:SetRenderScale(g_HAMSE CHEATS_ESPV2(scale,scale))
+        BotText:SetRenderScale(g_HAMSE CHEATS_ESPV2(scale,scale))
         PlayerText:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
         BotText:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
     end)
 
-    g_Botmater_CounterTextColor(PlayerText, CACHE_COUNTER_PLAYER_TEXT)
-    g_Botmater_CounterTextColor(BotText, CACHE_COUNTER_BOT_TEXT)
+    g_HAMSE CHEATS_CounterTextColor(PlayerText, CACHE_COUNTER_PLAYER_TEXT)
+    g_HAMSE CHEATS_CounterTextColor(BotText, CACHE_COUNTER_BOT_TEXT)
 
     local ptSlot, btSlot = nil, nil
     pcall(function() ptSlot = Container:AddChildToCanvas(PlayerText) end)
@@ -6613,16 +6615,16 @@ local function g_Botmater_CounterCreate()
     if ptSlot then
         pcall(function()
             ptSlot:SetAutoSize(true)
-            ptSlot:SetAlignment(g_Botmater_ESPV2(0.5, 0.5))
-            ptSlot:SetPosition(g_Botmater_ESPV2(halfW * 0.5, H * 0.5))
+            ptSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.5, 0.5))
+            ptSlot:SetPosition(g_HAMSE CHEATS_ESPV2(halfW * 0.5, H * 0.5))
             ptSlot:SetZOrder(2)
         end)
     end
     if btSlot then
         pcall(function()
             btSlot:SetAutoSize(true)
-            btSlot:SetAlignment(g_Botmater_ESPV2(0.5, 0.5))
-            btSlot:SetPosition(g_Botmater_ESPV2(halfW + halfW * 0.5, H * 0.5))
+            btSlot:SetAlignment(g_HAMSE CHEATS_ESPV2(0.5, 0.5))
+            btSlot:SetPosition(g_HAMSE CHEATS_ESPV2(halfW + halfW * 0.5, H * 0.5))
             btSlot:SetZOrder(2)
         end)
     end
@@ -6635,39 +6637,39 @@ local function g_Botmater_CounterCreate()
     end
     pcall(function()
         mainSlot:SetAutoSize(false)
-        mainSlot:SetSize(g_Botmater_ESPV2(W, H))
+        mainSlot:SetSize(g_HAMSE CHEATS_ESPV2(W, H))
         mainSlot:SetZOrder(50)
     end)
 
-    g_Botmater_EnemyCounter.Container = Container
-    g_Botmater_EnemyCounter.Slot = mainSlot
-    g_Botmater_EnemyCounter.PlayerBG = PlayerBG
-    g_Botmater_EnemyCounter.BotBG = BotBG
-    g_Botmater_EnemyCounter.PlayerText = PlayerText
-    g_Botmater_EnemyCounter.BotText = BotText
-    g_Botmater_EnemyCounter._LastPlayers = -1
-    g_Botmater_EnemyCounter._LastBots = -1
-    g_Botmater_EnemyCounter._PosVec = nil
-    g_Botmater_EnemyCounter._LastPosX = nil
-    g_Botmater_EnemyCounter._LastPosY = nil
+    g_HAMSE CHEATS_EnemyCounter.Container = Container
+    g_HAMSE CHEATS_EnemyCounter.Slot = mainSlot
+    g_HAMSE CHEATS_EnemyCounter.PlayerBG = PlayerBG
+    g_HAMSE CHEATS_EnemyCounter.BotBG = BotBG
+    g_HAMSE CHEATS_EnemyCounter.PlayerText = PlayerText
+    g_HAMSE CHEATS_EnemyCounter.BotText = BotText
+    g_HAMSE CHEATS_EnemyCounter._LastPlayers = -1
+    g_HAMSE CHEATS_EnemyCounter._LastBots = -1
+    g_HAMSE CHEATS_EnemyCounter._PosVec = nil
+    g_HAMSE CHEATS_EnemyCounter._LastPosX = nil
+    g_HAMSE CHEATS_EnemyCounter._LastPosY = nil
 
     pcall(function() Container:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible) end)
     return true
 end
 
-local function g_Botmater_CounterUpdatePosition(pc)
-    local slot = g_Botmater_EnemyCounter.Slot
+local function g_HAMSE CHEATS_CounterUpdatePosition(pc)
+    local slot = g_HAMSE CHEATS_EnemyCounter.Slot
     if not slot or not slua.isValid(slot) then return end
-    if not pc or not g_Botmater_ESPValid(pc) then return end
+    if not pc or not g_HAMSE CHEATS_ESPValid(pc) then return end
 
-    local canvasW, canvasH = g_Botmater_ESPGetCanvasLocalSize()
+    local canvasW, canvasH = g_HAMSE CHEATS_ESPGetCanvasLocalSize()
     if not canvasW or not canvasH then
-        local vw, vh = g_Botmater_ESPViewport(pc)
+        local vw, vh = g_HAMSE CHEATS_ESPViewport(pc)
         if not vw or vw <= 200 then return end
-        local sx = g_Botmater_ShotESP.CanvasScaleX or 1.0
-        local sy = g_Botmater_ShotESP.CanvasScaleY or 1.0
-        local ox = g_Botmater_ShotESP.CanvasOffsetX or 0.0
-        local oy = g_Botmater_ShotESP.CanvasOffsetY or 0.0
+        local sx = g_HAMSE CHEATS_ShotESP.CanvasScaleX or 1.0
+        local sy = g_HAMSE CHEATS_ShotESP.CanvasScaleY or 1.0
+        local ox = g_HAMSE CHEATS_ShotESP.CanvasOffsetX or 0.0
+        local oy = g_HAMSE CHEATS_ShotESP.CanvasOffsetY or 0.0
         canvasW = (vw * sx) - ox
         canvasH = (vh * sy) - oy
     end
@@ -6675,89 +6677,89 @@ local function g_Botmater_CounterUpdatePosition(pc)
     if not canvasW or not canvasH then return end
 
     local canvasCenterX = canvasW * 0.5
-    local canvasCenterY = g_Botmater_EnemyCounter.OffsetY
-    if _G.g_masterahsanyt_ESPOptions.Counter then canvasCenterY=106 end
+    local canvasCenterY = g_HAMSE CHEATS_EnemyCounter.OffsetY
+    if _G.g_hamse_ESPOptions.Counter then canvasCenterY=106 end
 
-    local x = canvasCenterX - g_Botmater_EnemyCounter.Width * 0.5
+    local x = canvasCenterX - g_HAMSE CHEATS_EnemyCounter.Width * 0.5
     local y = canvasCenterY
 
-    g_Botmater_EnemyCounter.CanvasCenterX = canvasCenterX
-    g_Botmater_EnemyCounter.CanvasCenterY = canvasCenterY + g_Botmater_EnemyCounter.Height * 0.5
+    g_HAMSE CHEATS_EnemyCounter.CanvasCenterX = canvasCenterX
+    g_HAMSE CHEATS_EnemyCounter.CanvasCenterY = canvasCenterY + g_HAMSE CHEATS_EnemyCounter.Height * 0.5
 
-    local lx, ly = g_Botmater_EnemyCounter._LastPosX, g_Botmater_EnemyCounter._LastPosY
+    local lx, ly = g_HAMSE CHEATS_EnemyCounter._LastPosX, g_HAMSE CHEATS_EnemyCounter._LastPosY
     if lx ~= nil and ly ~= nil and math.abs(lx - x) < 0.1 and math.abs(ly - y) < 0.1 then return end
-    g_Botmater_EnemyCounter._PosVec = g_Botmater_ESPV2(x, y)
-    local ok = pcall(function() slot:SetPosition(g_Botmater_EnemyCounter._PosVec) end)
+    g_HAMSE CHEATS_EnemyCounter._PosVec = g_HAMSE CHEATS_ESPV2(x, y)
+    local ok = pcall(function() slot:SetPosition(g_HAMSE CHEATS_EnemyCounter._PosVec) end)
     if ok then
-        g_Botmater_EnemyCounter._LastPosX = x
-        g_Botmater_EnemyCounter._LastPosY = y
+        g_HAMSE CHEATS_EnemyCounter._LastPosX = x
+        g_HAMSE CHEATS_EnemyCounter._LastPosY = y
     end
 end
 
-local function g_Botmater_GetLineOrigin(pc)
-    if _G.g_Botmater_ESPOptions.EnemyCounter then
-        g_Botmater_CounterUpdatePosition(pc)
-        return g_Botmater_ESPV2(g_Botmater_EnemyCounter.CanvasCenterX,g_Botmater_EnemyCounter.CanvasCenterY+g_Botmater_EnemyCounter.Height*0.5)
+local function g_HAMSE CHEATS_GetLineOrigin(pc)
+    if _G.g_HAMSE CHEATS_ESPOptions.EnemyCounter then
+        g_HAMSE CHEATS_CounterUpdatePosition(pc)
+        return g_HAMSE CHEATS_ESPV2(g_HAMSE CHEATS_EnemyCounter.CanvasCenterX,g_HAMSE CHEATS_EnemyCounter.CanvasCenterY+g_HAMSE CHEATS_EnemyCounter.Height*0.5)
     end
-    local width=g_Botmater_ESPGetCanvasLocalSize()
+    local width=g_HAMSE CHEATS_ESPGetCanvasLocalSize()
     if not width then
-        local vw=g_Botmater_ESPViewport(pc)
-        width=(vw or 2400)*g_Botmater_ShotESP.CanvasScaleX+g_Botmater_ShotESP.CanvasOffsetX
+        local vw=g_HAMSE CHEATS_ESPViewport(pc)
+        width=(vw or 2400)*g_HAMSE CHEATS_ShotESP.CanvasScaleX+g_HAMSE CHEATS_ShotESP.CanvasOffsetX
     end
-    local top=_G.g_masterahsanyt_ESPOptions.Counter and 106 or g_Botmater_EnemyCounter.OffsetY
-    return g_Botmater_ESPV2(width*0.5,top+g_Botmater_EnemyCounter.Height)
+    local top=_G.g_hamse_ESPOptions.Counter and 106 or g_HAMSE CHEATS_EnemyCounter.OffsetY
+    return g_HAMSE CHEATS_ESPV2(width*0.5,top+g_HAMSE CHEATS_EnemyCounter.Height)
 end
 
-local function g_Botmater_CounterSetCounts(realCount, botCount)
+local function g_HAMSE CHEATS_CounterSetCounts(realCount, botCount)
     realCount = tonumber(realCount) or 0
     botCount = tonumber(botCount) or 0
-    if g_Botmater_EnemyCounter._LastPlayers ~= realCount
-        and g_Botmater_EnemyCounter.PlayerText and slua.isValid(g_Botmater_EnemyCounter.PlayerText) then
+    if g_HAMSE CHEATS_EnemyCounter._LastPlayers ~= realCount
+        and g_HAMSE CHEATS_EnemyCounter.PlayerText and slua.isValid(g_HAMSE CHEATS_EnemyCounter.PlayerText) then
         local ok, applied = pcall(function()
-            return g_Botmater_EnemyCounter.PlayerText:SetText(string.format("REAL: %d", realCount)) ~= false
+            return g_HAMSE CHEATS_EnemyCounter.PlayerText:SetText(string.format("REAL: %d", realCount)) ~= false
         end)
-        if ok and applied then g_Botmater_EnemyCounter._LastPlayers = realCount end
+        if ok and applied then g_HAMSE CHEATS_EnemyCounter._LastPlayers = realCount end
     end
-    if g_Botmater_EnemyCounter._LastBots ~= botCount
-        and g_Botmater_EnemyCounter.BotText and slua.isValid(g_Botmater_EnemyCounter.BotText) then
+    if g_HAMSE CHEATS_EnemyCounter._LastBots ~= botCount
+        and g_HAMSE CHEATS_EnemyCounter.BotText and slua.isValid(g_HAMSE CHEATS_EnemyCounter.BotText) then
         local ok, applied = pcall(function()
-            return g_Botmater_EnemyCounter.BotText:SetText(string.format("BOT: %d", botCount)) ~= false
+            return g_HAMSE CHEATS_EnemyCounter.BotText:SetText(string.format("BOT: %d", botCount)) ~= false
         end)
-        if ok and applied then g_Botmater_EnemyCounter._LastBots = botCount end
+        if ok and applied then g_HAMSE CHEATS_EnemyCounter._LastBots = botCount end
     end
 end
 
-local function g_Botmater_CounterStart(pc)
-    if not g_Botmater_CounterCreate() then return end
+local function g_HAMSE CHEATS_CounterStart(pc)
+    if not g_HAMSE CHEATS_CounterCreate() then return end
     pcall(function()
-        g_Botmater_EnemyCounter.Container:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
+        g_HAMSE CHEATS_EnemyCounter.Container:SetWidgetVisibility(UEnums.ESlateVisibility.SelfHitTestInvisible)
     end)
-    g_Botmater_CounterUpdatePosition(pc)
+    g_HAMSE CHEATS_CounterUpdatePosition(pc)
 end
 
-local function g_Botmater_CounterStop()
-    local container = g_Botmater_EnemyCounter.Container
-    g_Botmater_EnemyCounter.Container = nil
-    g_Botmater_EnemyCounter.Slot = nil
-    g_Botmater_EnemyCounter.PlayerBG = nil
-    g_Botmater_EnemyCounter.BotBG = nil
-    g_Botmater_EnemyCounter.PlayerText = nil
-    g_Botmater_EnemyCounter.BotText = nil
-    g_Botmater_EnemyCounter._LastPlayers = -1
-    g_Botmater_EnemyCounter._LastBots = -1
-    g_Botmater_EnemyCounter._PosVec = nil
-    g_Botmater_EnemyCounter._LastPosX = nil
-    g_Botmater_EnemyCounter._LastPosY = nil
-    g_Botmater_EnemyCounter.CanvasCenterX = 0.0
-    g_Botmater_EnemyCounter.CanvasCenterY = 0.0
-    if g_Botmater_ESPValid(container) then
+local function g_HAMSE CHEATS_CounterStop()
+    local container = g_HAMSE CHEATS_EnemyCounter.Container
+    g_HAMSE CHEATS_EnemyCounter.Container = nil
+    g_HAMSE CHEATS_EnemyCounter.Slot = nil
+    g_HAMSE CHEATS_EnemyCounter.PlayerBG = nil
+    g_HAMSE CHEATS_EnemyCounter.BotBG = nil
+    g_HAMSE CHEATS_EnemyCounter.PlayerText = nil
+    g_HAMSE CHEATS_EnemyCounter.BotText = nil
+    g_HAMSE CHEATS_EnemyCounter._LastPlayers = -1
+    g_HAMSE CHEATS_EnemyCounter._LastBots = -1
+    g_HAMSE CHEATS_EnemyCounter._PosVec = nil
+    g_HAMSE CHEATS_EnemyCounter._LastPosX = nil
+    g_HAMSE CHEATS_EnemyCounter._LastPosY = nil
+    g_HAMSE CHEATS_EnemyCounter.CanvasCenterX = 0.0
+    g_HAMSE CHEATS_EnemyCounter.CanvasCenterY = 0.0
+    if g_HAMSE CHEATS_ESPValid(container) then
         V1Cleanup.Retire(container)
     end
 end
 
 -- Each actor update is isolated. Death cleanup runs before projection/drawing.
-local function g_Botmater_ESPRenderActor(item,pc,opt,origin,now)
-    local state=g_Botmater_ShotESP
+local function g_HAMSE CHEATS_ESPRenderActor(item,pc,opt,origin,now)
+    local state=g_HAMSE CHEATS_ShotESP
     local c,key,isBot=item.Character,item.Key,item.IsBot
     local head,feet,onScreen,reason=ESPShared.Events.Project(pc,c,state)
     if not onScreen then
@@ -6772,14 +6774,14 @@ local function g_Botmater_ESPRenderActor(item,pc,opt,origin,now)
     local anchor=head or feet
     if not anchor then return end
     state.Active[key]=true;state.LastProjected[key]=now
-    local color=g_Botmater_ESPGetColors(isBot)
-    local hp=opt.Health and g_Botmater_ESPGetHealthPct(c) or 1
-    g_Botmater_ESPUpdateNameTag(key,c,anchor,feet,isBot,item.Distance,hp,pc)
+    local color=g_HAMSE CHEATS_ESPGetColors(isBot)
+    local hp=opt.Health and g_HAMSE CHEATS_ESPGetHealthPct(c) or 1
+    g_HAMSE CHEATS_ESPUpdateNameTag(key,c,anchor,feet,isBot,item.Distance,hp,pc)
     local line=state.Lines[key]
-    if opt.Line and (not line or line.Broken or not g_Botmater_ESPValid(line.Widget)
-        or not g_Botmater_ESPValid(line.Slot)) then
-        if not g_Botmater_ESPDestroyWidgetData(line) then return end
-        line=g_Botmater_ESPCreateLine(color);state.Lines[key]=line
+    if opt.Line and (not line or line.Broken or not g_HAMSE CHEATS_ESPValid(line.Widget)
+        or not g_HAMSE CHEATS_ESPValid(line.Slot)) then
+        if not g_HAMSE CHEATS_ESPDestroyWidgetData(line) then return end
+        line=g_HAMSE CHEATS_ESPCreateLine(color);state.Lines[key]=line
     end
     if opt.Line and line then
         local colorKey=isBot and "B" or "P"
@@ -6789,87 +6791,87 @@ local function g_Botmater_ESPRenderActor(item,pc,opt,origin,now)
         end
         local tag=state.Names[key]
         local x,y=tag and tag.LineEndX or anchor.X,tag and tag.LineEndY or anchor.Y
-        g_Botmater_ESPDrawLine(line,origin.X,origin.Y,x,y,
-            ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.TracerThickness,1,0.1,12))
-    elseif line then g_Botmater_ESPHide(line) end
+        g_HAMSE CHEATS_ESPDrawLine(line,origin.X,origin.Y,x,y,
+            ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.TracerThickness,1,0.1,12))
+    elseif line then g_HAMSE CHEATS_ESPHide(line) end
 end
 
-local function g_Botmater_ESPDrawCandidates(pc,opt,now)
-    local state=g_Botmater_ShotESP
-    local origin=g_Botmater_GetLineOrigin(pc)
-    local limit=math.floor(ESPShared.SafeNumber(_G.g_Botmater_MasterShotESP.MaxRendered,10,1,64))
+local function g_HAMSE CHEATS_ESPDrawCandidates(pc,opt,now)
+    local state=g_HAMSE CHEATS_ShotESP
+    local origin=g_HAMSE CHEATS_GetLineOrigin(pc)
+    local limit=math.floor(ESPShared.SafeNumber(_G.g_HAMSE CHEATS_HamseShotESP.MaxRendered,10,1,64))
     for i,item in ipairs(state.Enemies) do
         if i>limit then break end
-        local ok,err=pcall(g_Botmater_ESPRenderActor,item,pc,opt,origin,now)
+        local ok,err=pcall(g_HAMSE CHEATS_ESPRenderActor,item,pc,opt,origin,now)
         if not ok then
             state.Active[item.Key]=nil;state.LastProjected[item.Key]=nil
-            local f=_G.LunarFeatures
+            local f=_G.HAMSE CHEATSFeatures
             if f and f.Error then f.Error("V1.Actor",err) end
         end
     end
 end
 
-local function g_Botmater_ESPUpdate()
-    local state=g_Botmater_ShotESP
-    local opt=_G.g_Botmater_ESPOptions
+local function g_HAMSE CHEATS_ESPUpdate()
+    local state=g_HAMSE CHEATS_ShotESP
+    local opt=_G.g_HAMSE CHEATS_ESPOptions
     local details=opt and (opt.Name or opt.Line or opt.Health or opt.Distance)
     local counter=opt and opt.EnemyCounter
-    local now=g_Botmater_ESPNow()
+    local now=g_HAMSE CHEATS_ESPNow()
     V1Cleanup.Pump(now)
-    if not _G.g_Botmater_MasterShotESP.Enabled or (not details and not counter) then
-        g_Botmater_ESPResetWidgets();g_Botmater_CounterStop();return
+    if not _G.g_HAMSE CHEATS_HamseShotESP.Enabled or (not details and not counter) then
+        g_HAMSE CHEATS_ESPResetWidgets();g_HAMSE CHEATS_CounterStop();return
     end
-    local world=g_Botmater_ESPWorld()
+    local world=g_HAMSE CHEATS_ESPWorld()
     ESPShared.Events.WorldChanged(world)
     if world~=state.LastWorld then
-        g_Botmater_ESPResetWidgets();g_Botmater_CounterStop();state.LastWorld=world
+        g_HAMSE CHEATS_ESPResetWidgets();g_HAMSE CHEATS_CounterStop();state.LastWorld=world
     end
     local oldCanvas=state.Canvas
-    local canvas=g_Botmater_ESPGetCanvas()
-    if canvas~=oldCanvas then g_Botmater_CounterStop() end
+    local canvas=g_HAMSE CHEATS_ESPGetCanvas()
+    if canvas~=oldCanvas then g_HAMSE CHEATS_CounterStop() end
     if not canvas then return end
-    local pc=g_Botmater_ESPGetController()
-    if now<state.LastScanClock or now-state.LastScanClock>=(tonumber(_G.g_Botmater_MasterShotESP.ScanInterval) or 0.05) then
-        pc=g_Botmater_ESPScanEnemies() or pc;state.LastScanClock=now
+    local pc=g_HAMSE CHEATS_ESPGetController()
+    if now<state.LastScanClock or now-state.LastScanClock>=(tonumber(_G.g_HAMSE CHEATS_HamseShotESP.ScanInterval) or 0.05) then
+        pc=g_HAMSE CHEATS_ESPScanEnemies() or pc;state.LastScanClock=now
     end
-    pc=pc or g_Botmater_ESPGetController()
-    if not pc then g_Botmater_ESPResetWidgets();g_Botmater_CounterStop();return end
-    local location=ESPShared.GetFrameRecord(g_Botmater_ESPGetLocalCharacter()).Location
+    pc=pc or g_HAMSE CHEATS_ESPGetController()
+    if not pc then g_HAMSE CHEATS_ESPResetWidgets();g_HAMSE CHEATS_CounterStop();return end
+    local location=ESPShared.GetFrameRecord(g_HAMSE CHEATS_ESPGetLocalCharacter()).Location
     local active,alive=state.Active,state.Alive
-    state.RealCount,state.BotCount=g_masterahsanyt_ESPFilterEnemies(state.Enemies,location,
-        _G.g_Botmater_MasterShotESP.MaxRangeMeters,alive)
+    state.RealCount,state.BotCount=g_hamse_ESPFilterEnemies(state.Enemies,location,
+        _G.g_HAMSE CHEATS_HamseShotESP.MaxRangeMeters,alive)
     -- Prune confirmed excluded actors BEFORE any fallible drawing operation.
-    g_Botmater_ESPPrune(alive,alive)
+    g_HAMSE CHEATS_ESPPrune(alive,alive)
     for k in pairs(active) do active[k]=nil end
-    if now<state.LastTransformClock or now-state.LastTransformClock>=(tonumber(_G.g_Botmater_MasterShotESP.TransformInterval) or 0.033) then
-        g_Botmater_ESPUpdateCanvasTransform(pc);state.LastTransformClock=now
+    if now<state.LastTransformClock or now-state.LastTransformClock>=(tonumber(_G.g_HAMSE CHEATS_HamseShotESP.TransformInterval) or 0.033) then
+        g_HAMSE CHEATS_ESPUpdateCanvasTransform(pc);state.LastTransformClock=now
     end
     if counter then
-        pcall(g_Botmater_CounterStart,pc)
-        pcall(g_Botmater_CounterSetCounts,state.RealCount,state.BotCount)
-    else g_Botmater_CounterStop() end
+        pcall(g_HAMSE CHEATS_CounterStart,pc)
+        pcall(g_HAMSE CHEATS_CounterSetCounts,state.RealCount,state.BotCount)
+    else g_HAMSE CHEATS_CounterStop() end
     local ok,err=true,nil
-    if details then ok,err=pcall(g_Botmater_ESPDrawCandidates,pc,opt,now) end
+    if details then ok,err=pcall(g_HAMSE CHEATS_ESPDrawCandidates,pc,opt,now) end
     -- This path also executes after an origin/projection/vector error.
-    g_Botmater_ESPPrune(active,alive)
+    g_HAMSE CHEATS_ESPPrune(active,alive)
     if not ok then
-        local f=_G.LunarFeatures
+        local f=_G.HAMSE CHEATSFeatures
         if f and f.Error then f.Error("V1.Draw",err) end
     end
 end
 
-local F=_G.LunarFeatures
-F.V1={State=g_Botmater_ShotESP,Counter=g_Botmater_EnemyCounter,Tick=g_Botmater_ESPUpdate,
+local F=_G.HAMSE CHEATSFeatures
+F.V1={State=g_HAMSE CHEATS_ShotESP,Counter=g_HAMSE CHEATS_EnemyCounter,Tick=g_HAMSE CHEATS_ESPUpdate,
     Cleanup=V1Cleanup,
-    Reset=function() g_Botmater_ESPResetWidgets();g_Botmater_CounterStop() end,
-    Refresh=function() g_Botmater_ShotESP.LastScanClock=-999;g_Botmater_ShotESP.LastTransformClock=-999 end}
+    Reset=function() g_HAMSE CHEATS_ESPResetWidgets();g_HAMSE CHEATS_CounterStop() end,
+    Refresh=function() g_HAMSE CHEATS_ShotESP.LastScanClock=-999;g_HAMSE CHEATS_ShotESP.LastTransformClock=-999 end}
 end
 
 -- Controls live entirely in the native game settings page.
 
 -- Additional aim modes share the managed scheduler. No timer is created here.
 do
-    local F=_G.LunarFeatures
+    local F=_G.HAMSE CHEATSFeatures
     local MathLib,Layout,HealthStates,PawnStates
     pcall(function() MathLib=import("KismetMathLibrary") end)
     pcall(function() Layout=import("WidgetLayoutLibrary") end)
@@ -6887,11 +6889,11 @@ do
         local ok,v=pcall(method,obj,...)
         if ok then return v end
     end
-    local function valid(obj) return obj and g_masterahsanyt_ESPValid(obj) end
+    local function valid(obj) return obj and g_hamse_ESPValid(obj) end
     local function pos(v)
         if v and finite(v.X) and finite(v.Y) and finite(v.Z) then return {X=v.X,Y=v.Y,Z=v.Z} end
     end
-    local function nativeVector(v) return g_masterahsanyt_ESPV3(v.X,v.Y,v.Z) end
+    local function nativeVector(v) return g_hamse_ESPV3(v.X,v.Y,v.Z) end
     local function team(actor)
         local id=call(actor,"GetTeamID") or get(actor,"TeamID")
         if id==nil then
@@ -6925,9 +6927,9 @@ do
         return "other"
     end
     local function context()
-        local pc=g_masterahsanyt_ESPGetController()
-        local player=g_masterahsanyt_ESPGetLocalCharacter()
-        if valid(pc) and not dead(player) then return g_masterahsanyt_ESPWorld(),pc,player,weapon(player) end
+        local pc=g_hamse_ESPGetController()
+        local player=g_hamse_ESPGetLocalCharacter()
+        if valid(pc) and not dead(player) then return g_hamse_ESPWorld(),pc,player,weapon(player) end
     end
     local function pelvis(actor)
         local p=pos(call(actor,"GetBonePos","pelvis",{X=0,Y=0,Z=0}))
@@ -6941,7 +6943,7 @@ do
         return type(list)=="table" and list or {}
     end
     local function viewport(pc)
-        local w,h=g_masterahsanyt_ESPViewport(pc)
+        local w,h=g_hamse_ESPViewport(pc)
         if not finite(w) or w<=0 or not finite(h) or h<=0 then return 1920,1080 end
         return w,h
     end
@@ -6967,8 +6969,8 @@ do
         return ok and accepted~=false
     end
     -- A failed restore survives a script reload and remains eligible for retry.
-    local pending=_G.__LunarAim2RestorePending or {}
-    _G.__LunarAim2RestorePending=pending
+    local pending=_G.__HAMSE CHEATSAim2RestorePending or {}
+    _G.__HAMSE CHEATSAim2RestorePending=pending
     local A={Target=nil,Enabled=false,Due=0,LastTime=nil,Records=pending,RestoreErrors={}}
     F.Aim2=A
     local fields={"RecoilKickADS","GameDeviationFactor","GameDeviationAccuracy"}
@@ -7191,17 +7193,17 @@ end
 
 -- All features share the existing ESP render runner. No new repeating timer.
 do
-    local F=_G.LunarFeatures
+    local F=_G.HAMSE CHEATSFeatures
     local function checked(fn,area,...)
         local ok,err=pcall(fn,...)
         if not ok then F.Error(area,err) end
     end
     F.V1Due=0;F.AimDue=0;F.IpadDue=0;F.SaveDue=0
     F.Pump=function(now)
-        F.TimerClock=g_masterahsanyt_ShotESP.TimerClock
+        F.TimerClock=g_hamse_ShotESP.TimerClock
         now=now or F.Now()
         if F.V1 and F.V1.Cleanup then F.V1.Cleanup.Pump(now) end
-        local login=_G.LunarLoginRuntime
+        local login=_G.HAMSE CHEATSLoginRuntime
         if login and login.NeedsUpdate and (not F.LoginDue or now>=F.LoginDue or now<(F.LoginLastClock or now)) then
             checked(login.Update,"Login.Update");F.LoginDue=now+0.5;F.LoginLastClock=now
         end
@@ -7211,16 +7213,16 @@ do
                 checked(F.V1.Reset,"V1.Lock");checked(F.Wall.Stop,"Wall.Lock")
                 checked(F.Aim2.Stop,"Aim2.Lock");checked(F.Mortar.Stop,"Mortar.Lock")
                 _G.XthrlenState.offPitch=0;_G.XthrlenState.offYaw=0;F.AimLastClock=nil
-                checked(g_masterahsanyt_ApplyiPadView,"Ipad.Lock")
+                checked(g_hamse_ApplyiPadView,"Ipad.Lock")
             end
             F.AuthLocked=true
             if next(F.Aim2.Records) then checked(F.Aim2.Stop,"Aim2.LockRestore") end
             return
         end
         F.AuthLocked=false
-        local world=g_masterahsanyt_ESPWorld()
-        local pc=g_masterahsanyt_ESPGetController()
-        local pawn=g_masterahsanyt_ESPGetLocalCharacter()
+        local world=g_hamse_ESPWorld()
+        local pc=g_hamse_ESPGetController()
+        local pawn=g_hamse_ESPGetLocalCharacter()
         if world~=F.LastWorld or pc~=F.LastPC or pawn~=F.LastPawn then
             if F.LastWorld~=nil and login.WelcomeUI then login.DestroyUI() end
             checked(F.V1.Reset,"V1.Reset")
@@ -7234,7 +7236,7 @@ do
             F.V1Due=0;F.AimDue=0;F.IpadDue=0
             F.LastWorld,F.LastPC,F.LastPawn=world,pc,pawn
         end
-        if F.V1.State.Canvas and not g_masterahsanyt_ESPValid(F.V1.State.Canvas) then checked(F.V1.Reset,"V1.CanvasReset");F.V1Due=0 end
+        if F.V1.State.Canvas and not g_hamse_ESPValid(F.V1.State.Canvas) then checked(F.V1.Reset,"V1.CanvasReset");F.V1Due=0 end
         if not pc or not pawn then
             if F.Aim2.Player or next(F.Aim2.Records) then checked(F.Aim2.Stop,"Aim2.NoPlayer") end
             if F.Mortar.Player then checked(F.Mortar.Stop,"Mortar.NoPlayer") end
@@ -7242,7 +7244,7 @@ do
             F.V1Disabled=true
             return
         end
-        local o=_G.g_Botmater_ESPOptions
+        local o=_G.g_HAMSE CHEATS_ESPOptions
         local detail=o.Name or o.Line or o.Health or o.Distance
         local active=detail or o.EnemyCounter
         if not active then
@@ -7252,15 +7254,15 @@ do
             F.V1Disabled=false
             checked(F.V1.Tick,"V1.Render")
             F.V1LastClock=now
-            local interval=detail and (tonumber(_G.g_Botmater_MasterShotESP.UpdateInterval) or 1/60) or 0.05
+            local interval=detail and (tonumber(_G.g_HAMSE CHEATS_HamseShotESP.UpdateInterval) or 1/60) or 0.05
             if interval~=interval or interval<=0 or math.abs(interval)==math.huge then interval=1/60 end
             F.V1Due=now+math.max(.001,interval)
             -- Equal render cadences share the V2 deadline, so adding V1 does
             -- not introduce a second phase of native render callbacks.
-            local v2=_G.g_masterahsanyt_ESPOptions
-            local detailedV2=_G.g_masterahsanyt_MasterShotESP.Enabled and (v2.Name or v2.Line or v2.Box or v2.Health or v2.Distance or v2.Skeleton)
-            local shared=g_masterahsanyt_ESPRunnerToken.RenderDue
-            if detail and detailedV2 and shared and shared>now and math.abs(interval-(tonumber(_G.g_masterahsanyt_MasterShotESP.UpdateInterval) or 1/60))<.000001 then F.V1Due=shared end
+            local v2=_G.g_hamse_ESPOptions
+            local detailedV2=_G.g_hamse_HamseShotESP.Enabled and (v2.Name or v2.Line or v2.Box or v2.Health or v2.Distance or v2.Skeleton)
+            local shared=g_hamse_ESPRunnerToken.RenderDue
+            if detail and detailedV2 and shared and shared>now and math.abs(interval-(tonumber(_G.g_hamse_HamseShotESP.UpdateInterval) or 1/60))<.000001 then F.V1Due=shared end
         end
         if F.Settings.Aim2Enabled and (now>=F.Aim2.Due-0.000001 or (F.Aim2.LastTime and now<F.Aim2.LastTime)) then
             checked(F.Aim2.Tick,"Aim2.Tick")
@@ -7279,58 +7281,58 @@ do
             end
         end
         if F.Settings.WallEnabled then checked(F.Wall.Tick,"Wall.Tick",now,pawn,pc) end
-        if _G.LexusConfig.IpadView and now>=F.IpadDue then
-            checked(g_masterahsanyt_ApplyiPadView,"Ipad")
+        if _G.HAMSE CHEATSConfig.IpadView and now>=F.IpadDue then
+            checked(g_hamse_ApplyiPadView,"Ipad")
             F.IpadDue=now+0.5
         end
         if F.Dirty and now>=F.SaveDue then checked(F.Save,"Settings.Save");F.SaveDue=now+0.5 end
     end
     F.NextInterval=function(now)
-        if not (_G.LunarLoginRuntime and _G.LunarLoginRuntime.Authorized) then return 0.50 end
+        if not (_G.HAMSE CHEATSLoginRuntime and _G.HAMSE CHEATSLoginRuntime.Authorized) then return 0.50 end
         if not F.LastPC or not F.LastPawn then return 0.50 end
         local nextDelay=0.50
         local function due(deadline) nextDelay=math.min(nextDelay,math.max(0.001,(deadline or now)-now)) end
-        local o=_G.g_Botmater_ESPOptions
+        local o=_G.g_HAMSE CHEATS_ESPOptions
         if o.Name or o.Line or o.Health or o.Distance or o.EnemyCounter then due(F.V1Due) end
         if F.Settings.AimEnabled then due(F.AimDue) end
         if F.Settings.Aim2Enabled then nextDelay=math.min(nextDelay,F.Aim2.NextInterval(now))
         elseif next(F.Aim2.Records) then due(F.Aim2RestoreDue) end
         if F.Settings.MortarEnabled then nextDelay=math.min(nextDelay,F.Mortar.NextInterval(now)) end
         if F.Settings.WallEnabled then due(F.Wall.LastTick+0.30);due(F.Wall.LastCleanup+F.Wall.CleanupInterval) end
-        if _G.LexusConfig.IpadView then due(F.IpadDue) end
+        if _G.HAMSE CHEATSConfig.IpadView then due(F.IpadDue) end
         if F.Dirty then due(F.SaveDue) end
         return nextDelay
     end
     F.Wake=function()
         if F.Token.Stopped then return end
-        local login=_G.LunarLoginRuntime
+        local login=_G.HAMSE CHEATSLoginRuntime
         -- Login callbacks use this existing runner; do not wait for its idle deadline.
         if login and login.NeedsUpdate then F.LoginDue=0 end
         F.V1Due=0;F.AimDue=0
         if F.Aim2 then F.Aim2.Due=0 end
         if F.Mortar then F.Mortar.Due=0 end
         F.Wall.LastTick=-999
-        local due=g_masterahsanyt_ESPRunnerToken.Due
-        if not due or due-g_masterahsanyt_ESPNow()>0.002 then g_masterahsanyt_ESPSchedule(0.001) end
+        local due=g_hamse_ESPRunnerToken.Due
+        if not due or due-g_hamse_ESPNow()>0.002 then g_hamse_ESPSchedule(0.001) end
     end
 end
 
 
 -- Settings maintenance uses the working reference's native timer fallbacks.
-local g_masterahsanyt_FastRunnerToken = {}
-local previousSettingsRunner = _G.__MasterShotFastRunner
+local g_hamse_FastRunnerToken = {}
+local previousSettingsRunner = _G.__HamseShotFastRunner
 if type(previousSettingsRunner) == "table" and previousSettingsRunner.Timer and previousSettingsRunner.Owner then
     pcall(function() previousSettingsRunner.Owner:RemoveGameTimer(previousSettingsRunner.Timer) end)
 end
-_G.__MasterShotFastRunner = g_masterahsanyt_FastRunnerToken
-local function g_masterahsanyt_FastTick()
-    if _G.__MasterShotFastRunner ~= g_masterahsanyt_FastRunnerToken then return end
-    g_masterahsanyt_EnsureHackMenu()
-    local render=_G.__MasterShotESPRunner
-    if not render or not render.Due then pcall(g_masterahsanyt_ApplyiPadView) end
+_G.__HamseShotFastRunner = g_hamse_FastRunnerToken
+local function g_hamse_FastTick()
+    if _G.__HamseShotFastRunner ~= g_hamse_FastRunnerToken then return end
+    g_hamse_EnsureHackMenu()
+    local render=_G.__HamseShotESPRunner
+    if not render or not render.Due then pcall(g_hamse_ApplyiPadView) end
 end
 do
-    local token = g_masterahsanyt_FastRunnerToken
+    local token = g_hamse_FastRunnerToken
     local function member(object, key)
         if object == nil then return nil end
         local ok, value = pcall(function() return object[key] end)
@@ -7348,16 +7350,16 @@ do
         return owner ~= nil and (owner == Game or valid(owner) or valid(member(owner, "Object")))
     end
     local function callback()
-        if _G.__MasterShotFastRunner ~= token then
+        if _G.__HamseShotFastRunner ~= token then
             if token.Timer and token.Owner then pcall(function() token.Owner:RemoveGameTimer(token.Timer) end) end
             token.Timer = nil
             return
         end
-        g_masterahsanyt_FastTick()
-        g_masterahsanyt_StartSettingsMaintenance()
+        g_hamse_FastTick()
+        g_hamse_StartSettingsMaintenance()
     end
-    g_masterahsanyt_StartSettingsMaintenance = function(owner)
-        if _G.__MasterShotFastRunner ~= token then return false end
+    g_hamse_StartSettingsMaintenance = function(owner)
+        if _G.__HamseShotFastRunner ~= token then return false end
         if token.Pending then return true end
         if token.Timer and (token.Provider == "ticker" or timerOwnerReady(token.Owner)) then return true end
         if token.Timer and token.Owner then pcall(function() token.Owner:RemoveGameTimer(token.Timer) end) end
@@ -7380,7 +7382,7 @@ do
             if ok and timer then
                 token.Timer, token.Owner, token.Provider = timer, entry.Object, entry.Kind
                 token.LastError = nil
-                g_masterahsanyt_FastTick()
+                g_hamse_FastTick()
                 return true
             end
         end
@@ -7415,16 +7417,16 @@ do
 end
 
 
-g_masterahsanyt_EnsureHackMenu()
-if _G.LunarLoginRuntime then _G.LunarLoginRuntime.NeedsUpdate=true;_G.LunarLoginRuntime.BindSettingsPath(_G.LunarFeatures.SettingsReadPath) end
-g_masterahsanyt_FastTick()
-g_masterahsanyt_StartSettingsMaintenance()
-g_masterahsanyt_ShotESP.Running=true
-g_masterahsanyt_ESPTick()
+g_hamse_EnsureHackMenu()
+if _G.HAMSE CHEATSLoginRuntime then _G.HAMSE CHEATSLoginRuntime.NeedsUpdate=true;_G.HAMSE CHEATSLoginRuntime.BindSettingsPath(_G.HAMSE CHEATSFeatures.SettingsReadPath) end
+g_hamse_FastTick()
+g_hamse_StartSettingsMaintenance()
+g_hamse_ShotESP.Running=true
+g_hamse_ESPTick()
 end
 local ok,startError=pcall(startBaselineHacks)
 if not ok then
-    _G.LunarOptionalStartupError=tostring(startError)
-    if _G.LunarFeatures and _G.LunarFeatures.Error then _G.LunarFeatures.Error("Startup",startError) end
+    _G.HAMSE CHEATSOptionalStartupError=tostring(startError)
+    if _G.HAMSE CHEATSFeatures and _G.HAMSE CHEATSFeatures.Error then _G.HAMSE CHEATSFeatures.Error("Startup",startError) end
 end
 return originalExport
